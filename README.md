@@ -12,7 +12,7 @@
 - [ ] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
 - [ ] Rotation
 - [ ] Translation
-- [ ] Homotétie
+- [ ] Homotétie (L'échelle)
 
 ## Autres éléments demandés
 
@@ -22,6 +22,7 @@
 - [ ] Respect du format de rendu (cf Moodle)
 
 ## Distribution du travail (qui a fait quoi)
+
 
 
 ## Difficultés rencontrées
@@ -55,6 +56,7 @@
 - [ ] Respect du format de rendu
 
 ## Distribution du travail (qui a fait quoi)
+
 
 
 ## Difficultés rencontrées
