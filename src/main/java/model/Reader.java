@@ -6,7 +6,9 @@ import java.util.List;
 
 public class Reader {
 	
-	private String fileName;
+	
+	
+	private String fileName,authorName;
 	private File file;
 	private final String END_HEADER = "end_header";
 	private int nbVertex,nbFaces,headerLength,vertexLength;
@@ -50,7 +52,7 @@ public class Reader {
 					
 					nbVertex=Integer.parseInt(String.valueOf(line.charAt(line.length()-1)));
 					
-				}
+				} else if (line.contains("comment created by "))authorName = line.substring(line.lastIndexOf(" ")+1);
 					sb.append(line);
 					sb.append("\n");
 				
@@ -127,7 +129,7 @@ public class Reader {
 		 try {
 			 
 			 String line = null;
-			 String[] info;;
+			 String[] info;
 			 
 			 StringBuilder sb = new StringBuilder();
 			 br.reset();
@@ -163,6 +165,10 @@ public class Reader {
 		readFaceLines(br);
 	}
 	
+	public String getAuthorName() {
+		return "Created by " + authorName;
+	}
+	
 	public static void main(String args[]) throws FileNotFoundException{
 		File test = new File("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test.ply");
 		Reader reader = new Reader(test);
@@ -170,5 +176,6 @@ public class Reader {
 		BufferedReader br = new BufferedReader(fr);
 		
 		reader.readPly(br);
+		System.out.println(reader.getAuthorName());
 	}
 }
