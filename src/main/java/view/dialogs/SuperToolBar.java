@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class SuperToolBar extends MenuBar {
@@ -107,6 +108,7 @@ public class SuperToolBar extends MenuBar {
 
     private void onOpenClicked(ActionEvent e) {
         File file = fileChooser.showOpenDialog(this.getParent().getScene().getWindow());
+        System.out.println(file.getPath());
 
     }
 
@@ -114,10 +116,8 @@ public class SuperToolBar extends MenuBar {
         System.out.println("ON OUVRE CA : ["+path+"]");
     }
 
-    // FIXME : Problème avec le chargement du fichier
     private MenuItem[] getRecentFiles(String path) {
-        File file = new File(getClass().getResource("/tmp/openRecentFile.txt").toExternalForm());
-        System.out.println(file.getPath());
+        File file = new File("src/main/resources/tmp/openRecentFile.txt");
 
         Scanner sc;
         StringBuilder sb;
@@ -142,7 +142,7 @@ public class SuperToolBar extends MenuBar {
                 itemList = new MenuItem[Math.min(nbLine, 10)];
                 int x = 0;
                 for(String s : sb.toString().split("-")) {
-                    MenuItem tmp = new MenuItem("s");
+                    MenuItem tmp = new MenuItem(s);
                     itemList[x] = tmp;
                     // FIXME Créer la fonction {openFiles}
                     tmp.setOnAction(event -> {
@@ -152,7 +152,7 @@ public class SuperToolBar extends MenuBar {
                 }
             }
         } catch (FileNotFoundException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             itemList = new MenuItem[] {new MenuItem("Pas de fichiers récents")};
         }
         return itemList;
