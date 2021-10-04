@@ -2,6 +2,15 @@ package model;
 
 import java.util.Arrays;
 
+/* FUNCTIONS TODO :
+*   addition(Matrix m);
+*   mutliplication(Matrice m1, Matrice m2)
+*   mutliplication(Matrice m1, scalaire)
+*   homothetie(rapport)
+*   translation(vecteur???)
+*   rotation(x/y/z ; degree) >>> faire une enum pour la rotation (voir mon git)
+* */
+
 public class Matrix {
 
     private double[][] values;
