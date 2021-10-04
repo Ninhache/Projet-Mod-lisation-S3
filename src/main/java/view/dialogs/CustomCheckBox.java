@@ -1,5 +1,6 @@
 package view.dialogs;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
 
@@ -12,12 +13,27 @@ public class CustomCheckBox extends CustomMenuItem {
         checkBox = new CheckBox(label);
 
         setContent(checkBox);
-
         setHideOnClick(hideOnClick);
-        checkBox.setStyle("-fx-text-fill: black;");
+
     }
 
     public CustomCheckBox(String label) {
         this(label, false);
     }
+
+    public void setSelected(boolean value) {
+        this.checkBox.setSelected(value);
+    }
+
+    public boolean isSelected() {
+        return this.checkBox.isSelected();
+    }
+
+    public BooleanProperty getSelectedProperty() {
+        return this.checkBox.selectedProperty();
+    }
+
+
+
+
 }

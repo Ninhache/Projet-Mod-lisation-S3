@@ -1,8 +1,13 @@
 package view.dialogs;
 
 import javafx.application.Platform;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -46,7 +51,7 @@ public class SuperToolBar extends MenuBar {
         // Aide
         private Menu theme;
         private CheckBox cbWhite, cbBlack;
-        private CustomMenuItem whiteTheme, blackTheme;
+        private CustomCheckBox whiteTheme, blackTheme;
 
         /////
 
@@ -74,7 +79,6 @@ public class SuperToolBar extends MenuBar {
         openRecents.getItems().addAll(getRecentFiles("tmp/openRecentFile.txt"));
 
 
-
         afficherFaces = new CustomCheckBox("Afficher faces");
         afficherLignes = new CustomCheckBox("Afficher lignes");
         afficherLumieres = new CustomCheckBox("Afficher lumières");
@@ -82,8 +86,10 @@ public class SuperToolBar extends MenuBar {
         // Help
         theme = new Menu("Thème");
 
-        whiteTheme = new CustomCheckBox("Blanc");
-        blackTheme = new CustomCheckBox("Noir");
+        whiteTheme = new CustomCheckBox("Blanc", true);
+        whiteTheme.setSelected(true);
+
+        blackTheme = new CustomCheckBox("Noir", true);
 
 
         getMenus().addAll(fichier, outils, aide);
@@ -94,6 +100,11 @@ public class SuperToolBar extends MenuBar {
 
         //////////////////////////////////////////////////
 
+
+
+
+        // FILE CHOOSER
+
         fileChooser = new FileChooser();
         FileChooser.ExtensionFilter[] filters = new FileChooser.ExtensionFilter[]{
                 new FileChooser.ExtensionFilter("Fichier ply (*.ply)", "*.ply"),
@@ -101,19 +112,57 @@ public class SuperToolBar extends MenuBar {
         };
         fileChooser.getExtensionFilters().addAll(filters);
 
+
+        // EVENT HANDLERS
+
         open.setOnAction(this::onOpenClicked);
         quit.setOnAction(this::onQuitClicked);
+        saveAsImg.setOnAction(this::onSaveImg);
 
+        // OBSERVABLE
+
+        whiteTheme.setOnAction(event -> {
+            System.out.println(whiteTheme.isSelected());
+            if(whiteTheme.isSelected()) {
+                getParent().getScene().getStylesheets().clear();
+                blackTheme.setSelected(false);
+                whiteTheme.setSelected(true);
+                getParent().getScene().getStylesheets().add(getClass().getResource("/css/javafxTestCSSWHITE.css").toExternalForm());
+            } else {
+                whiteTheme.setSelected(true);
+                event.consume();
+            }
+        });
+
+        blackTheme.setOnAction(event -> {
+            System.out.println(blackTheme.isSelected());
+            if(blackTheme.isSelected()) {
+                getParent().getScene().getStylesheets().clear();
+                whiteTheme.setSelected(false);
+                blackTheme.setSelected(true);
+                getParent().getScene().getStylesheets().add(getClass().getResource("/css/javafxTestCSSBLACK.css").toExternalForm());
+            } else {
+                blackTheme.setSelected(true);
+                event.consume();
+            }
+        });
     }
 
     private void onOpenClicked(ActionEvent e) {
         File file = fileChooser.showOpenDialog(this.getParent().getScene().getWindow());
         System.out.println(file.getPath());
-
     }
 
     private void openFiles(String path) {
         System.out.println("ON OUVRE CA : ["+path+"]");
+    }
+
+    private void onSaveImg(ActionEvent e) {
+        Canvas canvas = (Canvas) ((BorderPane) getParent().getScene().getRoot()).getCenter();
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(Color.LIGHTBLUE);
+        gc.fillRect(0,0,canvas.getHeight(), canvas.getWidth());
+        gc.fill();
     }
 
     private MenuItem[] getRecentFiles(String path) {
