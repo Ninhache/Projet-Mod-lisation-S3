@@ -65,5 +65,24 @@ public class Matrix_Test {
         Assertions.assertTrue(m5.canSum(m5));
     }
 
+    @Test
+    public void test_sum_matrix_matrix() {
+        Matrix tmpMatrixM1M2 = new Matrix(new double[][] {{1,8,3},{3,5,3}});
+
+        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m1.sumMatrix(m2).getValues());
+        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m2.sumMatrix(m1).getValues());
+    }
+
+    @Test
+    public void test_multiply_matrix_matrix() {
+        Matrix tmpMatrixM1M3 = new Matrix(new double[][] {{2,14},{4,25}});
+        Matrix tmpMatrixM3M1 = new Matrix(new double[][] {{21,0,14}, {15,0,10},{8,2,6}});
+
+        Assertions.assertArrayEquals(tmpMatrixM1M3.getValues(), m1.multiplyMatrix(m3).getValues());
+        Assertions.assertArrayEquals(tmpMatrixM3M1.getValues(), m3.multiplyMatrix(m1).getValues());
+    }
+
+
+
 
 }

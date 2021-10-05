@@ -20,18 +20,28 @@ public class Matrix {
     }
 
     public Matrix multiplyMatrix(Matrix o) {
-        if (canMultiply(o)) {
-            double[][] res = new double[this.getRowCount()][o.getColumnCount()];
-            for (int row = 0; row < res.length; row++) {
-                for (int col = 0; col < res[row].length; col++) {
-                    System.out.println(row +" "+ col);
-                    //res[row][col] = multiplyMatricesCell(this, o, row, col);
-                }
-            }
-            return new Matrix(res);
-        } else {
-            throw new IllegalArgumentException("MatrixNotMultipliable");
+        // TODO : Create errors to check validity of both matrix
+        if(!this.canMultiply(o)) {
+            return this;
         }
+
+
+        double vals[][];
+        int l1 = this.getRowCount();
+        int c1 = this.getColumnCount();
+
+        int l2 = o.getRowCount();
+        int c2 = o.getColumnCount();
+
+        vals = new double[l1][c2];
+
+        for(int row = 0; row < l1; row++){
+            for(int col = 0; col < c2; col++){
+                for(int k = 0; k < c1; k++)
+                    vals[row][col] += this.getValues()[row][k] * o.getValues()[k][col];
+            }
+        }
+        return new Matrix(vals);
     }
 
     public Matrix sumMatrix(Matrix o) {
@@ -84,23 +94,16 @@ public class Matrix {
 
     @Override
     public String toString() {
-        StringBuilder sbResult = new StringBuilder();
+        String res = "";
 
-        for(int i = 0; i < getRowCount();i++)
-        {
-            for(int j = 0; j < getColumnCount();j++)
-            {
-                sbResult.append(getValues()[i][j]);
-                sbResult.append("\t");
-
-                if(i == getRowCount() && j == getColumnCount())
-                {
-                    sbResult.append("\n");
-                }
+        for(int i = 0 ; i < this.getRowCount() ; i ++ ) {
+            for(int j = 0 ; j < this.getColumnCount() ; j ++ ) {
+                res+="["+this.getValues()[i][j]+"]";
             }
+            res+="\n";
         }
 
-        return sbResult.toString();
+        return res;
     }
 
 }
