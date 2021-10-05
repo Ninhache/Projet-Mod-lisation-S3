@@ -66,6 +66,18 @@ public class Matrix_Test {
     }
 
     @Test
+    public void test_can_sub_matrix() {
+        Assertions.assertTrue(m1.canSub(m2));
+        Assertions.assertTrue(m2.canSub(m1));
+        Assertions.assertFalse(m1.canSub(m3));
+        Assertions.assertFalse(m3.canSub(m1));
+        Assertions.assertTrue(m3.canSub(m4));
+        Assertions.assertFalse(m1.canSub(m5));
+        Assertions.assertFalse(m3.canSub(m5));
+        Assertions.assertTrue(m5.canSub(m5));
+    }
+
+    @Test
     public void test_sum_matrix_matrix() {
         Matrix tmpMatrixM1M2 = new Matrix(new double[][] {{1,8,3},{3,5,3}});
 
@@ -80,6 +92,15 @@ public class Matrix_Test {
 
         Assertions.assertArrayEquals(tmpMatrixM1M3.getValues(), m1.multiplyMatrix(m3).getValues());
         Assertions.assertArrayEquals(tmpMatrixM3M1.getValues(), m3.multiplyMatrix(m1).getValues());
+    }
+
+    @Test
+    public void test_sub_matrix_matrix() {
+        Matrix tmpMatrixM1M2 = new Matrix(new double[][] {{1,-6,-1},{3,-5,1}});
+        Matrix tmpMatrixM2M1 = new Matrix(new double[][] {{-1,6,1},{-3,5,-1}});
+
+        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m1.subMatrix(m2).getValues());
+        Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.subMatrix(m1).getValues());
     }
 
 

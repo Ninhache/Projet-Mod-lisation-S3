@@ -20,4 +20,15 @@ public class Vecteur {
         this.z = aZ;
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getZ() {
+        return z;
+    }
 }
