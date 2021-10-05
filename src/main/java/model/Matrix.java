@@ -49,6 +49,7 @@ public class Matrix {
 
     }
 
+    /* ????? pq c'est la */
     public double multiplyMatricesCell(Matrix matrix, Matrix o, int row, int col) {
         double cell = 0;
         for (int i = 0; i < values.length; i++) {
@@ -58,18 +59,13 @@ public class Matrix {
     }
 
     public boolean canMultiply(Matrix o) {
-        if (this.getRowCount() == o.getColumnCount()) {
-            return true;
-        }
-        return false;
+        return this.getRowCount() == o.getColumnCount();
     }
 
     public boolean canSum(Matrix o) {
-        if(this.getRowCount() == o.getRowCount() && this.getColumnCount() == o.getColumnCount()) {
-            return true;
-        }
-        return false;
+        return this.getRowCount() == o.getRowCount() && this.getColumnCount() == o.getColumnCount();
     }
+
     public int getRowCount() {
         return values.length;
     }
