@@ -58,12 +58,12 @@ public class Matrix {
         return cell;
     }
 
-    public boolean canMultiply(Matrix o) {
-        return this.getRowCount() == o.getColumnCount();
+    public boolean canMultiply(Matrix m) {
+        return this.getRowCount() == m.getColumnCount();
     }
 
-    public boolean canSum(Matrix o) {
-        return this.getRowCount() == o.getRowCount() && this.getColumnCount() == o.getColumnCount();
+    public boolean canSum(Matrix m) {
+        return this.getRowCount() == m.getRowCount() && this.getColumnCount() == m.getColumnCount();
     }
 
     public int getRowCount() {

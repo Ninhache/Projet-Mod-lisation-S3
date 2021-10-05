@@ -53,5 +53,17 @@ public class Matrix_Test {
         Assertions.assertTrue(m4.canMultiply(m5));
     }
 
+    @Test
+    public void test_can_sum_matrix() {
+        Assertions.assertTrue(m1.canSum(m2));
+        Assertions.assertTrue(m2.canSum(m1));
+        Assertions.assertFalse(m1.canSum(m3));
+        Assertions.assertFalse(m3.canSum(m1));
+        Assertions.assertTrue(m3.canSum(m4));
+        Assertions.assertFalse(m1.canSum(m5));
+        Assertions.assertFalse(m3.canSum(m5));
+        Assertions.assertTrue(m5.canSum(m5));
+    }
+
 
 }
