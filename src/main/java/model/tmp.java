@@ -5,14 +5,20 @@ public class tmp {
     public static void main(String[] args) {
 
         System.out.println("youpi");
-        Matrix m1 = new Matrix(new double[][] {{1,1,1},{3,0,2}});
-        Matrix m2 = new Matrix(new double[][] {{0,7,2},{0,5,1}});
+        Matrix m1 = new Matrix(new double[][] {
+                {1,1,1},
+                {3,0,2}
+        });
+        Matrix m2 = new Matrix(new double[][] {
+                {0,7,2},
+                {0,5,1}
+        });
         Matrix m3 = new Matrix(new double[][] {
                 {0,7},
                 {0,5},
                 {2,2}
         });
-        System.out.println(m1.multiplyMatrix(m3));
+        System.out.println(m3.multiplyMatrix(m1));
        /* System.out.println(m1.canMultiply(m2));
         System.out.println(m1.canSum(m2));*/
         /*Matrix m3 = m1.sumMatrix(m2);

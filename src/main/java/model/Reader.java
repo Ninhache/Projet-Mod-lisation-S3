@@ -80,7 +80,7 @@ public class Reader {
 		int deux = Integer.parseInt(line[1]);
 		int trois = Integer.parseInt(line[2]);
 		
-		faces.add(new Face(points.get(un), points.get(deux), points.get(trois)));
+		//faces.add(new Face(points.get(un), points.get(deux), points.get(trois)));
 	}
 
 	public void readVertexLines(BufferedReader br) {

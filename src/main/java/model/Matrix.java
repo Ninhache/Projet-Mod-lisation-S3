@@ -69,15 +69,6 @@ public class Matrix {
         }
     }
 
-    /* ????? pq c'est la */
-    public double multiplyMatricesCell(Matrix matrix, Matrix o, int row, int col) {
-        double cell = 0;
-        for (int i = 0; i < values.length; i++) {
-            cell += matrix.getValues()[row][i] * o.getValues()[i][col];
-        }
-        return cell;
-    }
-
     public Matrix homothety(double ratio) {
         double vals[][] = new double[][] {
                 {ratio, 0, 0, 0},
