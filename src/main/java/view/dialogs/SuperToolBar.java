@@ -50,8 +50,8 @@ public class SuperToolBar extends MenuBar {
 
     // Sub Menus
         // Fichier
-        private MenuItem open, saveAsImg, print3d, quit;
-        private Menu openRecents;
+        private MenuItem open, saveAsImg, print3d, quit, saveAsPly;
+        private Menu openRecents, exportAs;
         // Outils
         private CustomCheckBox cbFaces, cbLines, cbLight;
         private CustomMenuItem afficherFaces, afficherLignes, afficherLumieres;
@@ -77,15 +77,17 @@ public class SuperToolBar extends MenuBar {
         // Create top sub-menus :
         // File
         open = new MenuItem("Ouvrir");
-        saveAsImg = new MenuItem("Exporter en png");
+        saveAsImg = new MenuItem("en png");
         print3d = new MenuItem("Imprimer en 3D");
+        saveAsPly = new MenuItem("en .ply");
         quit = new MenuItem("Quitter");
 
         // Trouver une solution ????
         // - Lire fichier ?
-        openRecents = new Menu("Ouvrir récent");
+        openRecents = new Menu("Ouvrir récent...");
         openRecents.getItems().addAll(getRecentFiles("tmp/openRecentFile.txt"));
-
+        exportAs = new Menu("Exporter...");
+        exportAs.getItems().addAll(saveAsImg, saveAsPly);
 
         afficherFaces = new CustomCheckBox("Afficher faces");
         afficherLignes = new CustomCheckBox("Afficher lignes");
@@ -104,7 +106,7 @@ public class SuperToolBar extends MenuBar {
 
 
         getMenus().addAll(fichier, outils, aide);
-        fichier.getItems().addAll(open, openRecents, new SeparatorMenuItem(), saveAsImg, print3d,new SeparatorMenuItem(), quit);
+        fichier.getItems().addAll(open, openRecents, new SeparatorMenuItem(), exportAs, print3d,new SeparatorMenuItem(), quit);
         outils.getItems().addAll(afficherFaces, afficherLignes, afficherLumieres);
         aide.getItems().addAll(theme);
         theme.getItems().addAll(whiteTheme, blackTheme, orangeTheme);
@@ -129,13 +131,10 @@ public class SuperToolBar extends MenuBar {
         open.setOnAction(this::onOpenClicked);
         quit.setOnAction(this::onQuitClicked);
         saveAsImg.setOnAction(this::onSaveImg);
+        exportAs.setOnAction(this::onExportAsPly);
         whiteTheme.setOnAction(this::onRadioClick);
         blackTheme.setOnAction(this::onRadioClick);
         orangeTheme.setOnAction(this::onRadioClick);
-
-        // OBSERVABLE
-
-
 
     }
 
@@ -155,6 +154,10 @@ public class SuperToolBar extends MenuBar {
 
         getParent().getScene().getStylesheets().clear();
         getParent().getScene().getStylesheets().add(getClass().getResource("/css/theme/"+newCss+".css").toExternalForm());
+    }
+
+    private void onExportAsPly(ActionEvent e) {
+        System.out.println("Export ply");
     }
 
     private void onSaveImg(ActionEvent e) {

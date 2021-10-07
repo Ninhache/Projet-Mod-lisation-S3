@@ -10,20 +10,10 @@ import view.stages.MainStage;
 
 public class Window extends Application {
 	
-//	public static BorderPane createBP() {
-//		BorderPane bp=new BorderPane();
-//		Label top=new Label("Toolbar");
-//		bp.setTop(top);
-//		return bp;
-//		
-//	}
-	
 	@Override
 	public void start(Stage stage) {
-
 		MainStage main = new MainStage();
 		main.show();
-
 	}
 	
 	public static void main(String[] args) {
