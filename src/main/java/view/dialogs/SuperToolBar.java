@@ -59,7 +59,7 @@ public class SuperToolBar extends MenuBar {
         // Aide
         private Menu theme;
         private CheckBox cbWhite, cbBlack;
-        private CustomCheckBox whiteTheme, blackTheme;
+        private ThemeRadioButton whiteTheme, blackTheme, orangeTheme;
 
         /////
 
@@ -94,17 +94,20 @@ public class SuperToolBar extends MenuBar {
         // Help
         theme = new Menu("Thème");
 
-        whiteTheme = new CustomCheckBox("Blanc", true);
-        whiteTheme.setSelected(true);
+        ToggleGroup group = new ToggleGroup();
+        whiteTheme = new ThemeRadioButton("Blanc", group);
+        blackTheme = new ThemeRadioButton("Noir", group);
+        orangeTheme = new ThemeRadioButton("Orange", group);
 
-        blackTheme = new CustomCheckBox("Noir", true);
+
+        whiteTheme.setSelected(true);
 
 
         getMenus().addAll(fichier, outils, aide);
         fichier.getItems().addAll(open, openRecents, new SeparatorMenuItem(), saveAsImg, print3d,new SeparatorMenuItem(), quit);
         outils.getItems().addAll(afficherFaces, afficherLignes, afficherLumieres);
         aide.getItems().addAll(theme);
-        theme.getItems().addAll(whiteTheme, blackTheme);
+        theme.getItems().addAll(whiteTheme, blackTheme, orangeTheme);
 
         //////////////////////////////////////////////////
 
@@ -126,34 +129,14 @@ public class SuperToolBar extends MenuBar {
         open.setOnAction(this::onOpenClicked);
         quit.setOnAction(this::onQuitClicked);
         saveAsImg.setOnAction(this::onSaveImg);
+        whiteTheme.setOnAction(this::onRadioClick);
+        blackTheme.setOnAction(this::onRadioClick);
+        orangeTheme.setOnAction(this::onRadioClick);
 
         // OBSERVABLE
 
-        whiteTheme.setOnAction(event -> {
-            System.out.println(whiteTheme.isSelected());
-            if(whiteTheme.isSelected()) {
-                getParent().getScene().getStylesheets().clear();
-                blackTheme.setSelected(false);
-                whiteTheme.setSelected(true);
-                getParent().getScene().getStylesheets().add(getClass().getResource("/css/javafxTestCSSWHITE.css").toExternalForm());
-            } else {
-                whiteTheme.setSelected(true);
-                event.consume();
-            }
-        });
 
-        blackTheme.setOnAction(event -> {
-            System.out.println(blackTheme.isSelected());
-            if(blackTheme.isSelected()) {
-                getParent().getScene().getStylesheets().clear();
-                whiteTheme.setSelected(false);
-                blackTheme.setSelected(true);
-                getParent().getScene().getStylesheets().add(getClass().getResource("/css/javafxTestCSSBLACK.css").toExternalForm());
-            } else {
-                blackTheme.setSelected(true);
-                event.consume();
-            }
-        });
+
     }
 
     private void onOpenClicked(ActionEvent e) {
@@ -164,6 +147,14 @@ public class SuperToolBar extends MenuBar {
 
     private void openFiles(String path) {
         System.out.println("ON OUVRE CA : ["+path+"]");
+    }
+
+    private void onRadioClick(ActionEvent e) {
+
+        String newCss = ((RadioMenuItem)e.getSource()).getId();
+
+        getParent().getScene().getStylesheets().clear();
+        getParent().getScene().getStylesheets().add(getClass().getResource("/css/theme/"+newCss+".css").toExternalForm());
     }
 
     private void onSaveImg(ActionEvent e) {

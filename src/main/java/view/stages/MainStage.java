@@ -26,6 +26,6 @@ public class MainStage extends ExtendedStage {
         Scene scene = new Scene(root);
         setScene(scene);
         setTitle("test");
-        scene.getStylesheets().add(getClass().getResource("/css/javafxTestCSSWHITE.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/theme/javafxTestCSSBlanc.css").toExternalForm());
     }
 }
