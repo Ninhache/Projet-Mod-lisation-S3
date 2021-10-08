@@ -18,7 +18,7 @@ public class Controller implements EventHandler<Event>{
 	public void handle(Event event) {
 		Slider s = (Slider) event.getSource();
 		
-		if(s == null) return null; 
+		//if(s == null) return ; 
 		
 		switch(s.getId()) {
 			case "SliderX":

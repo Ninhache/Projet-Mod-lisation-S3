@@ -121,10 +121,7 @@ public class Matrix {
             throw new IllegalArgumentException("Le type de rotation n'est pas valable.");
         }
 
-
-        Matrix m = new Matrix(vals);
-        //System.out.println("cos(90) = " + Math.cos(Math.toRadians(90.0)) + " sin(90) = " + Math.sin(Math.toRadians(degre)));
-        return this.multiplyMatrix(m);
+        return this.multiplyMatrix(new Matrix(vals));
     }
 
 
@@ -155,14 +152,31 @@ public class Matrix {
     public void setValues(double[][] values) {
         this.values = values;
     }
+    
+    public int getMaxDecimalPart() {
+    	int length = 0;
+    	
+    	for(double[] tab : this.getValues()) {
+    		for(double tab2 : tab) {
+    			int tmpLength = ((int)tab2 + "").length(); 
+    			if(length < tmpLength) {
+    				length = tmpLength;
+    			}
+    		}
+    	}
+    	
+		return length;
+    }
 
     @Override
     public String toString() {
-        String res = "";
-
+    	String res = "";
+    	System.out.println(this.getMaxDecimalPart());
         for(int i = 0 ; i < this.getRowCount() ; i ++ ) {
             for(int j = 0 ; j < this.getColumnCount() ; j ++ ) {
-                res+="["+this.getValues()[i][j]+"]";
+            	double decimalPart = Double.parseDouble(String.format("%2.f", (this.getValues()[i][j]%1 + "")));
+            	double entierPart = 0 ;
+            	res+=entierPart + decimalPart +"";
             }
             res+="\n";
         }
