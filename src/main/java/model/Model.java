@@ -16,4 +16,8 @@ public class Model {
     public Model(){
         this(new ArrayList<Vertex>(), new ArrayList<Face>());
     }
+    
+    public Matrix getMatrix() {
+		return matrix;
+	}
 }

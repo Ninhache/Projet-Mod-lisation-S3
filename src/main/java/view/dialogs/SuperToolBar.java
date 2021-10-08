@@ -126,8 +126,9 @@ public class SuperToolBar extends MenuBar {
         fileChooser.getExtensionFilters().addAll(filters);
 
 
+        
         // EVENT HANDLERS
-
+        
         open.setOnAction(this::onOpenClicked);
         quit.setOnAction(this::onQuitClicked);
         saveAsImg.setOnAction(this::onSaveImg);
@@ -136,6 +137,8 @@ public class SuperToolBar extends MenuBar {
         blackTheme.setOnAction(this::onRadioClick);
         orangeTheme.setOnAction(this::onRadioClick);
 
+        
+        
     }
 
     private void onOpenClicked(ActionEvent e) {
