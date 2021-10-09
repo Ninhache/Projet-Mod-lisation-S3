@@ -6,15 +6,15 @@ public class tmp {
 
         System.out.println("youpi");
         Matrix m1 = new Matrix(new double[][] {
-                {1,1,1},
-                {3,0,2}
+                {1.3,1,1.006},
+                {3.123,0,2}
         });
         Matrix m2 = new Matrix(new double[][] {
                 {0,7,2},
                 {0,5,1}
         });
         Matrix m3 = new Matrix(new double[][] {
-                {0,7},
+                {0,7.555},
                 {0,5},
                 {2,2}
         });

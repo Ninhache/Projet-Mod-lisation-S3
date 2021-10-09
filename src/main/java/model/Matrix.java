@@ -159,7 +159,6 @@ public class Matrix {
     
     public int getMaxDecimalPart() {
     	int length = 0;
-    	
     	for(double[] tab : this.getValues()) {
     		for(double tab2 : tab) {
     			int tmpLength = ((int)tab2 + "").length(); 
@@ -168,8 +167,7 @@ public class Matrix {
     			}
     		}
     	}
-    	
-		return length;
+		return length + 3; // 3 = {,00} format
     }
 
     @Override
@@ -178,14 +176,16 @@ public class Matrix {
     	System.out.println(this.getMaxDecimalPart());
         for(int i = 0 ; i < this.getRowCount() ; i ++ ) {
             for(int j = 0 ; j < this.getColumnCount() ; j ++ ) {
-            	double decimalPart = Double.parseDouble(String.format("%2.f", (this.getValues()[i][j]%1 + "")));
-            	double entierPart = 0 ;
-            	res+=entierPart + decimalPart +"";
-            }
-            res+="\n";
-        }
 
+                String simpliestFormat = String.format("%.2f", this.getValues()[i][j]).replace(",",".");
+
+                while(simpliestFormat.length() != this.getMaxDecimalPart()) {
+                    simpliestFormat = " " + simpliestFormat;
+                }
+
+            	res+= "[" + simpliestFormat + "]";
+            res+="\n";
+        }}
         return res;
     }
-
 }
