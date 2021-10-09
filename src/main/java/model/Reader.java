@@ -4,24 +4,28 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TODO: ADD DESC
+ *
+ * @author Simon LAGNEAU
+ * @version %I%, %G%
+ */
 public class Reader {
-	
-	
-	
+
 	private String fileName,authorName;
 	private File file;
 	private final String END_HEADER = "end_header";
 	private int nbVertex,nbFaces,headerLength,vertexLength;
 	private List<Vertex> points;
 	private List<Face> faces;
-	
+
 	public Reader(String fileName, File file){
 		this.fileName = fileName;
 		this.file = file;
 		points = new ArrayList<Vertex>();
 		faces = new ArrayList<Face>();
 	}
-	
+
 	public Reader(String fileName) {
 		this(fileName, new File("src/main/resources/"+fileName+".ply"));
 	}
@@ -33,7 +37,7 @@ public class Reader {
 	public File getFile() {
 		return file;
 	}
-	
+
 	public void readHeader(BufferedReader br) {
 		
 		try {
@@ -70,8 +74,13 @@ public class Reader {
 
 	}
 	
-	public boolean verifyNbVertex(int nbVertexLines) {return nbVertexLines==this.nbVertex;}
-	public boolean verifyNbFaces(int nbFacesLines) {return nbFacesLines==this.nbFaces;}
+	public boolean verifyNbVertex(int nbVertexLines) {
+		return nbVertexLines==this.nbVertex;
+	}
+
+	public boolean verifyNbFaces(int nbFacesLines) {
+		return nbFacesLines==this.nbFaces;
+	}
 	
 	public void collectVertexInfo(String[] line) {points.add(new Vertex(Double.parseDouble(line[0]), Double.parseDouble(line[1]), Double.parseDouble(line[2])));}
 	public void collectFaceInfo(String[] line) {

@@ -4,7 +4,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
 import model.Model;
-import model.Vecteur;
+import model.Vector;
 
 public class Controller implements EventHandler<Event>{
 	
@@ -36,7 +36,7 @@ public class Controller implements EventHandler<Event>{
 	}
 	
 	public void changeX() {
-		model.getMatrix().translation(new Vecteur(1, 1, 12));
+		model.getMatrix().translation(new Vector(1, 1, 12));
 	}
 	/*public void changeY();
 	public void changeZ();

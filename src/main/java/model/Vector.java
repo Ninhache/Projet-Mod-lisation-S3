@@ -8,13 +8,19 @@ package model;
 *   normalisation()
 * */
 
-public class Vecteur {
+/**
+ * A vector is a movement, matrix handle them to translate model
+ *
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
+public class Vector {
 
     private double x;
     private double y;
     private double z;
 
-    public Vecteur(double anX, double anY, double aZ) {
+    public Vector(double anX, double anY, double aZ) {
         this.x = anX;
         this.y = anY;
         this.z = aZ;

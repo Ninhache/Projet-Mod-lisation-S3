@@ -2,6 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
+
+/**
+ * Define the Model, the model will be displayed in a canvas
+ *
+ * @author Néo ALMEIDA - Paul VANHEE
+ * @version %I%, %G%
+ * @see view.ModelCanvas
+ */
 public class Model {
 
     private Matrix matrix;

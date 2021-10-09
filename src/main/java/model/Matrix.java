@@ -1,13 +1,17 @@
 package model;
 
-import java.util.Arrays;
-
 /* FUNCTIONS TODO :
 *   mutliplication(Matrice m1, scalaire)
 *   translation(vecteur???)
 *   rotation(x/y/z ; degree) >>> faire une enum pour la rotation (voir mon git)
 * */
 
+/**
+ * This class handle all matrix calculation we need for the project
+ *
+ * @author Néo ALMEIDA - Paul VANHEE
+ * @version %I%, %G%
+ */
 public class Matrix {
 
     private double[][] values;
@@ -89,7 +93,7 @@ public class Matrix {
         return this.multiplyMatrix(new Matrix(vals));
     }
     // TODO : Check if this is correct later
-    public Matrix translation(Vecteur v) {
+    public Matrix translation(Vector v) {
         return this.translation(v.getX(), v.getY(), v.getZ());
     }
 

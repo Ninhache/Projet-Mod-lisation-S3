@@ -4,6 +4,15 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+/**
+ *	A model contains faces
+ * A face is build with 3 points, or more !
+ *
+ * @author Paul VANHEE
+ * @version %I%, %G%
+ * @see Model
+ * @see Vertex
+ */
 public class Face {
 
 

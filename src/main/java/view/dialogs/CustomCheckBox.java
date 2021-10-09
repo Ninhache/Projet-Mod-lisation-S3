@@ -4,6 +4,12 @@ import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
 
+/**
+ * A custom CustomCheckBox is a checkBox which does not close when you click on her
+ *
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class CustomCheckBox extends CustomMenuItem {
 
     private CheckBox checkBox;

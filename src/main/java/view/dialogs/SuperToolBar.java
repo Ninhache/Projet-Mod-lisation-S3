@@ -18,32 +18,16 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Logger;
-
 import javafx.embed.swing.SwingFXUtils;
-
 import javax.imageio.ImageIO;
 
+/**
+ * The SuperToolBar is a toolbar, which contains much menus
+ *
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class SuperToolBar extends MenuBar {
-
-    /*
-
-    Fichier |
-            | Ouvrir
-            | Ouvrir récent
-            ----------------
-            | Exporter en IMG
-            | Imprimer en 3D
-            ----------------
-            | Quitter
-
-    Outils  | ✓ Afficher Faces
-            | ✓ Afficher lignes
-            | ✓ Afficher lumières
-
-    Aide    | Thème | · Blanc
-                    | · Noir
-
-    */
 
     // Top Menus
     private Menu fichier, outils, aide;
@@ -52,6 +36,7 @@ public class SuperToolBar extends MenuBar {
         // Fichier
         private MenuItem open, saveAsImg, print3d, quit, saveAsPly;
         private Menu openRecents, exportAs;
+
         // Outils
         private CustomCheckBox cbFaces, cbLines, cbLight;
         private CustomMenuItem afficherFaces, afficherLignes, afficherLumieres;
@@ -101,7 +86,6 @@ public class SuperToolBar extends MenuBar {
         blackTheme = new ThemeRadioButton("Noir", group);
         orangeTheme = new ThemeRadioButton("Orange", group);
 
-
         whiteTheme.setSelected(true);
 
 
@@ -133,12 +117,11 @@ public class SuperToolBar extends MenuBar {
         quit.setOnAction(this::onQuitClicked);
         saveAsImg.setOnAction(this::onSaveImg);
         exportAs.setOnAction(this::onExportAsPly);
-        whiteTheme.setOnAction(this::onRadioClick);
-        blackTheme.setOnAction(this::onRadioClick);
-        orangeTheme.setOnAction(this::onRadioClick);
 
-        
-        
+        theme.getItems().forEach(button -> {
+            button.setOnAction(this::onRadioClick);
+        });
+
     }
 
     private void onOpenClicked(ActionEvent e) {
