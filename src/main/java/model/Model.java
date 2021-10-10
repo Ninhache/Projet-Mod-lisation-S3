@@ -19,8 +19,6 @@ public class Model {
     private final ArrayList<Face> faces;
     private String nameOfFile;
 
-    private SimpleBooleanProperty needToDraw;
-
     /**
      * <b>Constructor of a Model</b>
      *
@@ -33,10 +31,6 @@ public class Model {
         this.points = points;
         this.faces = faces;
 
-        //needToDraw.bind();
-
-        this.needToDraw = new SimpleBooleanProperty();
-        this.needToDraw.set(true);
     }
 
     public Model(){
@@ -47,19 +41,4 @@ public class Model {
 		return matrix;
 	}
 
-    /**
-     * The draw property notify the canvas for update the drawing everytime
-     * <p>
-     * Longer description. If there were any, it would be
-     * here.
-     * <p>
-     * And even more explanations to follow in consecutive
-     * paragraphs separated by HTML paragraph breaks.
-     *
-     * @param variable Description text text text.
-     * @return Description text text text.
-     */
-    public SimpleBooleanProperty getDrawProperty() {
-        return this.needToDraw;
-    }
 }
