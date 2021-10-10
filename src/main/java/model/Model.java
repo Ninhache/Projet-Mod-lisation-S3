@@ -8,13 +8,14 @@ import java.util.ArrayList;
  *
  * @author Néo ALMEIDA - Paul VANHEE
  * @version %I%, %G%
- * @see view.ModelCanvas
+ * @see view.CanvasModel
  */
 public class Model {
 
     private Matrix matrix;
-    private ArrayList<Vertex> points;
-    private ArrayList<Face> faces;
+    private final ArrayList<Vertex> points;
+    private final ArrayList<Face> faces;
+    private String nameOfFile;
 
     public Model(ArrayList<Vertex> points, ArrayList<Face> faces) {
         this.points = points;

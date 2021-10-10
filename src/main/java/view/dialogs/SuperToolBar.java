@@ -3,6 +3,7 @@ package view.dialogs;
 import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -15,10 +16,15 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
+import view.ActionLink;
+import view.MessageBox;
+import view.TabCanvas;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -131,7 +137,19 @@ public class SuperToolBar extends MenuBar {
 
 
     private void openFiles(String path) {
-        System.out.println("ON OUVRE CA : ["+path+"]");
+
+        MessageBox.showWarning("Cette fonctionnalité n'est pas terminée !", "Oui.. il respecte à recupérer un vrai modele et cie..");
+
+        TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+
+        TabCanvas tb = new TabCanvas(null, path);
+
+        cp.getTabs().add(tb);
+
+        SingleSelectionModel<Tab> selectionModel = cp.getSelectionModel();
+
+        selectionModel.select(tb);
+
     }
 
     private void onRadioClick(ActionEvent e) {
@@ -147,7 +165,7 @@ public class SuperToolBar extends MenuBar {
     }
 
     private void onSaveImg(ActionEvent e) {
-        Canvas canvas = (Canvas) ((BorderPane) getParent().getScene().getRoot()).getCenter();
+        Canvas canvas = (Canvas)((TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter()).getSelectionModel().getSelectedItem().getContent();
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.LIGHTBLUE);
         gc.fillRect(0,0,canvas.getHeight(), canvas.getWidth());
@@ -216,6 +234,15 @@ public class SuperToolBar extends MenuBar {
             itemList = new MenuItem[] {new MenuItem("Pas de fichiers récents")};
         }
         return itemList;
+    }
+
+    public ActionLink getOpenActionsLink() {
+       /* ArrayList<ActionLink> array = new ArrayList<>();
+
+        array.add(new ActionLink("Ouvrir un modèle", this::onOpenClicked));
+
+        return array;*/
+        return new ActionLink("Ouvrir un modèle", this::onOpenClicked);
     }
 
     // FIXME Mettre une fenêtre de confirmation ??
