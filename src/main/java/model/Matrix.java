@@ -16,13 +16,39 @@ public class Matrix {
 
     private double[][] values;
 
+    /**
+     * <b>Constructor of a Matrix</b>
+     *
+     * A Matrix is an multidimensional array
+     *
+     * @param values list of values of the Matrix
+     */
     public Matrix(double[][] values) {
         this.values = values;
     }
 
-    public Matrix multiplyMatrix(Matrix o) {
+    /**
+     * Mulitply matrix by another one
+     * <p>
+     * The fonction is executed only if both matrix can be multiplied
+     *
+     * <b><u>For exemple :</u></b>
+     * If you try multiply these 2 matrix, you will get a new one :
+     * { 7 , 3 , 2 }         { 1 , 1 , 3 }              { 19 , 26 , 35 }
+     * { 5 , 9 , 2 }    x    { 2 , 5 , 2 }      =       { 29 , 54 , 41 }
+     * { 0 , 0 , 1 }         { 3 , 2 , 4 }              {  3 ,  2 ,  4 }
+     *
+     * If you try multiply these 2 matrix, you will get an error, and get back the actual matrix
+     * { 7 , 3 }         { 1 , 1 }              { 7 , 3 }
+     * { 5 , 9 }    x    { 2 , 5 }      =       { 5 , 9 }
+     * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
+     *
+     * @param other the other matrix
+     * @return the result of the both matrix, in a new one
+     */
+    public Matrix multiplyMatrix(Matrix other) {
         // TODO : Create errors to check validity of both matrix
-        if(!this.canMultiply(o)) {
+        if(!this.canMultiply(other)) {
             return this;
         }
 
@@ -31,26 +57,45 @@ public class Matrix {
         int l1 = this.getRowCount();
         int c1 = this.getColumnCount();
 
-        int l2 = o.getRowCount();
-        int c2 = o.getColumnCount();
+        int l2 = other.getRowCount();
+        int c2 = other.getColumnCount();
 
         vals = new double[l1][c2];
 
         for(int row = 0; row < l1; row++){
             for(int col = 0; col < c2; col++){
                 for(int k = 0; k < c1; k++)
-                    vals[row][col] += this.getValues()[row][k] * o.getValues()[k][col];
+                    vals[row][col] += this.getValues()[row][k] * other.getValues()[k][col];
             }
         }
         return new Matrix(vals);
     }
 
-    public Matrix sumMatrix(Matrix o) {
-        if(canSum(o)) {
+    /**
+     * Sum matrix by another one
+     * <p>
+     * The fonction is executed only if both matrix can be summed
+     *
+     * <b><u>For exemple :</u></b>
+     * If you try to sums these 2 matrix, you will get a new one :
+     * { 7 , 3 , 2 }         { 1 , 1 , 3 }              {  8 ,  4 ,  5 }
+     * { 5 , 9 , 2 }    +    { 2 , 5 , 2 }      =       {  7 , 14 ,  4 }
+     * { 0 , 0 , 1 }         { 3 , 2 , 4 }              {  3 ,  2 ,  5 }
+     *
+     * If you try to sums these 2 matrix, you will get an error, and get back the actual matrix
+     * { 7 , 3 }         { 1 , 1 }              { 7 , 3 }
+     * { 5 , 9 }    +    { 2 , 5 }      =       { 5 , 9 }
+     * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
+     *
+     * @param other the other matrix
+     * @return the result of the both matrix, in a new one
+     */
+    public Matrix sumMatrix(Matrix other) {
+        if(canSum(other)) {
             double[][] res = new double[this.getRowCount()][this.getColumnCount()];
             for (int row = 0; row <  this.getRowCount(); row++) {
                 for (int col = 0; col < this.getColumnCount(); col++) {
-                    res[row][col] = this.getValues()[row][col] + o.getValues()[row][col];
+                    res[row][col] = this.getValues()[row][col] + other.getValues()[row][col];
                 }
             }
             return new Matrix(res);
@@ -59,12 +104,31 @@ public class Matrix {
         }
     }
 
-    public Matrix subMatrix(Matrix o) {
-        if(canSum(o)) {
+    /**
+     * Sub matrix by another one
+     * <p>
+     * The fonction is executed only if both matrix can be subbed
+     *
+     * <b><u>For exemple :</u></b>
+     * If you try to subs these 2 matrix, you will get a new one :
+     * { 7 , 3 , 2 }         { 1 , 1 , 3 }              {  6 ,  2 , -1 }
+     * { 5 , 9 , 2 }    -    { 2 , 5 , 2 }      =       {  3 ,  4 ,  0 }
+     * { 0 , 0 , 1 }         { 3 , 2 , 4 }              { -3 , -2 , -3 }
+     *
+     * If you try to sums these 2 matrix, you will get an error, and get back the actual matrix
+     * { 7 , 3 }         { 1 , 1 }              { 7 , 3 }
+     * { 5 , 9 }    -    { 2 , 5 }      =       { 5 , 9 }
+     * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
+     *
+     * @param other the other matrix
+     * @return the result of the both matrix, in a new one
+     */
+    public Matrix subMatrix(Matrix other) {
+        if(canSum(other)) {
             double[][] res = new double[this.getRowCount()][this.getColumnCount()];
             for (int row = 0; row <  this.getRowCount(); row++) {
                 for (int col = 0; col < this.getColumnCount(); col++) {
-                    res[row][col] = this.getValues()[row][col] - o.getValues()[row][col];
+                    res[row][col] = this.getValues()[row][col] - other.getValues()[row][col];
                 }
             }
             return new Matrix(res);
@@ -128,17 +192,40 @@ public class Matrix {
         return this.multiplyMatrix(new Matrix(vals));
     }
 
-
-    public boolean canMultiply(Matrix m) {
-        return this.getRowCount() == m.getColumnCount();
+    /**
+     * Verifications of multiplications
+     * <p>
+     * The function check if two matrix can be multiplied
+     *
+     * @param other the other matrix
+     * @return the result of the verification
+     */
+    public boolean canMultiply(Matrix other) {
+        return this.getRowCount() == other.getColumnCount();
     }
 
-    public boolean canSum(Matrix m) {
-        return this.getRowCount() == m.getRowCount() && this.getColumnCount() == m.getColumnCount();
+    /**
+     * Verifications of sum
+     * <p>
+     * The function check if two matrix can be summed
+     *
+     * @param other the other matrix
+     * @return the result of the verification
+     */
+    public boolean canSum(Matrix other) {
+        return this.getRowCount() == other.getRowCount() && this.getColumnCount() == other.getColumnCount();
     }
 
-    public boolean canSub(Matrix m) {
-        return this.getRowCount() == m.getRowCount() && this.getColumnCount() == m.getColumnCount();
+    /**
+     * Verifications of sub
+     * <p>
+     * The function check if two matrix can be subbed
+     *
+     * @param other the other matrix
+     * @return the result of the verification
+     */
+    public boolean canSub(Matrix other) {
+        return this.getRowCount() == other.getRowCount() && this.getColumnCount() == other.getColumnCount();
     }
 
     public int getRowCount() {
@@ -156,7 +243,17 @@ public class Matrix {
     public void setValues(double[][] values) {
         this.values = values;
     }
-    
+
+    /**
+     * Get the maximum length of the whole number part of a matrix
+     * <p>
+     * <b><u>For exemple :</u></b>
+     *      - 2,0578  =>  1
+     *      - 25,265  =>  2
+     *      - 105,1   =>  3
+     *
+     * @return the length
+     */
     public int getMaxDecimalPart() {
     	int length = 0;
     	for(double[] tab : this.getValues()) {

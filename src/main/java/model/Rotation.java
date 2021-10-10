@@ -11,6 +11,7 @@ public enum Rotation {
 
     private String s;
 
+
     private Rotation(String s) {
         this.s = s;
     }

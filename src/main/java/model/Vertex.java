@@ -1,22 +1,33 @@
 package model;
 
-import javafx.geometry.Point3D;
-
 /**
  * A vertex is a point from a model
  *
  * @author Paul VANHEE
  * @version %I%, %G%
  */
-public class Vertex extends Point3D {
+public class Vertex {
 
+    private double x,y,z;
     private static int idAuto = 0;
     private final int id;
 
+    /**
+     * <b>Constructor of a Vertex</b>
+     *
+     * @param x part x of the point
+     * @param y part y of the point
+     * @param z part z of the point
+     */
     public Vertex(double x, double y, double z) {
-        super(x, y, z);
         this.id = idAuto;
+        this.x = x;
+        this.y = y;
+        this.z = z;
 
         idAuto ++;
     }
+
+
+
 }

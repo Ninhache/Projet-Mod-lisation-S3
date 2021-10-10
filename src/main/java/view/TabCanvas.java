@@ -1,8 +1,18 @@
 package view;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Tab;
+import javafx.scene.paint.Color;
 import model.Model;
 
+/**
+ * The TabCanvas is just a Tab, handeling a canvas
+ *
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ * @see javafx.scene.control.Tab
+ * @see view.CanvasModel
+ */
 public class TabCanvas extends Tab {
 
     private CanvasModel canvas;
@@ -14,6 +24,7 @@ public class TabCanvas extends Tab {
 
         setText(title);
         setContent(canvas);
+
     }
 
     public TabCanvas(Model model) {

@@ -238,9 +238,7 @@ public class SuperToolBar extends MenuBar {
 
     public ActionLink getOpenActionsLink() {
        /* ArrayList<ActionLink> array = new ArrayList<>();
-
         array.add(new ActionLink("Ouvrir un modèle", this::onOpenClicked));
-
         return array;*/
         return new ActionLink("Ouvrir un modèle", this::onOpenClicked);
     }

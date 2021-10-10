@@ -1,8 +1,13 @@
 package model;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
 public class tmp {
 
     public static void main(String[] args) {
+
+
 
         System.out.println("youpi");
         Matrix m1 = new Matrix(new double[][] {

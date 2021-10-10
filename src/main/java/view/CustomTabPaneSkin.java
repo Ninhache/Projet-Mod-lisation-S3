@@ -15,6 +15,14 @@ import javafx.scene.text.FontWeight;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * The CustomTabPaneSkin add a placeholder when the TabPane's parent has no child
+ *
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ * @see javafx.scene.control.skin.TabPaneSkin
+ * @see view.TabCanvas
+ */
 public class CustomTabPaneSkin extends TabPaneSkin {
 
     private final VBox placeHolder;

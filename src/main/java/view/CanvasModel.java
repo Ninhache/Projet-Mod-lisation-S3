@@ -5,6 +5,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Model;
 
+/**
+ * The CanvasModel handle a model
+ *
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class CanvasModel extends Canvas {
 
     private Model model;
@@ -13,7 +19,6 @@ public class CanvasModel extends Canvas {
         super(width, height);
         this.model = model;
 
-
         widthProperty().addListener(e -> {
             this.draw();
         });
@@ -21,6 +26,10 @@ public class CanvasModel extends Canvas {
         heightProperty().addListener(e -> {
             this.draw();
         });
+
+
+
+        this.draw();
     }
 
     public CanvasModel(Model model) {
@@ -29,7 +38,7 @@ public class CanvasModel extends Canvas {
 
     public void draw() {
         GraphicsContext gc = getGraphicsContext2D();
-        gc.setFill(Color.LIGHTBLUE);
+        gc.setFill(Color.RED);
         gc.fillRect(0,0,this.getWidth(), this.getHeight());
         gc.fill();
     }

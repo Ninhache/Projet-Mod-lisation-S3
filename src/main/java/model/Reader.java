@@ -19,23 +19,22 @@ public class Reader {
 	private List<Vertex> points;
 	private List<Face> faces;
 
-	public Reader(String fileName, File file){
-		this.fileName = fileName;
+	/**
+	 * <b>Constructor of a Reader</b>
+	 *
+	 * Thanks to the reader you're able to read a file.ply and get a model
+	 *
+	 * @param file file to read
+	 */
+	public Reader(File file){
+		this.fileName = file.getName();
 		this.file = file;
 		points = new ArrayList<Vertex>();
 		faces = new ArrayList<Face>();
 	}
 
 	public Reader(String fileName) {
-		this(fileName, new File("src/main/resources/"+fileName+".ply"));
-	}
-	
-	public Reader(File file) {
-		this("non", file);
-	}
-	
-	public File getFile() {
-		return file;
+		this(new File("src/main/resources/"+fileName+".ply"));
 	}
 
 	public void readHeader(BufferedReader br) {
@@ -173,7 +172,11 @@ public class Reader {
 		readVertexLines(br);
 		readFaceLines(br);
 	}
-	
+
+	public File getFile() {
+		return file;
+	}
+
 	public String getAuthorName() {
 		return "Created by " + authorName;
 	}
