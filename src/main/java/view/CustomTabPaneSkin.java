@@ -11,10 +11,7 @@ import javafx.scene.control.skin.TabPaneSkin;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import view.dialogs.TabCanvasPane;
-import view.stages.MainStage;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -46,10 +43,6 @@ public class CustomTabPaneSkin extends TabPaneSkin {
         button.setFont( Font.font( null, FontWeight.BOLD, 20 ) );
         button.setAlignment( Pos.CENTER );
 
-
-        //button.minWidthProperty().bind(getSkinnable().widthProperty());
-        //button.minHeightProperty().bind(getSkinnable().heightProperty());
-
         placeHolder = new VBox();
 
         if (widgets != null && widgets.size() > 0) {
@@ -74,10 +67,6 @@ public class CustomTabPaneSkin extends TabPaneSkin {
 
             placeHolder.getChildren().addAll(spacer, container);
         }
-
-
-
-
 
         for ( Node node : getChildren() ) {
             if ( node.getStyleClass().contains("tab-header-area" )) {

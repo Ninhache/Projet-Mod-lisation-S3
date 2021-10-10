@@ -21,5 +21,8 @@ public class ActionLink extends Hyperlink {
     public ActionLink(String text, EventHandler<ActionEvent> onClick, Node graphic) {
         super(text, graphic);
         setOnAction(onClick);
+
+        setStyle("-fx-text-fill: #1d99ce");
+
     }
 }
