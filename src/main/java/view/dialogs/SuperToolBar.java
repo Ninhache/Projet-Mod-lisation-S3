@@ -254,6 +254,6 @@ public class SuperToolBar extends MenuBar {
 
 
     private void onQuitClicked(ActionEvent e) {
-        if(MessageBox.showConfirm("Quitter ?", "Êtes-vous sûr de vouloir quitter ? Ce choix est irréversible") == ButtonType.OK) Platform.exit();
+        if(MessageBox.showConfirm("Quitter ?", "Êtes-vous sûr de vouloir quitter ?\nCe choix est irréversible.") == ButtonType.OK) Platform.exit();
     }
 }
