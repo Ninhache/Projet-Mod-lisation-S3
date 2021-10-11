@@ -50,7 +50,8 @@ public class SuperToolBar extends MenuBar {
         // Aide
         private Menu theme;
         private CheckBox cbWhite, cbBlack;
-        private ThemeRadioButton whiteTheme, blackTheme, orangeTheme;
+        private ThemeRadioButton whiteTheme, blackTheme, orangeTheme, redTheme, pinkTheme, blueTheme, purpleTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3;
+        // TODO REMOVE SECRETTHEME !!!!????
 
         /////
 
@@ -91,17 +92,25 @@ public class SuperToolBar extends MenuBar {
         whiteTheme = new ThemeRadioButton("Blanc", group);
         blackTheme = new ThemeRadioButton("Noir", group);
         orangeTheme = new ThemeRadioButton("Orange", group);
+        redTheme = new ThemeRadioButton("Rouge", group);
+        pinkTheme = new ThemeRadioButton("Rose", group);
+        blueTheme = new ThemeRadioButton("Bleu", group);
+        purpleTheme = new ThemeRadioButton("Violet", group);
+        greenTheme = new ThemeRadioButton("Vert", group);
+        yellowTheme = new ThemeRadioButton("Jaune", group);
+        secretTheme = new ThemeRadioButton("Secret", group);
+        secretTheme2 = new ThemeRadioButton("Secret2", group);
+        secretTheme3 = new ThemeRadioButton("Secret3", group);
 
         whiteTheme.setSelected(true);
 
+        System.out.println(group.getToggles());
 
         getMenus().addAll(fichier, outils, aide);
         fichier.getItems().addAll(open, openRecents, new SeparatorMenuItem(), exportAs, print3d,new SeparatorMenuItem(), quit);
         outils.getItems().addAll(afficherFaces, afficherLignes, afficherLumieres);
         aide.getItems().addAll(theme);
-        theme.getItems().addAll(whiteTheme, blackTheme, orangeTheme);
-
-        //////////////////////////////////////////////////
+        theme.getItems().addAll(whiteTheme, blackTheme, new SeparatorMenuItem(), orangeTheme, redTheme, pinkTheme, purpleTheme, blueTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3);
 
 
 
@@ -243,8 +252,8 @@ public class SuperToolBar extends MenuBar {
         return new ActionLink("Ouvrir un modèle", this::onOpenClicked);
     }
 
-    // FIXME Mettre une fenêtre de confirmation ??
+
     private void onQuitClicked(ActionEvent e) {
-        Platform.exit();
+        if(MessageBox.showConfirm("Quitter ?", "Êtes-vous sûr de vouloir quitter ? Ce choix est irréversible") == ButtonType.OK) Platform.exit();
     }
 }
