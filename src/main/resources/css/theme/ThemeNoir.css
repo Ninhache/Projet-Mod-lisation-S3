@@ -2,3 +2,7 @@
     -fx-text-fill: white;
     -fx-base: black;
 }
+
+.hyperlink {
+    -fx-text-fill: white;
+}

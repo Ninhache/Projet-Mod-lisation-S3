@@ -1,0 +1,8 @@
+* {
+    -fx-text-fill: black;
+    -fx-base: #096ab2;
+}
+
+.hyperlink {
+    -fx-text-fill: white;
+}
