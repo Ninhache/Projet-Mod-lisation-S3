@@ -11,6 +11,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import model.Reader;
 
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -22,10 +23,13 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import view.ActionLink;
+import view.CanvasModel;
 import view.MessageBox;
 import view.TabCanvas;
 
 import javax.imageio.ImageIO;
+
+import com.sun.org.apache.xml.internal.serializer.utils.MsgKey;
 
 /**
  * The SuperToolBar is a toolbar, which contains much menus
@@ -141,7 +145,22 @@ public class SuperToolBar extends MenuBar {
 
     private void onOpenClicked(ActionEvent e) {
         File file = fileChooser.showOpenDialog(this.getParent().getScene().getWindow());
-        System.out.println(file.getPath());
+        if(file == null) {
+        	
+        	MessageBox.showWarning("Fichier introuvable", "Gros problème la");
+        	return;
+        }
+        TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+        Reader r = new Reader(file);
+        try {
+			cp.getTabs().add(new TabCanvas(r.readPly()));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        CanvasModel t = (CanvasModel) cp.getTabs().get(cp.getTabs().size()-1).getContent();
+        t.draw();
+        
     }
 
 

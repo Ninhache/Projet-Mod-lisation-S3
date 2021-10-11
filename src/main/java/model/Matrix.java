@@ -15,6 +15,7 @@ package model;
 public class Matrix {
 
     private double[][] values;
+    private final double[][] defaultValues;
 
     /**
      * <b>Constructor of a Matrix</b>
@@ -24,8 +25,12 @@ public class Matrix {
      * @param values list of values of the Matrix
      */
     public Matrix(double[][] values) {
+
+    	this.defaultValues = values.clone();
+
         this.values = values;
     }
+   
 
     /**
      * Mulitply matrix by another one
@@ -266,23 +271,29 @@ public class Matrix {
     	}
 		return length + 3; // 3 = {,00} format
     }
+    
+    public double[][] getDefaultValues() {
+		return defaultValues;
+	}
 
     @Override
     public String toString() {
     	String res = "";
     	System.out.println(this.getMaxDecimalPart());
-        for(int i = 0 ; i < this.getRowCount() ; i ++ ) {
-            for(int j = 0 ; j < this.getColumnCount() ; j ++ ) {
+        for(int i = 0 ; i < this.getColumnCount() ; i ++ ) {
+            for(int j = 0 ; j < this.getRowCount() ; j ++ ) {
 
-                String simpliestFormat = String.format("%.2f", this.getValues()[i][j]).replace(",",".");
+                String simpliestFormat = String.format("%.2f", this.getValues()[j][i]).replace(",",".");
 
                 while(simpliestFormat.length() != this.getMaxDecimalPart()) {
                     simpliestFormat = " " + simpliestFormat;
                 }
 
             	res+= "[" + simpliestFormat + "]";
+            
+            }
             res+="\n";
-        }}
+            }
         return res;
     }
 }

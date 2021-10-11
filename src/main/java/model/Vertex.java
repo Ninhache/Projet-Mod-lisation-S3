@@ -27,6 +27,22 @@ public class Vertex {
 
         idAuto ++;
     }
+    
+    public double getX() {
+		return x;
+	}
+    
+    public double getY() {
+		return y;
+	}
+    
+    public double getZ() {
+		return z;
+	}
+    
+    public int getId() {
+		return id;
+	}
 
 
 

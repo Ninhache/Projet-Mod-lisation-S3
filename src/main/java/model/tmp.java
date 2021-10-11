@@ -1,5 +1,7 @@
 package model;
 
+import java.io.FileNotFoundException;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -7,11 +9,11 @@ public class tmp {
 
     public static void main(String[] args) {
 
-
+/*
 
         System.out.println("youpi");
         Matrix m1 = new Matrix(new double[][] {
-                {1.3,1,1.006},
+                {55551.3,1,1.006},
                 {3.123,0,2}
         });
         Matrix m2 = new Matrix(new double[][] {
@@ -24,6 +26,7 @@ public class tmp {
                 {2,2}
         });
         System.out.println(m3.multiplyMatrix(m1));
+        */
        /* System.out.println(m1.canMultiply(m2));
         System.out.println(m1.canSum(m2));*/
         /*Matrix m3 = m1.sumMatrix(m2);
@@ -33,6 +36,18 @@ public class tmp {
         System.out.println(m4.canMultiply(m5));
         Matrix m6 = m4.multiplyMatrix(m5);
         System.out.println(m6);*/
+    	
+    	/*
+    	Reader reader = new Reader("test");
+    	try {
+    		System.out.println(reader.readPly().getMatrix());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	*/
+    	double ratio = 1080.0/1920.0;
+    	System.out.println("AAAAAAA"+ratio);
     }
 
 }

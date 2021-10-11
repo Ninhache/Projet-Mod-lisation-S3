@@ -16,8 +16,8 @@ public class Reader {
 	private File file;
 	private final String END_HEADER = "end_header";
 	private int nbVertex,nbFaces,headerLength,vertexLength;
-	private List<Vertex> points;
-	private List<Face> faces;
+	private ArrayList<Vertex> points;
+	private ArrayList<Face> faces;
 
 	/**
 	 * <b>Constructor of a Reader</b>
@@ -81,14 +81,18 @@ public class Reader {
 		return nbFacesLines==this.nbFaces;
 	}
 	
-	public void collectVertexInfo(String[] line) {points.add(new Vertex(Double.parseDouble(line[0]), Double.parseDouble(line[1]), Double.parseDouble(line[2])));}
+	public void collectVertexInfo(String[] line) {
+		points.add(new Vertex(Double.parseDouble(line[0]), Double.parseDouble(line[1]), Double.parseDouble(line[2])));
+	}
+	
 	public void collectFaceInfo(String[] line) {
 		
-		int un = Integer.parseInt(line[0]);
-		int deux = Integer.parseInt(line[1]);
-		int trois = Integer.parseInt(line[2]);
+		ArrayList<Vertex> pointsOfFace = new ArrayList<>();
+		for(int i = 1 ; i <= Integer.parseInt(line[0]) ; i++) {
+			pointsOfFace.add(points.get(Integer.parseInt(line[i])));
+		}
 		
-		//faces.add(new Face(points.get(un), points.get(deux), points.get(trois)));
+		faces.add(new Face(pointsOfFace)); 
 	}
 
 	public void readVertexLines(BufferedReader br) {
@@ -167,10 +171,17 @@ public class Reader {
 		 }
 	}
 	
-	public void readPly(BufferedReader br) {
+	public Model readPly() throws FileNotFoundException {
+		
+		Reader reader = new Reader(this.file);
+		FileReader fr = new FileReader(reader.getFile());
+		BufferedReader br = new BufferedReader(fr);
+		
 		readHeader(br);
 		readVertexLines(br);
 		readFaceLines(br);
+		
+		return new Model(points, faces);
 	}
 
 	public File getFile() {
@@ -187,7 +198,7 @@ public class Reader {
 		FileReader fr = new FileReader(reader.getFile());
 		BufferedReader br = new BufferedReader(fr);
 		
-		reader.readPly(br);
+		reader.readPly();
 		System.out.println(reader.getAuthorName());
 	}
 }

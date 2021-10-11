@@ -1,9 +1,13 @@
 package view;
 
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import model.Matrix;
 import model.Model;
+import model.Vector;
+import model.Vertex;
 
 /**
  * The CanvasModel handle a model
@@ -26,10 +30,7 @@ public class CanvasModel extends Canvas {
         heightProperty().addListener(e -> {
             this.draw();
         });
-
-
-
-        this.draw();
+        
     }
 
     public CanvasModel(Model model) {
@@ -37,10 +38,16 @@ public class CanvasModel extends Canvas {
     }
 
     public void draw() {
-        GraphicsContext gc = getGraphicsContext2D();
-        gc.setFill(Color.RED);
-        gc.fillRect(0,0,this.getWidth(), this.getHeight());
-        gc.fill();
+    	//double ratio = getHeight()/getWidth();
+    	Vector v = new Vector(getWidth()/2, getHeight()/2, 0);
+    	this.model.getMatrix().translation(v);
+    	GraphicsContext gc = getGraphicsContext2D();
+    	Matrix m = this.model.getMatrix();
+    	for (int i = 0; i < m.getColumnCount(); i++) {
+			gc.fillOval(m.getValues()[i][0], m.getValues()[i][1], m.getValues()[i][2], 1);
+			gc.fill();
+		}
+    	
     }
 
 }

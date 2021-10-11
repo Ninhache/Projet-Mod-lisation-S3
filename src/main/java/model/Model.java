@@ -30,6 +30,16 @@ public class Model {
     public Model(ArrayList<Vertex> points, ArrayList<Face> faces) {
         this.points = points;
         this.faces = faces;
+        
+        matrix = new Matrix(new double[points.size()][4]);
+
+        for(Vertex v : points) {
+        	int index = v.getId();
+        	matrix.getValues()[index][0] = points.get(index).getX();
+        	matrix.getValues()[index][1] = points.get(index).getY();
+        	matrix.getValues()[index][2] = points.get(index).getZ();
+        	matrix.getValues()[index][3] = 1;
+        }
 
     }
 
