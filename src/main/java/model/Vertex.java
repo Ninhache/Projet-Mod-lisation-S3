@@ -44,6 +44,8 @@ public class Vertex {
 		return id;
 	}
 
-
+    public static void resetAuto() {
+    	Vertex.idAuto = 0;
+    }
 
 }

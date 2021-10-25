@@ -37,6 +37,10 @@ public class Reader {
 		this(new File("src/main/resources/"+fileName+".ply"));
 	}
 
+	public Reader() {
+		points = new ArrayList<Vertex>();
+		faces = new ArrayList<Face>();
+	}
     
     
 	public void readHeader(BufferedReader br) {
@@ -192,9 +196,23 @@ public class Reader {
 		return file;
 	}
 	public void setFile(File file) {
+		this.nbFaces = -1;
+		this.nbVertex = -1;
+		this.vertexLength = -1;
+		this.authorName = "";
+		this.faces = new ArrayList<>();
+		this.points = new ArrayList<>();
+		this.fileName = file.getName();
 		this.file = file;
 	}
 	public void setFile(String fileName) {
+		this.nbFaces = -1;
+		this.nbVertex = -1;
+		this.vertexLength = -1;
+		this.authorName = "";
+		this.faces = new ArrayList<>();
+		this.points = new ArrayList<>();
+		this.fileName = fileName;
 		this.file = new File(fileName);
 	}
 	public String getAuthorName() {

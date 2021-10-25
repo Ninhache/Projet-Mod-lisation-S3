@@ -32,7 +32,7 @@ public class Model {
         this.faces = faces;
         
         matrix = new Matrix(new double[points.size()][4]);
-
+        Vertex.resetAuto();
         for(Vertex v : points) {
         	int index = v.getId();
         	matrix.getValues()[index][0] = points.get(index).getX();

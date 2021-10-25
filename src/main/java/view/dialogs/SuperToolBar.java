@@ -58,7 +58,7 @@ public class SuperToolBar extends MenuBar {
         /////
 
     private FileChooser fileChooser;
-
+    private Reader r = new Reader();
 
     public SuperToolBar() {
         super();
@@ -149,7 +149,7 @@ public class SuperToolBar extends MenuBar {
         	return;
         }
         TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-        Reader r = new Reader(file);
+        r.setFile(file);
         try {
 			cp.getTabs().add(new TabCanvas(r.readPly()));
 		} catch (FileNotFoundException e1) {
