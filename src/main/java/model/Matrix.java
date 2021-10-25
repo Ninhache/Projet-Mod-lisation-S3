@@ -206,7 +206,7 @@ public class Matrix {
      * @return the result of the verification
      */
     public boolean canMultiply(Matrix other) {
-        return this.getRowCount() == other.getColumnCount();
+        return this.getColumnCount() == other.getRowCount();
     }
 
     /**
@@ -279,11 +279,10 @@ public class Matrix {
     @Override
     public String toString() {
     	String res = "";
-    	System.out.println(this.getMaxDecimalPart());
-        for(int i = 0 ; i < this.getColumnCount() ; i ++ ) {
-            for(int j = 0 ; j < this.getRowCount() ; j ++ ) {
+        for(int i = 0 ; i < this.getRowCount() ; i ++ ) {
+            for(int j = 0 ; j < this.getColumnCount() ; j ++ ) {
 
-                String simpliestFormat = String.format("%.2f", this.getValues()[j][i]).replace(",",".");
+                String simpliestFormat = String.format("%.2f", this.getValues()[i][j]).replace(",",".");
 
                 while(simpliestFormat.length() != this.getMaxDecimalPart()) {
                     simpliestFormat = " " + simpliestFormat;

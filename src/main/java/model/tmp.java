@@ -46,8 +46,30 @@ public class tmp {
 			e.printStackTrace();
 		}
     	*/
-    	double ratio = 1080.0/1920.0;
-    	System.out.println("AAAAAAA"+ratio);
+    	//double ratio = 1080.0/1920.0;
+    	//System.out.println("AAAAAAA"+ratio);
+        Matrix m = new Matrix(new double[][] {
+                {1d,0d,0d,250d},
+                {0d,1d,0d,250d},
+                {0d,0d,1d,0d},
+                {0d,0d,0d,1d}});
+        Matrix m2 = new Matrix(new double[][]
+        {
+            {1d,0d,-1d,0d,0d,0d},
+            {0d,-1d,0d,1d,0d,0d},
+            {0d,0d,0d,0d,1d,-1d},
+            {1d,1d,1d,1d,1d,1d}
+        });
+        System.out.println(m);
+        //printMatrix(m3.getValues(),m2.getRowCount(),m3.getColumnCount());
+        //System.out.println(m2);
+        System.out.println(m2);
+        System.out.println("M2 avec M:" + m2.canMultiply(m));
+        System.out.println("M avec M2:" + m.canMultiply(m2));
+        //Matrix.printMatrix(m.getValues(), m.getRowCount(), m.getColumnCount());
+        System.out.println(m.multiplyMatrix(m2));
+
+        //printMatrix(m2.getValues(), m2.getRowCount(), m2.getColumnCount());
     }
 
 }
