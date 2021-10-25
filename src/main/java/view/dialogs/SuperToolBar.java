@@ -29,8 +29,6 @@ import view.TabCanvas;
 
 import javax.imageio.ImageIO;
 
-import com.sun.org.apache.xml.internal.serializer.utils.MsgKey;
-
 /**
  * The SuperToolBar is a toolbar, which contains much menus
  *
