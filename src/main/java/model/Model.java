@@ -31,14 +31,14 @@ public class Model {
         this.points = points;
         this.faces = faces;
         
-        matrix = new Matrix(new double[points.size()][4]);
+        matrix = new Matrix(new double[4][points.size()]);
         Vertex.resetAuto();
         for(Vertex v : points) {
         	int index = v.getId();
-        	matrix.getValues()[index][0] = points.get(index).getX();
-        	matrix.getValues()[index][1] = points.get(index).getY();
-        	matrix.getValues()[index][2] = points.get(index).getZ();
-        	matrix.getValues()[index][3] = 1;
+        	matrix.getValues()[0][index] = points.get(index).getX();
+        	matrix.getValues()[1][index] = points.get(index).getY();
+        	matrix.getValues()[2][index] = points.get(index).getZ();
+        	matrix.getValues()[3][index] = 1;
         }
 
     }

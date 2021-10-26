@@ -149,7 +149,7 @@ public class Matrix {
                 {0, 0, ratio, 0},
                 {0, 0, 0, 1}
         };
-        return this.multiplyMatrix(new Matrix(vals));
+        return new Matrix(vals).multiplyMatrix(this);
     }
 
     public Matrix translation(double t1, double t2, double t3) {
@@ -159,7 +159,7 @@ public class Matrix {
                 {0, 0, 1, t3},
                 {0, 0, 0, 1}
         };
-        return this.multiplyMatrix(new Matrix(vals));
+        return new Matrix(vals).multiplyMatrix(this);
     }
     // TODO : Check if this is correct later
     public Matrix translation(Vector v) {

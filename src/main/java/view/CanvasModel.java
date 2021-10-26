@@ -38,15 +38,21 @@ public class CanvasModel extends Canvas {
     }
 
     public void draw() {
+        GraphicsContext gc = getGraphicsContext2D();
+        Matrix m = this.model.getMatrix();
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+
     	//double ratio = getHeight()/getWidth();
     	Vector v = new Vector(getWidth()/2, getHeight()/2, 0);
-    	this.model.getMatrix().translation(v);
-    	GraphicsContext gc = getGraphicsContext2D();
-    	Matrix m = this.model.getMatrix();
+        m = m.translation(v);
+        //m = m.homothety(0.5);
+
+        System.out.println(m);
     	for (int i = 0; i < m.getColumnCount(); i++) {
-			gc.fillOval(m.getValues()[i][0], m.getValues()[i][1], m.getValues()[i][2], 1);
-			gc.fill();
+			gc.fillOval(m.getValues()[0][i], m.getValues()[1][i], 5, 5);
+			//gc.fill();
 		}
+    	
     	
     }
 
