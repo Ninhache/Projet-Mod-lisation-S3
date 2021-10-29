@@ -131,7 +131,7 @@ public class Reader {
 			if (nbVertexLines != nbVertex)
 				throw new Exception("element Vertex = " + nbVertex + " && nombre de Lignes de Vertex = " + (i-1) + "");
 
-			System.out.printf("contenu Vertex :\n\n%s________________________________________________________\n", sb.toString());
+//			System.out.printf("contenu Vertex :\n\n%s________________________________________________________\n", sb.toString());
 		
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -172,7 +172,7 @@ public class Reader {
 			
 			 if (nbFaceLines != nbFaces) throw new Exception("element Face = " + nbFaces + " && nombre de Lignes de Face = " + nbFaceLines + ""); 
 
-			 System.out.printf("contenu Faces :\n\n%s\nNombre d'itérations : %d\n________________________________________________________\n\n", sb.toString(), i-1);
+//			 System.out.printf("contenu Faces :\n\n%s\nNombre d'itérations : %d\n________________________________________________________\n\n", sb.toString(), i-1);
 		 } catch(Exception e){
 			 e.printStackTrace();
 		 
@@ -219,15 +219,15 @@ public class Reader {
 		return "Created by " + authorName;
 	}
 	
-	public static void main(String args[]) throws FileNotFoundException{
-		File test = new File("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test.ply");
-		Reader reader = new Reader(test);
-		reader.readPly();
-		System.out.println(reader.getAuthorName());
-		reader.setFile("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test3.ply");
-		reader.readPly();
-		System.out.println(reader.getAuthorName());
-		reader.setFile("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test3.ply");
-		reader.readPly();
-	}
+//	public static void main(String args[]) throws FileNotFoundException{
+//		File test = new File("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test.ply");
+//		Reader reader = new Reader(test);
+//		reader.readPly();
+//		System.out.println(reader.getAuthorName());
+//		reader.setFile("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test3.ply");
+//		reader.readPly();
+//		System.out.println(reader.getAuthorName());
+//		reader.setFile("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test3.ply");
+//		reader.readPly();
+//	}
 }

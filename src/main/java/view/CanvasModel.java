@@ -45,13 +45,15 @@ public class CanvasModel extends Canvas {
         double canvasHeight = gc.getCanvas().getHeight();
         gc.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    	//double ratio = getHeight()/getWidth();
+    	double ratio = (canvasWidth*canvasWidth)/(canvasWidth/canvasHeight);
     	Vector v = new Vector(canvasWidth/2, canvasHeight/2, 0);
-    	m = m.homothety(250);
+    	m = m.homothety(50);
         m = m.translation(v);
-        
+        //m = m.translation(new Vector(-(canvasWidth/2), 1, 0));
+        //m = m.rotation(Rotation.Z, 45);
+        System.out.println(ratio);
 
-        System.out.println(m);
+        //System.out.println(m);
     	for (int i = 0; i < m.getColumnCount(); i++) {
 			gc.fillOval(m.getValues()[0][i], m.getValues()[1][i], 5, 5);
 			//gc.fill();
