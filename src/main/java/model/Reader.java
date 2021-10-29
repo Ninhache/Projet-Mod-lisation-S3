@@ -53,11 +53,11 @@ public class Reader {
 			while((line=br.readLine())!=null && !line.equals(END_HEADER)) {
 				
 				if(line.contains("element face ")) {
-					nbFaces=Integer.parseInt(String.valueOf(line.charAt(line.length()-1)));
+					nbFaces= Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
 				
 				} else if (line.contains("element vertex ")) {
-					nbVertex=Integer.parseInt(String.valueOf(line.charAt(line.length()-1)));
-				
+					nbVertex = Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
+					
 				} else if (line.contains("comment created by "))
 					authorName = line.substring(line.lastIndexOf(" ")+1);
 
