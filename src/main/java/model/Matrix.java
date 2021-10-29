@@ -194,7 +194,7 @@ public class Matrix {
             throw new IllegalArgumentException("Le type de rotation n'est pas valable.");
         }
 
-        return this.multiplyMatrix(new Matrix(vals));
+        return new Matrix(vals).multiplyMatrix(this);
     }
 
     /**

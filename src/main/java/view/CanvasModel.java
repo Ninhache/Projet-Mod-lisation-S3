@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Matrix;
 import model.Model;
+import model.Rotation;
 import model.Vector;
 import model.Vertex;
 
@@ -40,12 +41,15 @@ public class CanvasModel extends Canvas {
     public void draw() {
         GraphicsContext gc = getGraphicsContext2D();
         Matrix m = this.model.getMatrix();
-        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        double canvasWidth = gc.getCanvas().getWidth();
+        double canvasHeight = gc.getCanvas().getHeight();
+        gc.clearRect(0, 0, canvasWidth, canvasHeight);
 
     	//double ratio = getHeight()/getWidth();
-    	Vector v = new Vector(getWidth()/2, getHeight()/2, 0);
+    	Vector v = new Vector(canvasWidth/2, canvasHeight/2, 0);
+    	m = m.homothety(250);
         m = m.translation(v);
-        //m = m.homothety(0.5);
+        
 
         System.out.println(m);
     	for (int i = 0; i < m.getColumnCount(); i++) {
