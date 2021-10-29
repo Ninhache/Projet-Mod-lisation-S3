@@ -53,9 +53,6 @@ public class Model {
 
     //TODO Change this when the Matrix list will be sorted
     public double getMinY() {
-    	
-    	
-    	
     	return 0.0;
     }
     
