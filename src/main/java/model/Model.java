@@ -27,6 +27,7 @@ public class Model {
      * @param points list of points of the model
      * @param faces list of faces of the model
      */
+    
     public Model(ArrayList<Vertex> points, ArrayList<Face> faces) {
         this.points = points;
         this.faces = faces;
@@ -40,7 +41,6 @@ public class Model {
         	matrix.getValues()[2][index] = points.get(index).getZ();
         	matrix.getValues()[3][index] = 1;
         }
-
     }
 
     public Model(){
@@ -51,4 +51,14 @@ public class Model {
 		return matrix;
 	}
 
+    //TODO Change this when the Matrix list will be sorted
+    public double getMinY() {
+    	
+    	
+    	
+    	return 0.0;
+    }
+    
+    
+    
 }

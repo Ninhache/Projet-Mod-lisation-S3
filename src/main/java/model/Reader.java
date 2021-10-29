@@ -22,9 +22,9 @@ public class Reader {
 	/**
 	 * <b>Constructor of a Reader</b>
 	 *
-	 * Thanks to the reader you're able to read a file.ply and get a model
+	 * Thanks to the reader you're able to read a .ply file and get a model out of it
 	 *
-	 * @param file file to read
+	 * @param File type argument is the file to read
 	 */
 	public Reader(File file){
 		this.file = file;
@@ -33,23 +33,73 @@ public class Reader {
 		faces = new ArrayList<Face>();
 	}
 
+	/**
+	 * <b>Constructor of a Reader</b>
+	 *
+	 *
+	 *
+	 * @param name of the file to read
+	 */
 	public Reader(String fileName) {
 		this(new File("src/main/resources/"+fileName+".ply"));
 	}
-
+	
+	/**
+	 *<b>Constructor of a Reader</b>
+	 * 
+	 * Empty constructor that still initializes the points and faces Lists to ArrayLists
+	 * Adding a file to the Reader is still possible
+	 * 
+	 */
 	public Reader() {
 		points = new ArrayList<Vertex>();
 		faces = new ArrayList<Face>();
 	}
     
-    
+	
+	/**
+	 * Reads a .ply file
+	 * <p>
+	 * The function creates a BufferedReader to be able to parse and read the file.
+	 * 
+	 * Separated into three functions that read respectively : 
+	 * 		- the header
+	 * 		- the lines describing vertices
+	 * 		- the lines describing faces
+	 * 	of the file
+	 * 
+	 * @return a Model constructed with the points and faces list of the Reader
+	 * @throws FileNotFoundException
+	 */
+	public Model readPly() throws FileNotFoundException {
+		
+		Reader reader = new Reader(this.file);
+		FileReader fr = new FileReader(reader.getFile());
+		BufferedReader br = new BufferedReader(fr);
+		
+		readHeader(br);
+		readVertexLines(br);
+		readFaceLines(br);
+		
+		return new Model(points, faces);
+	}
+	
+    /**
+     * Reading of the header of a .ply file
+     * <p>
+     * The function reads only the header of a .ply file and puts the important informations into
+     * the points and faces lists
+     * 
+     * 
+     * @param br BufferedReader to be able to parse and read the file
+     */
 	public void readHeader(BufferedReader br) {
 		
 		try {
 			
 			StringBuilder sb = new StringBuilder();
 			String line;
-			
+
 			while((line=br.readLine())!=null && !line.equals(END_HEADER)) {
 				
 				if(line.contains("element face ")) {
@@ -179,18 +229,7 @@ public class Reader {
 		 }
 	}
 	
-	public Model readPly() throws FileNotFoundException {
-		
-		Reader reader = new Reader(this.file);
-		FileReader fr = new FileReader(reader.getFile());
-		BufferedReader br = new BufferedReader(fr);
-		
-		readHeader(br);
-		readVertexLines(br);
-		readFaceLines(br);
-		
-		return new Model(points, faces);
-	}
+
 
 	public File getFile() {
 		return file;

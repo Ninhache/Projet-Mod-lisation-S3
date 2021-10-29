@@ -1,14 +1,10 @@
 package view;
 
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import model.Matrix;
 import model.Model;
-import model.Rotation;
 import model.Vector;
-import model.Vertex;
 
 /**
  * The CanvasModel handle a model
@@ -58,8 +54,5 @@ public class CanvasModel extends Canvas {
 			gc.fillOval(m.getValues()[0][i], m.getValues()[1][i], 5, 5);
 			//gc.fill();
 		}
-    	
-    	
     }
-
 }

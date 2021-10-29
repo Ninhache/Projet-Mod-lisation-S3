@@ -33,11 +33,11 @@ public class Matrix {
    
 
     /**
-     * Mulitply matrix by another one
+     * Multiplies matrix by another one
      * <p>
-     * The fonction is executed only if both matrix can be multiplied
+     * The function is executed only if both matrix can be multiplied
      *
-     * <b><u>For exemple :</u></b>
+     * <b><u>For example :</u></b>
      * If you try multiply these 2 matrix, you will get a new one :
      * { 7 , 3 , 2 }         { 1 , 1 , 3 }              { 19 , 26 , 35 }
      * { 5 , 9 , 2 }    x    { 2 , 5 , 2 }      =       { 29 , 54 , 41 }
@@ -77,11 +77,11 @@ public class Matrix {
     }
 
     /**
-     * Sum matrix by another one
+     * Sums matrix by another one
      * <p>
-     * The fonction is executed only if both matrix can be summed
+     * The function is executed only if both matrix can be summed
      *
-     * <b><u>For exemple :</u></b>
+     * <b><u>For example :</u></b>
      * If you try to sums these 2 matrix, you will get a new one :
      * { 7 , 3 , 2 }         { 1 , 1 , 3 }              {  8 ,  4 ,  5 }
      * { 5 , 9 , 2 }    +    { 2 , 5 , 2 }      =       {  7 , 14 ,  4 }
@@ -110,11 +110,11 @@ public class Matrix {
     }
 
     /**
-     * Sub matrix by another one
+     * Subtracts matrix by another one
      * <p>
-     * The fonction is executed only if both matrix can be subbed
+     * The function is executed only if both matrix can be subtracted
      *
-     * <b><u>For exemple :</u></b>
+     * <b><u>For example :</u></b>
      * If you try to subs these 2 matrix, you will get a new one :
      * { 7 , 3 , 2 }         { 1 , 1 , 3 }              {  6 ,  2 , -1 }
      * { 5 , 9 , 2 }    -    { 2 , 5 , 2 }      =       {  3 ,  4 ,  0 }
@@ -161,6 +161,7 @@ public class Matrix {
         };
         return new Matrix(vals).multiplyMatrix(this);
     }
+    
     // TODO : Check if this is correct later
     public Matrix translation(Vector v) {
         return this.translation(v.getX(), v.getY(), v.getZ());
@@ -198,9 +199,9 @@ public class Matrix {
     }
 
     /**
-     * Verifications of multiplications
+     * Verification of multiplications
      * <p>
-     * The function check if two matrix can be multiplied
+     * The function checks if two matrices can be multiplied
      *
      * @param other the other matrix
      * @return the result of the verification
@@ -210,9 +211,9 @@ public class Matrix {
     }
 
     /**
-     * Verifications of sum
+     * Verification of sum
      * <p>
-     * The function check if two matrix can be summed
+     * The function check if two matrices can be summed
      *
      * @param other the other matrix
      * @return the result of the verification
@@ -222,9 +223,9 @@ public class Matrix {
     }
 
     /**
-     * Verifications of sub
+     * Verification of subtractions
      * <p>
-     * The function check if two matrix can be subbed
+     * The function checks if two matrices can be subtracted
      *
      * @param other the other matrix
      * @return the result of the verification
@@ -252,7 +253,7 @@ public class Matrix {
     /**
      * Get the maximum length of the whole number part of a matrix
      * <p>
-     * <b><u>For exemple :</u></b>
+     * <b><u>For example :</u></b>
      *      - 2,0578  =>  1
      *      - 25,265  =>  2
      *      - 105,1   =>  3
