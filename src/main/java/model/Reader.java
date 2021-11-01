@@ -22,8 +22,10 @@ public class Reader {
 
 	/**
 	 * <b>Constructor of a Reader</b>
-	 *
+	 * 
+	 * <p>
 	 * Thanks to the reader you're able to read a .ply file and get a model out of it
+	 * </p>
 	 *
 	 * @param file the file to read
 	 */
@@ -36,6 +38,10 @@ public class Reader {
 
 	/**
 	 * <b>Constructor of a Reader</b>
+	 * 
+	 * <p>
+	 * Constructor using only the name of the file to read: that file must be in the resources folder otherwise it will be null
+	 * </p>
 	 *
 	 * @param fileName the name of the file to read
 	 */
@@ -44,10 +50,13 @@ public class Reader {
 	}
 	
 	/**
+	 * <b>Constructor of a Reader</b>
 	 * 
+	 * <p>
+	 * Path-based constructor : the path must lead to a correct ply file in order to work
+	 * </p>
 	 * 
-	 * 
-	 * @param path
+	 * @param path the path towards the file to read
 	 */
 	public Reader(Path path) {
 			this(path.toFile());
@@ -60,6 +69,7 @@ public class Reader {
 	 * Empty constructor that still initializes the points and faces Lists to ArrayLists<br>
 	 * Adding a file to the Reader is still possible
 	 * </p>
+	 * 
 	 */
 	public Reader() {
 		points = new ArrayList<Vertex>();
