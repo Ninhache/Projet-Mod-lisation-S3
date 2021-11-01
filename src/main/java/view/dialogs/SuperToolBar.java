@@ -125,7 +125,6 @@ public class SuperToolBar extends MenuBar {
 
         
         // EVENT HANDLERS
-        
         open.setOnAction(this::onOpenClicked);
         quit.setOnAction(this::onQuitClicked);
         saveAsImg.setOnAction(this::onSaveImg);
@@ -163,6 +162,13 @@ public class SuperToolBar extends MenuBar {
         secretTheme2 = new ThemeRadioButton("Secret2", group);
         secretTheme3 = new ThemeRadioButton("Secret3", group);
 
+    }
+
+    public void onCloseRequest(ActionEvent e) {
+        TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+        //cp.getSelectionModel().selectNext(); // TODO ADD CTRL FLECHE POUR SWITCH ENTRE CHAQUE CANVAS
+
+        cp.getTabs().remove((Tab) (cp.getSelectionModel().getSelectedItem()));
     }
 
     public void onOpenClicked(ActionEvent e) {

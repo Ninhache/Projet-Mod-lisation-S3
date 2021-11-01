@@ -1,0 +1,2 @@
+balance.ply#C:\Users\Neo\IdeaProjects\projetmodeg5\src\main\resources\balance.ply
+cube.ply#C:\Users\Neo\IdeaProjects\projetmodeg5\src\main\resources\cube.ply

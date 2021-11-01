@@ -37,18 +37,26 @@ public class ControlStage extends ExtendedStage {
         closeButton.requestFocus();
 
         Label kcOpen = new Label("Ctrl+O");
+        Label kcCloseRequest = new Label("Ctrl+W");
 
         Label labelOpen = new Label("Ouvrir");
+        Label labelCloseRequest = new Label("Fermer un onglet");
 
         Region spacerOpen = new Region();
+        Region spacerCloseRequest = new Region();
 
         HBox hboxOpen = new HBox();
         hboxOpen.getChildren().addAll(kcOpen, spacerOpen, labelOpen);
         hboxOpen.setAlignment(Pos.CENTER);
 
-        HBox.setHgrow(spacerOpen, Priority.ALWAYS); // EXTRACT METHODE !!
+        HBox hboxCloseRequest = new HBox();
+        hboxOpen.getChildren().addAll(kcCloseRequest, spacerCloseRequest, labelCloseRequest);
+        hboxOpen.setAlignment(Pos.CENTER);
 
-        root.getChildren().addAll(hboxOpen, new Separator(Orientation.HORIZONTAL), closeButton);
+        HBox.setHgrow(spacerOpen, Priority.ALWAYS); // EXTRACT METHODE !!
+        HBox.setHgrow(spacerCloseRequest, Priority.ALWAYS);
+
+        root.getChildren().addAll(hboxOpen, hboxCloseRequest, new Separator(Orientation.HORIZONTAL), closeButton);
 
         root.setAlignment(Pos.CENTER);
 
@@ -60,3 +68,4 @@ public class ControlStage extends ExtendedStage {
 
 
 }
+

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import view.CanvasModel;
 import view.CustomTabPaneSkin;
@@ -59,11 +60,17 @@ public class MainStage extends ExtendedStage {
     private void setupRunnable() {
 
         // Ctrl + O
-        Runnable kcImport = ()-> {
+        Runnable kcImport = () -> {
             toolBar.onOpenClicked(new ActionEvent());
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCodeCombination.CONTROL_DOWN), kcImport);
 
+        // Ctrl + W
+        Runnable kcCloseRequest = () -> {
+            System.out.println("CTRL W");
+            toolBar.onCloseRequest(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
 
     }
