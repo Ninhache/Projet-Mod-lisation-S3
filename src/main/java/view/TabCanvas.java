@@ -34,4 +34,8 @@ public class TabCanvas extends Tab {
     public TabCanvas(Model model) {
         this(model, model == null ? "" : model.getNameOfFile());
     }
+
+    public void updateDraw() {
+        this.canvas.draw();
+    }
 }
