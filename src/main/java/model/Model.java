@@ -47,6 +47,59 @@ public class Model {
         this(new ArrayList<Vertex>(), new ArrayList<Face>());
     }
     
+    public double getMinY() {
+
+       if(points == null)
+               throw new NullPointerException();
+
+       double res = points.get(0).getX();
+       for (Vertex v : points) {
+                       if(v.getX()<res)
+                               res = v.getX();
+               }
+       return res;
+    }
+
+   public double getMaxY() {
+
+       if(points == null)
+             throw new NullPointerException();
+
+       double res = points.get(0).getY();
+       for (Vertex v : points) {
+                       if(v.getY()>res)
+                               res = v.getY();
+               }
+       return res;
+    }
+
+   public double getMinX() {
+
+       if(points == null)
+               throw new NullPointerException();
+
+       double res = points.get(0).getX();
+       for (Vertex v : points) {
+                       if(v.getX()<res)
+                               res = v.getX();
+               }
+       return res;
+    }
+	
+   public double getMaxX() {
+
+       if(points == null)
+               throw new NullPointerException();
+
+       double res = points.get(0).getX();
+       for (Vertex v : points) {
+                       if(v.getX()>res)
+                               res = v.getX();
+               }
+       return res;
+    }
+
+	
     public Matrix getMatrix() {
 		return matrix;
 	}
