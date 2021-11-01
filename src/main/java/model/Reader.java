@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Reader {
 
-	private String fileName,authorName;
+	private String fileName, authorName;
 	private File file;
 	private final String END_HEADER = "end_header";
 	private int nbVertex,nbFaces,vertexLength;
@@ -36,7 +36,7 @@ public class Reader {
 	/**
 	 * <b>Constructor of a Reader</b>
 	 *
-	 * @param name of the file to read
+	 * @param fileName of the file to read
 	 */
 	public Reader(String fileName) {
 		this(new File("src/main/resources/"+fileName+".ply"));
@@ -82,8 +82,10 @@ public class Reader {
 		readHeader(br);
 		readVertexLines(br);
 		readFaceLines(br);
-		
-		return new Model(points, faces);
+
+		Model model = new Model(points, faces);
+		model.setNameOfFile(this.fileName);
+		return model;
 	}
 	
     /**
@@ -135,11 +137,11 @@ public class Reader {
 	/**
 	 * Checks if the number of lines describing a Face is the same as the number of Faces declared in the header of the .ply file
 	 * 
-	 * @param nbVertexLines The number of lines describing a Face in the .ply file
+	 * @param nbFacesLines The number of lines describing a Face in the .ply file
 	 * @return True if the two are equals
 	 */
 	public boolean verifyNbFaces(int nbFacesLines) {
-		return nbFacesLines==this.nbFaces;
+		return nbFacesLines == this.nbFaces;
 	}
 	
 	/**
@@ -267,17 +269,19 @@ public class Reader {
 	 * </p>
 	 * 
 	 * 
-	 * @param newFile New file to read
+	 * @param file New file to read
 	 */
-	public void setFile(File newFile) {
-		this.nbFaces = -1;
-		this.nbVertex = -1;
-		this.vertexLength = -1;
-		this.authorName = "";
-		this.faces = new ArrayList<>();
-		this.points = new ArrayList<>();
-		this.fileName = newFile.getName();
-		this.file = newFile;
+	public void setFile(File file) {
+		if( file != null) {
+			this.nbFaces = -1;
+			this.nbVertex = -1;
+			this.vertexLength = -1;
+			this.authorName = "";
+			this.faces = new ArrayList<>();
+			this.points = new ArrayList<>();
+			this.fileName = file.getName();
+			this.file = file;
+		}
 	}
 	
 	/**

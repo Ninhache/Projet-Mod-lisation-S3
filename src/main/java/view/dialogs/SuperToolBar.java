@@ -1,9 +1,7 @@
 package view.dialogs;
 
 import javafx.application.Platform;
-import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -17,15 +15,22 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
+
 import javafx.embed.swing.SwingFXUtils;
 import view.ActionLink;
 import view.CanvasModel;
 import view.MessageBox;
 import view.TabCanvas;
+import view.stages.ControlStage;
 
 import javax.imageio.ImageIO;
 
@@ -51,14 +56,17 @@ public class SuperToolBar extends MenuBar {
 
         // Aide
         private Menu theme;
+        private MenuItem controlHelp;
         private CheckBox cbWhite, cbBlack;
         private ThemeRadioButton whiteTheme, blackTheme, orangeTheme, redTheme, pinkTheme, blueTheme, purpleTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3;
         // TODO REMOVE SECRETTHEME !!!!????
 
         /////
 
+    private ControlStage controlWindow;
+
     private FileChooser fileChooser;
-    private Reader r = new Reader();
+    private Reader reader = new Reader();
 
     public SuperToolBar() {
         super();
@@ -79,7 +87,7 @@ public class SuperToolBar extends MenuBar {
         // Trouver une solution ????
         // - Lire fichier ?
         openRecents = new Menu("Ouvrir récent...");
-        openRecents.getItems().addAll(getRecentFiles("tmp/openRecentFile.txt"));
+        openRecents.getItems().addAll(getRecentFiles());
         exportAs = new Menu("Exporter...");
         exportAs.getItems().addAll(saveAsImg, saveAsPly);
 
@@ -89,20 +97,9 @@ public class SuperToolBar extends MenuBar {
 
         // Help
         theme = new Menu("Thème");
-
-        ToggleGroup group = new ToggleGroup();
-        whiteTheme = new ThemeRadioButton("Blanc", group);
-        blackTheme = new ThemeRadioButton("Noir", group);
-        orangeTheme = new ThemeRadioButton("Orange", group);
-        redTheme = new ThemeRadioButton("Rouge", group);
-        pinkTheme = new ThemeRadioButton("Rose", group);
-        blueTheme = new ThemeRadioButton("Bleu", group);
-        purpleTheme = new ThemeRadioButton("Violet", group);
-        greenTheme = new ThemeRadioButton("Vert", group);
-        yellowTheme = new ThemeRadioButton("Jaune", group);
-        secretTheme = new ThemeRadioButton("Secret", group);
-        secretTheme2 = new ThemeRadioButton("Secret2", group);
-        secretTheme3 = new ThemeRadioButton("Secret3", group);
+            ToggleGroup group = new ToggleGroup();
+            setThemes(group);
+        controlHelp = new MenuItem("Contrôles");
 
         whiteTheme.setSelected(true);
 
@@ -111,7 +108,7 @@ public class SuperToolBar extends MenuBar {
         getMenus().addAll(fichier, outils, aide);
         fichier.getItems().addAll(open, openRecents, new SeparatorMenuItem(), exportAs, print3d,new SeparatorMenuItem(), quit);
         outils.getItems().addAll(afficherFaces, afficherLignes, afficherLumieres);
-        aide.getItems().addAll(theme);
+        aide.getItems().addAll(theme, controlHelp);
         theme.getItems().addAll(whiteTheme, blackTheme, new SeparatorMenuItem(), orangeTheme, redTheme, pinkTheme, purpleTheme, blueTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3);
 
 
@@ -134,6 +131,8 @@ public class SuperToolBar extends MenuBar {
         quit.setOnAction(this::onQuitClicked);
         saveAsImg.setOnAction(this::onSaveImg);
         exportAs.setOnAction(this::onExportAsPly);
+        controlHelp.setOnAction(this::onControlClick);
+
 
         theme.getItems().forEach(button -> {
             button.setOnAction(this::onRadioClick);
@@ -141,7 +140,24 @@ public class SuperToolBar extends MenuBar {
 
     }
 
-    private void onOpenClicked(ActionEvent e) {
+    private void setThemes(ToggleGroup group) {
+
+        whiteTheme = new ThemeRadioButton("Blanc", group);
+        blackTheme = new ThemeRadioButton("Noir", group);
+        orangeTheme = new ThemeRadioButton("Orange", group);
+        redTheme = new ThemeRadioButton("Rouge", group);
+        pinkTheme = new ThemeRadioButton("Rose", group);
+        blueTheme = new ThemeRadioButton("Bleu", group);
+        purpleTheme = new ThemeRadioButton("Violet", group);
+        greenTheme = new ThemeRadioButton("Vert", group);
+        yellowTheme = new ThemeRadioButton("Jaune", group);
+        secretTheme = new ThemeRadioButton("Secret", group);
+        secretTheme2 = new ThemeRadioButton("Secret2", group);
+        secretTheme3 = new ThemeRadioButton("Secret3", group);
+
+    }
+
+    public void onOpenClicked(ActionEvent e) {
         File file = fileChooser.showOpenDialog(this.getParent().getScene().getWindow());
         if(file == null) {
         	
@@ -149,26 +165,81 @@ public class SuperToolBar extends MenuBar {
         	return;
         }
         TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-        r.setFile(file);
+        reader.setFile(file);
         try {
-			cp.getTabs().add(new TabCanvas(r.readPly()));
+			cp.getTabs().add(new TabCanvas(reader.readPly()));
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         CanvasModel t = (CanvasModel) cp.getTabs().get(cp.getTabs().size()-1).getContent();
         t.draw();
+
+        addToOpenRecent(file);
         
     }
 
+    private void addToOpenRecent(File fileToAdd) {
+        if(fileToAdd == null) return;
 
-    private void openFiles(String path) {
+        Path path = Paths.get("src/main/resources/tmp/openRecentFile.txt");
 
+        try {
+            if(!fileAlreadyInRecent(fileToAdd)) {
+                Files.write(path, (fileToAdd.getName() + "#" + fileToAdd.getAbsolutePath() + "\n").getBytes(StandardCharsets.UTF_8),
+                        StandardOpenOption.CREATE,
+                        StandardOpenOption.APPEND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            openRecents.getItems().clear();
+            openRecents.getItems().addAll(getRecentFiles());
+        }
+
+    }
+
+    private boolean fileAlreadyInRecent(File fileToAdd) {
+        File file = new File("src/main/resources/tmp/openRecentFile.txt");
+
+        Scanner sc;
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            sc = new Scanner(file);
+
+            int nbLine = 0;
+            while (sc.hasNext()) {
+                if (sc.hasNext()) {
+                    sb.append(sc.nextLine() + "-");
+                } else {
+                    sb.append(sc.nextLine());
+                }
+                nbLine++;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(">> " + fileToAdd.getName());
+        Arrays.stream(sb.toString().split("-")).forEach(System.out::println);
+
+        for(String s : sb.toString().split("-")) {
+            if(s.contains(fileToAdd.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void openFiles(List<String> list) {
+        System.out.println(list.get(1));
         MessageBox.showWarning("Cette fonctionnalité n'est pas terminée !", "Oui.. il respecte à recupérer un vrai modele et cie..");
 
         TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
-        TabCanvas tb = new TabCanvas(null, path);
+        // add path
+        TabCanvas tb = new TabCanvas(null, list.get(0));
 
         cp.getTabs().add(tb);
 
@@ -184,6 +255,17 @@ public class SuperToolBar extends MenuBar {
 
         getParent().getScene().getStylesheets().clear();
         getParent().getScene().getStylesheets().add(getClass().getResource("/css/theme/"+newCss+".css").toExternalForm());
+    }
+
+    private void onControlClick(ActionEvent e) {
+        if (controlWindow == null || !controlWindow.isShowing()) {
+            controlWindow = new ControlStage();
+            controlWindow.initOwner(this.getParent().getScene().getWindow());
+            controlWindow.show();
+        } else {
+            controlWindow.close();
+            controlWindow = null;
+        }
     }
 
     private void onExportAsPly(ActionEvent e) {
@@ -220,7 +302,7 @@ public class SuperToolBar extends MenuBar {
         }
     }
 
-    private MenuItem[] getRecentFiles(String path) {
+    private MenuItem[] getRecentFiles() {
         File file = new File("src/main/resources/tmp/openRecentFile.txt");
 
         Scanner sc;
@@ -246,11 +328,12 @@ public class SuperToolBar extends MenuBar {
                 itemList = new MenuItem[Math.min(nbLine, 10)];
                 int x = 0;
                 for(String s : sb.toString().split("-")) {
-                    MenuItem tmp = new MenuItem(s);
+                    List<String> list = Arrays.asList(s.split("#"));
+                    MenuItem tmp = new MenuItem(list.get(0));
                     itemList[x] = tmp;
                     // FIXME Créer la fonction {openFiles}
                     tmp.setOnAction(event -> {
-                        openFiles(s);
+                        openFiles(list);
                     });
                     x++;
                 }

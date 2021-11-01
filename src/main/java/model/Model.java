@@ -51,57 +51,23 @@ public class Model {
 		return matrix;
 	}
 
-    //TODO Change these functions when the Matrix list will be sorted
-    public double getMinY() {
-    	
-    	if(points == null)
-    		throw new NullPointerException();
-    	
-    	double res = points.get(0).getY();
-    	for (Vertex v : points) {
-			if(v.getY()<res)
-				res = v.getY();
-		}
-    	return res;
+    public String getNameOfFile() {
+        return nameOfFile;
     }
-    
-    public double getMinX() {
-    	
-    	if(points == null)
-    		throw new NullPointerException();
-    	
-    	double res = points.get(0).getX();
-    	for (Vertex v : points) {
-			if(v.getX()<res)
-				res = v.getX();
-		}
-    	return res;
+
+    public void setMatrix(Matrix matrix) {
+        this.matrix = matrix;
     }
-    
-    public double getMaxY() {
-    	
-    	if(points == null)
-    		throw new NullPointerException();
-    	
-    	double res = points.get(0).getY();
-    	for (Vertex v : points) {
-			if(v.getY()>res)
-				res = v.getY();
-		}
-    	return res;
+
+    public ArrayList<Vertex> getPoints() {
+        return points;
     }
-    
-    public double getMaxX() {
-    	
-    	if(points == null)
-    		throw new NullPointerException();
-    	
-    	double res = points.get(0).getX();
-    	for (Vertex v : points) {
-			if(v.getX()>res)
-				res = v.getX();
-		}
-    	return res;
+
+    public ArrayList<Face> getFaces() {
+        return faces;
     }
-    
+
+    public void setNameOfFile(String nameOfFile) {
+        this.nameOfFile = nameOfFile;
+    }
 }

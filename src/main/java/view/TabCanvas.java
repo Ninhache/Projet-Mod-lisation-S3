@@ -21,6 +21,7 @@ public class TabCanvas extends Tab {
         super(title);
 
         this.canvas = new CanvasModel(model, 500,500);
+
         canvas.setOnMouseClicked((e)->{
         	System.out.println("MOUSE | x :" + e.getX() + " y: " + e.getY() + " z:" + e.getZ());
         });
@@ -31,6 +32,6 @@ public class TabCanvas extends Tab {
     }
 
     public TabCanvas(Model model) {
-        this(model, "Fichier.ply");
+        this(model, model == null ? "" : model.getNameOfFile());
     }
 }
