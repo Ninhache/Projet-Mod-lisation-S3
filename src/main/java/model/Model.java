@@ -55,7 +55,24 @@ public class Model {
     public double getMinY() {
     	return 0.0;
     }
-    
-    
-    
+
+    public String getNameOfFile() {
+        return nameOfFile;
+    }
+
+    public void setMatrix(Matrix matrix) {
+        this.matrix = matrix;
+    }
+
+    public ArrayList<Vertex> getPoints() {
+        return points;
+    }
+
+    public ArrayList<Face> getFaces() {
+        return faces;
+    }
+
+    public void setNameOfFile(String nameOfFile) {
+        this.nameOfFile = nameOfFile;
+    }
 }
