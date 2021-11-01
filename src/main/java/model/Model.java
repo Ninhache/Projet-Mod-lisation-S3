@@ -51,11 +51,57 @@ public class Model {
 		return matrix;
 	}
 
-    //TODO Change this when the Matrix list will be sorted
+    //TODO Change these functions when the Matrix list will be sorted
     public double getMinY() {
-    	return 0.0;
+    	
+    	if(points == null)
+    		throw new NullPointerException();
+    	
+    	double res = points.get(0).getY();
+    	for (Vertex v : points) {
+			if(v.getY()<res)
+				res = v.getY();
+		}
+    	return res;
     }
     
+    public double getMinX() {
+    	
+    	if(points == null)
+    		throw new NullPointerException();
+    	
+    	double res = points.get(0).getX();
+    	for (Vertex v : points) {
+			if(v.getX()<res)
+				res = v.getX();
+		}
+    	return res;
+    }
     
+    public double getMaxY() {
+    	
+    	if(points == null)
+    		throw new NullPointerException();
+    	
+    	double res = points.get(0).getY();
+    	for (Vertex v : points) {
+			if(v.getY()>res)
+				res = v.getY();
+		}
+    	return res;
+    }
+    
+    public double getMaxX() {
+    	
+    	if(points == null)
+    		throw new NullPointerException();
+    	
+    	double res = points.get(0).getX();
+    	for (Vertex v : points) {
+			if(v.getX()>res)
+				res = v.getX();
+		}
+    	return res;
+    }
     
 }
