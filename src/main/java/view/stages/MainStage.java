@@ -1,6 +1,9 @@
 package view.stages;
 
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.BorderPane;
 import view.CanvasModel;
 import view.CustomTabPaneSkin;
@@ -10,11 +13,13 @@ import view.dialogs.TabCanvasPane;
 
 public class MainStage extends ExtendedStage {
 
+    private SuperToolBar toolBar;
+
     public MainStage() {
         super();
 
         BorderPane root = new BorderPane();
-        SuperToolBar toolBar = new SuperToolBar();
+        toolBar = new SuperToolBar();
 
         TabCanvasPane tabPane = new TabCanvasPane();
 
@@ -33,8 +38,6 @@ public class MainStage extends ExtendedStage {
 
         scene.getStylesheets().add(getClass().getResource("/css/theme/ThemeBlanc.css").toExternalForm());
 
-
-
         widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPane.getTabs().forEach(tabs -> {
                 CanvasModel c = (CanvasModel) tabs.getContent();
@@ -48,6 +51,20 @@ public class MainStage extends ExtendedStage {
                 c.setHeight(newValue.doubleValue());
             });
         });
+
+        setupRunnable();
+
+    }
+
+    private void setupRunnable() {
+
+        // Ctrl + O
+        Runnable kcImport = ()-> {
+            toolBar.onOpenClicked(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCodeCombination.CONTROL_DOWN), kcImport);
+
+
 
     }
 }
