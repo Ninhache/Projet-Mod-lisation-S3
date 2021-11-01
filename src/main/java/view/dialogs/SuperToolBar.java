@@ -9,19 +9,20 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import model.Model;
 import model.PlyReader;
 
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,7 +48,7 @@ public class SuperToolBar extends MenuBar {
 
     // Sub Menus
         // Fichier
-        private MenuItem open, saveAsImg, print3d, quit, saveAsPly;
+        private MenuItem open, saveAsImg, print3d, quit, saveAsPly, clearRecent;
         private Menu openRecents, exportAs;
 
         // Outils
@@ -83,11 +84,14 @@ public class SuperToolBar extends MenuBar {
         print3d = new MenuItem("Imprimer en 3D");
         saveAsPly = new MenuItem("en .ply");
         quit = new MenuItem("Quitter");
+        clearRecent = new MenuItem("Nettoyer");
 
         // Trouver une solution ????
         // - Lire fichier ?
         openRecents = new Menu("Ouvrir récent...");
         openRecents.getItems().addAll(getRecentFiles());
+        manageRecents();
+
         exportAs = new Menu("Exporter...");
         exportAs.getItems().addAll(saveAsImg, saveAsPly);
 
@@ -103,16 +107,11 @@ public class SuperToolBar extends MenuBar {
 
         whiteTheme.setSelected(true);
 
-        System.out.println(group.getToggles());
-
         getMenus().addAll(fichier, outils, aide);
         fichier.getItems().addAll(open, openRecents, new SeparatorMenuItem(), exportAs, print3d,new SeparatorMenuItem(), quit);
         outils.getItems().addAll(afficherFaces, afficherLignes, afficherLumieres);
         aide.getItems().addAll(theme, controlHelp);
         theme.getItems().addAll(whiteTheme, blackTheme, new SeparatorMenuItem(), orangeTheme, redTheme, pinkTheme, purpleTheme, blueTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3);
-
-
-
 
         // FILE CHOOSER
 
@@ -132,11 +131,20 @@ public class SuperToolBar extends MenuBar {
         saveAsImg.setOnAction(this::onSaveImg);
         exportAs.setOnAction(this::onExportAsPly);
         controlHelp.setOnAction(this::onControlClick);
+        clearRecent.setOnAction(this::onClearRecentClick);
 
 
         theme.getItems().forEach(button -> {
             button.setOnAction(this::onRadioClick);
         });
+
+    }
+
+    private void manageRecents() {
+
+        if(openRecents.getItems().get(0).getText() != "Pas de fichiers récents") {
+            openRecents.getItems().addAll(new SeparatorMenuItem(), clearRecent);
+        }
 
     }
 
@@ -195,6 +203,7 @@ public class SuperToolBar extends MenuBar {
         } finally {
             openRecents.getItems().clear();
             openRecents.getItems().addAll(getRecentFiles());
+            manageRecents();
         }
 
     }
@@ -218,10 +227,16 @@ public class SuperToolBar extends MenuBar {
                 nbLine++;
             }
         } catch (FileNotFoundException e) {
+
+            try {
+                file.createNewFile();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(">> " + fileToAdd.getName());
-        Arrays.stream(sb.toString().split("-")).forEach(System.out::println);
 
         for(String s : sb.toString().split("-")) {
             if(s.contains(fileToAdd.getName())) {
@@ -233,19 +248,27 @@ public class SuperToolBar extends MenuBar {
     }
 
     private void openFiles(List<String> list) {
-        System.out.println(list.get(1));
-        MessageBox.showWarning("Cette fonctionnalité n'est pas terminée !", "Oui.. il respecte à recupérer un vrai modele et cie..");
 
         TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
         // add path
-        TabCanvas tb = new TabCanvas(null, list.get(0));
+        Path p = Paths.get(list.get(1));
+        Model m = null;
+
+        try {
+            m = new PlyReader(p).readPly();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        TabCanvas tb = new TabCanvas( m , list.get(0));
 
         cp.getTabs().add(tb);
 
         SingleSelectionModel<Tab> selectionModel = cp.getSelectionModel();
 
         selectionModel.select(tb);
+        tb.updateDraw();
 
     }
 
@@ -266,6 +289,30 @@ public class SuperToolBar extends MenuBar {
             controlWindow.close();
             controlWindow = null;
         }
+    }
+
+    private void onClearRecentClick(ActionEvent e) {
+        File file = new File("src/main/resources/tmp/openRecentFile.txt");
+
+        try {
+            PrintWriter writer = new PrintWriter(file.getAbsolutePath());
+
+            writer.print("");
+            writer.close();
+
+            openRecents.getItems().clear();
+            openRecents.getItems().addAll(getRecentFiles());
+            manageRecents();
+
+        } catch (FileNotFoundException ex) {
+            try {
+                file.createNewFile();
+            } catch (IOException exc) {
+                exc.printStackTrace();
+            }
+            ex.printStackTrace();
+        }
+
     }
 
     private void onExportAsPly(ActionEvent e) {
@@ -323,7 +370,9 @@ public class SuperToolBar extends MenuBar {
                 nbLine++;
             }
             if(nbLine == 0) {
-                itemList = new MenuItem[] {new MenuItem("Pas de fichiers récents")};
+                itemList = new MenuItem[] {
+                        new MenuItem("Pas de fichiers récents")
+                };
             } else {
                 itemList = new MenuItem[Math.min(nbLine, 10)];
                 int x = 0;
@@ -331,17 +380,21 @@ public class SuperToolBar extends MenuBar {
                     List<String> list = Arrays.asList(s.split("#"));
                     MenuItem tmp = new MenuItem(list.get(0));
                     itemList[x] = tmp;
-                    // FIXME Créer la fonction {openFiles}
+
                     tmp.setOnAction(event -> {
                         openFiles(list);
                     });
+
                     x++;
                 }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            itemList = new MenuItem[] {new MenuItem("Pas de fichiers récents")};
+            itemList = new MenuItem[] {
+                    new MenuItem("Pas de fichiers récents")
+            };
         }
+
         return itemList;
     }
 
