@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Define the Model, the model will be displayed in a canvas
  *
- * @author Néo ALMEIDA - Paul VANHEE
+ * @author Néo ALMEIDA - Paul VANHEE - Simon LAGNEAU
  * @version %I%, %G%
  * @see view.CanvasModel
  */
@@ -45,6 +45,10 @@ public class Model {
         this(new ArrayList<Vertex>(), new ArrayList<Face>());
     }
     
+    /**
+     * 
+     * @return the smallest Y coordinate value in the model
+     */
     public double getMinY() {
 
        if(points == null)
@@ -58,6 +62,10 @@ public class Model {
        return res;
     }
 
+    /**
+     * 
+     * @return the biggest Y coordinate value in the model
+     */
    public double getMaxY() {
 
        if(points == null)
@@ -71,6 +79,10 @@ public class Model {
        return res;
     }
 
+   /**
+    * 
+    * @return the smallest X coordinate value in the model
+    */
    public double getMinX() {
 
        if(points == null)
@@ -84,6 +96,10 @@ public class Model {
        return res;
     }
 	
+   /**
+    * 
+    * @return the biggest X coordinate value in the model
+    */
    public double getMaxX() {
 
        if(points == null)
@@ -101,6 +117,7 @@ public class Model {
     public Matrix getMatrix() {
 		return matrix;
 	}
+    
     public String getNameOfFile() {
         return nameOfFile;
     }
