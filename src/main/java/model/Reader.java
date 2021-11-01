@@ -1,6 +1,7 @@
 package model;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Reader {
 	 *
 	 * Thanks to the reader you're able to read a .ply file and get a model out of it
 	 *
-	 * @param file File type argument is the file to read
+	 * @param file the file to read
 	 */
 	public Reader(File file){
 		this.file = file;
@@ -36,12 +37,22 @@ public class Reader {
 	/**
 	 * <b>Constructor of a Reader</b>
 	 *
-	 * @param fileName of the file to read
+	 * @param fileName the name of the file to read
 	 */
 	public Reader(String fileName) {
 		this(new File("src/main/resources/"+fileName+".ply"));
 	}
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param path
+	 */
+	public Reader(Path path) {
+			this(path.toFile());
+	}
+
 	/**
 	 *<b>Constructor of a Reader</b>
 	 * 
