@@ -1,4 +1,4 @@
-package model;
+	package model;
 
 /* FUNCTIONS TODO :
 *   mutliplication(Matrice m1, scalaire)

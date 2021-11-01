@@ -245,7 +245,16 @@ public class Reader {
 			e.printStackTrace();
 		}	
 	}
-	
+
+    /**
+     * Reading of the Face part of a .ply file
+     * <p>
+     * The function reads only the part describing Faces of a .ply file.
+     * It adds the Faces into the Face List points using the collectFaceInfo function
+     * </p>
+     * 
+     * @param br BufferedReader to be able to parse and read the file
+     */
 	private void readFaceLines(BufferedReader br) {
 		 int nbFaceLines = 0;
 		 
