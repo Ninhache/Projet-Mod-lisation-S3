@@ -51,10 +51,20 @@ public class Model {
 		return matrix;
 	}
 
-    //TODO Change this when the Matrix list will be sorted
+    //TODO Change these functions when the Matrix list will be sorted
     public double getMinY() {
-    	return 0.0;
+    	
+    	if(points == null)
+    		throw new NullPointerException();
+    	
+    	double res = points.get(0).getY();
+    	for (Vertex v : points) {
+			if(v.getY()<res)
+				res = v.getY();
+		}
+    	return res;
     }
+<<<<<<< HEAD
 
     public String getNameOfFile() {
         return nameOfFile;
@@ -75,4 +85,46 @@ public class Model {
     public void setNameOfFile(String nameOfFile) {
         this.nameOfFile = nameOfFile;
     }
+=======
+    
+    public double getMinX() {
+    	
+    	if(points == null)
+    		throw new NullPointerException();
+    	
+    	double res = points.get(0).getX();
+    	for (Vertex v : points) {
+			if(v.getX()<res)
+				res = v.getX();
+		}
+    	return res;
+    }
+    
+    public double getMaxY() {
+    	
+    	if(points == null)
+    		throw new NullPointerException();
+    	
+    	double res = points.get(0).getY();
+    	for (Vertex v : points) {
+			if(v.getY()>res)
+				res = v.getY();
+		}
+    	return res;
+    }
+    
+    public double getMaxX() {
+    	
+    	if(points == null)
+    		throw new NullPointerException();
+    	
+    	double res = points.get(0).getX();
+    	for (Vertex v : points) {
+			if(v.getX()>res)
+				res = v.getX();
+		}
+    	return res;
+    }
+    
+>>>>>>> 8d84748 (Added max/min X and Y coordinates getters, change them later when lists will be sorted)
 }
