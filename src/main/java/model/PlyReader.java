@@ -3,7 +3,6 @@ package model;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * TODO: ADD DESC
@@ -11,33 +10,33 @@ import java.util.List;
  * @author Simon LAGNEAU
  * @version %I%, %G%
  */
-public class Reader {
+public class PlyReader {
 
 	private String fileName, authorName;
 	private File file;
 	private final String END_HEADER = "end_header";
 	private int nbVertex,nbFaces,vertexLength;
-	private ArrayList<Vertex> points;
-	private ArrayList<Face> faces;
+	private ArrayList<Vertex> verticesList;
+	private ArrayList<Face> facesList;
 
 	/**
-	 * <b>Constructor of a Reader</b>
+	 * <b>Constructor of a PlyReader</b>
 	 * 
 	 * <p>
-	 * Thanks to the reader you're able to read a .ply file and get a model out of it
+	 * Thanks to the ply reader you're able to read a .ply file and get a model out of it
 	 * </p>
 	 *
 	 * @param file the file to read
 	 */
-	public Reader(File file){
+	public PlyReader(File file){
 		this.file = file;
 		this.fileName = file.getName();
-		points = new ArrayList<Vertex>();
-		faces = new ArrayList<Face>();
+		verticesList = new ArrayList<Vertex>();
+		facesList = new ArrayList<Face>();
 	}
 
 	/**
-	 * <b>Constructor of a Reader</b>
+	 * <b>Constructor of a PlyReader</b>
 	 * 
 	 * <p>
 	 * Constructor using only the name of the file to read: that file must be in the resources folder otherwise it will be null
@@ -45,12 +44,12 @@ public class Reader {
 	 *
 	 * @param fileName the name of the file to read
 	 */
-	public Reader(String fileName) {
+	public PlyReader(String fileName) {
 		this(new File("src/main/resources/"+fileName+".ply"));
 	}
 	
 	/**
-	 * <b>Constructor of a Reader</b>
+	 * <b>Constructor of a PlyReader</b>
 	 * 
 	 * <p>
 	 * Path-based constructor : the path must lead to a correct ply file in order to work
@@ -58,22 +57,22 @@ public class Reader {
 	 * 
 	 * @param path the path towards the file to read
 	 */
-	public Reader(Path path) {
+	public PlyReader(Path path) {
 			this(path.toFile());
 	}
 
 	/**
-	 *<b>Constructor of a Reader</b>
+	 *<b>Constructor of a PlyReader</b>
 	 * 
 	 * <p>
-	 * Empty constructor that still initializes the points and faces Lists to ArrayLists<br>
-	 * Adding a file to the Reader is still possible
+	 * Empty constructor that still initializes the vertices and faces Lists to ArrayLists<br>
+	 * Adding a file to the PlyReader is still possible
 	 * </p>
 	 * 
 	 */
-	public Reader() {
-		points = new ArrayList<Vertex>();
-		faces = new ArrayList<Face>();
+	public PlyReader() {
+		verticesList = new ArrayList<Vertex>();
+		facesList = new ArrayList<Face>();
 	}
     
 	
@@ -91,12 +90,12 @@ public class Reader {
 	 * The same BufferedReader is kept for the three functions
 	 * </p>
 	 * 
-	 * @return a Model constructed with the points and faces list of the Reader
+	 * @return a Model constructed with the vertices and faces list of the Reader
 	 * @throws FileNotFoundException
 	 */
 	public Model readPly() throws FileNotFoundException {
 		
-		Reader reader = new Reader(this.file);
+		PlyReader reader = new PlyReader(this.file);
 		FileReader fr = new FileReader(reader.getFile());
 		BufferedReader br = new BufferedReader(fr);
 		
@@ -104,7 +103,7 @@ public class Reader {
 		readVertexLines(br);
 		readFaceLines(br);
 
-		Model model = new Model(points, faces);
+		Model model = new Model(verticesList, facesList);
 		model.setNameOfFile(this.fileName);
 		return model;
 	}
@@ -113,7 +112,7 @@ public class Reader {
      * Reading of the header of a .ply file
      * <p>
      * The function reads only the header of a .ply file and puts the important informations into
-     * the points and faces lists
+     * the vertices and faces lists
      * </p>
      * 
      * @param br BufferedReader to be able to parse and read the file
@@ -169,20 +168,20 @@ public class Reader {
 	 * Collects the information to create a Vertex
 	 * <p>
 	 * The line currently being read when this function is called describes a Vertex.<br>
-	 * The function collects the coordinates in the line to create a Vertex and put it into the Vertex List, points.<br>
+	 * The function collects the coordinates in the line to create a Vertex and put it into the verticesList.<br>
 	 * </p>
 	 * 
 	 * @param line The line describing a Vertex currently being read
 	 */
 	public void collectVertexInfo(String[] line) {
-		points.add(new Vertex(Double.parseDouble(line[0]), Double.parseDouble(line[1]), Double.parseDouble(line[2])));
+		verticesList.add(new Vertex(Double.parseDouble(line[0]), Double.parseDouble(line[1]), Double.parseDouble(line[2])));
 	}
 
 	/**
 	 * Collects the information to create a Face
 	 * <p>
 	 * The line currently being read when this function is called describes a Face.<br>
-	 * The function collects the coordinates in the line to create a Face and put it into the Face List, faces.<br>
+	 * The function collects the coordinates in the line to create a Face and put it into the faceList.<br>
 	 * </p>
 	 * 
 	 * @param line The line describing a Face currently being read
@@ -191,17 +190,17 @@ public class Reader {
 		ArrayList<Vertex> pointsOfFace = new ArrayList<>();
 
 		for(int i = 1 ; i <= Integer.parseInt(line[0]) ; i++) {
-			pointsOfFace.add(points.get(Integer.parseInt(line[i])));
+			pointsOfFace.add(verticesList.get(Integer.parseInt(line[i])));
 		}
 		
-		faces.add(new Face(pointsOfFace)); 
+		facesList.add(new Face(pointsOfFace)); 
 	}
 
     /**
      * Reading of the Vertex part of a .ply file
      * <p>
      * The function reads only the part describing Vertices of a .ply file.
-     * It adds the Vertices into the Vertex List points using the collectVertexInfo function
+     * It adds the Vertices into the verticesList using the collectVertexInfo function
      * </p>
      * 
      * @param br BufferedReader to be able to parse and read the file
@@ -250,7 +249,7 @@ public class Reader {
      * Reading of the Face part of a .ply file
      * <p>
      * The function reads only the part describing Faces of a .ply file.
-     * It adds the Faces into the Face List points using the collectFaceInfo function
+     * It adds the Faces into the facesList using the collectFaceInfo function
      * </p>
      * 
      * @param br BufferedReader to be able to parse and read the file
@@ -295,7 +294,7 @@ public class Reader {
 	 * <p>
 	 * The Reader will now read another file when the readPly is called
 	 * 
-	 * The function also empties all the information containers attributes of the Reader
+	 * The function also empties all the information container attributes of the Reader
 	 * </p>
 	 * 
 	 * 
@@ -307,8 +306,8 @@ public class Reader {
 			this.nbVertex = -1;
 			this.vertexLength = -1;
 			this.authorName = "";
-			this.faces = new ArrayList<>();
-			this.points = new ArrayList<>();
+			this.facesList = new ArrayList<>();
+			this.verticesList = new ArrayList<>();
 			this.fileName = file.getName();
 			this.file = file;
 		}
@@ -330,8 +329,8 @@ public class Reader {
 		this.nbVertex = -1;
 		this.vertexLength = -1;
 		this.authorName = "";
-		this.faces = new ArrayList<>();
-		this.points = new ArrayList<>();
+		this.facesList = new ArrayList<>();
+		this.verticesList = new ArrayList<>();
 		this.fileName = fileName;
 		this.file = new File(fileName);
 	}

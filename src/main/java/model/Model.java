@@ -113,11 +113,10 @@ public class Model {
        return res;
     }
 
-	
     public Matrix getMatrix() {
 		return matrix;
 	}
-    
+
     public String getNameOfFile() {
         return nameOfFile;
     }

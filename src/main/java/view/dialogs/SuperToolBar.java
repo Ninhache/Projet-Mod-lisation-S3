@@ -9,7 +9,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import model.Reader;
+import model.PlyReader;
 
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -66,7 +66,7 @@ public class SuperToolBar extends MenuBar {
     private ControlStage controlWindow;
 
     private FileChooser fileChooser;
-    private Reader reader = new Reader();
+    private PlyReader reader = new PlyReader();
 
     public SuperToolBar() {
         super();
