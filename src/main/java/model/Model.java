@@ -1,7 +1,5 @@
 package model;
 
-import javafx.beans.property.SimpleBooleanProperty;
-
 import java.util.ArrayList;
 
 
@@ -103,7 +101,6 @@ public class Model {
     public Matrix getMatrix() {
 		return matrix;
 	}
-
     public String getNameOfFile() {
         return nameOfFile;
     }
