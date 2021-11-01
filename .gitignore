@@ -2,4 +2,4 @@
 .settings
 /.idea/
 /tmp/
-/src/main/resources/tmp/
+/src/main/resources/tmp/*
