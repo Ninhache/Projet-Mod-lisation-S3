@@ -1,13 +1,5 @@
 package model;
 
-/* FUNCTION TODO:
-*   produitvectoriel(Vecteur)
-*   produitScalaire(Vecteur)
-*   produitVectoriel(Vecteur)
-*   norme() => return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
-*   normalisation()
-* */
-
 /**
  * A vector is a movement, matrix handle them to translate model
  *
