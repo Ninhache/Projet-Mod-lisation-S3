@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Face {
 
 	private ArrayList<Vertex> vertexs;
-	private Color color;
+	private int[] color;
 
 	/**
 	 * <b>Constructor of a Face</b>
@@ -26,13 +26,13 @@ public class Face {
 	 * @param vertexs list of vertexs
 	 * @param color color of faces
 	 */
-	public Face(ArrayList<Vertex> vertexs, Color color) {
+	public Face(ArrayList<Vertex> vertexs, int[] color) {
 		this.vertexs = vertexs;
 		this.color = color;
 	}
 
 	public Face(ArrayList<Vertex> vertexs){
-		this(vertexs, Color.LAVENDER);
+		this(vertexs, new int[]{125,125,125});
 	}
 
 
