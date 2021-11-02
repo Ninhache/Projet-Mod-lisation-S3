@@ -5,7 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
 
 /**
- * A custom CustomCheckBox is a checkBox which does not close when you click on her
+ * A custom CustomCheckBox is a checkBox which does not close when you click on it
  *
  * @author Néo ALMEIDA
  * @version %I%, %G%

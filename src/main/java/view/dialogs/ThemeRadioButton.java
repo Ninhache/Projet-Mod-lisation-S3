@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 /**
  *  A ThemeRadioButton is a button, able to change the theme of the app
- *  Tips : : For create new themes, you have to :
+ *  Tips : : tTo create new themes, you have to :
  *           - Choose the color, we will called it : nameOfTheColor
  *           - Create the css you want (Named `javafxTestCSS + nameOfTheColor` ex: javafxTestCSSBlack)
  *           - Create the ThemeRadioButton Object, don't miss to put the group in the constructor
@@ -67,6 +67,4 @@ public class ThemeRadioButton extends RadioMenuItem {
         if(rectColor.length() > 7) rectColor = "#ffffff";
         return new Rectangle(15,15, Color.web(rectColor));
     }
-
-
 }

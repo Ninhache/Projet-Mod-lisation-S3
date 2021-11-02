@@ -5,8 +5,8 @@ import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 /**
- * The ExtendedStage is the base of all stage
- * All stage will have the same icons
+ * The ExtendedStage is the base of all stages
+ * All stages will have the same icons
  *
  * @author Néo ALMEIDA
  * @version %I%, %G%
