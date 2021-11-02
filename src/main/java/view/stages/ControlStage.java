@@ -36,36 +36,29 @@ public class ControlStage extends ExtendedStage {
         setTitle("TitreControlStage");
         closeButton.requestFocus();
 
-        Label kcOpen = new Label("Ctrl+O");
-        Label kcCloseRequest = new Label("Ctrl+W");
-
-        Label labelOpen = new Label("Ouvrir");
-        Label labelCloseRequest = new Label("Fermer un onglet");
-
-        Region spacerOpen = new Region();
-        Region spacerCloseRequest = new Region();
-
-        HBox hboxOpen = new HBox();
-        hboxOpen.getChildren().addAll(kcOpen, spacerOpen, labelOpen);
-        hboxOpen.setAlignment(Pos.CENTER);
-
-        HBox hboxCloseRequest = new HBox();
-        hboxCloseRequest.getChildren().addAll(kcCloseRequest, spacerCloseRequest, labelCloseRequest);
-        hboxCloseRequest.setAlignment(Pos.CENTER);
-
-        HBox.setHgrow(spacerOpen, Priority.ALWAYS); // EXTRACT METHODE !!
-        HBox.setHgrow(spacerCloseRequest, Priority.ALWAYS);
+        HBox hboxOpen = setupHBox("Ctrl+O", new Region(), "Ouvrir");
+        HBox hboxCloseRequest = setupHBox("Ctrl+W", new Region(), "Fermer un onglet");
 
         root.getChildren().addAll(hboxOpen, hboxCloseRequest, new Separator(Orientation.HORIZONTAL), closeButton);
-
         root.setAlignment(Pos.CENTER);
-
     }
+    
+	private HBox setupHBox(String kc, Region spacer, String text) {
+		HBox hbox = new HBox();
+        hbox.getChildren().addAll(new Label(kc), spacer, new Label(text));
+        hbox.setAlignment(Pos.CENTER);
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+        return hbox;
+	}
 
     private void onCloseBtnClicked(ActionEvent e) {
         this.close();
     }
 
-
+//    private void setupSpacers(Region... spacers) {
+//    	for (Region spacer : spacers) {
+//			HBox.setHgrow(spacer, Priority.ALWAYS);
+//		}
+//    }
 }
 
