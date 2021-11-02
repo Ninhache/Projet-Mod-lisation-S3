@@ -1,5 +1,8 @@
 package view.stages;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -61,7 +64,12 @@ public class MainStage extends ExtendedStage {
 
         // Ctrl + O
         Runnable kcImport = () -> {
-            toolBar.onOpenClicked(new ActionEvent());
+            try {
+				toolBar.onOpenClicked(new ActionEvent());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCodeCombination.CONTROL_DOWN), kcImport);
 
@@ -72,12 +80,14 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
+        // Ctrl + ->
         Runnable kcNextRequest = () -> {
         	System.out.println("CTRL RIGHT");
         	toolBar.onNextRequest(new ActionEvent());
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN), kcNextRequest);
-
+        
+        // Ctrl + <-
         Runnable kcPreviousRequest = () -> {
         	System.out.println("CTRL LEFT");
         	toolBar.onPreviousRequest(new ActionEvent());

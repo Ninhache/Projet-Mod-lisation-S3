@@ -66,7 +66,6 @@ public class SuperToolBar extends MenuBar {
 
     private ControlStage controlWindow;
 
-    private int openned;
     private FileChooser fileChooser;
     private PlyReader reader = new PlyReader();
 
@@ -126,7 +125,9 @@ public class SuperToolBar extends MenuBar {
 
         
         // EVENT HANDLERS
-        open.setOnAction(this::onOpenClicked);
+        open.setOnAction(event -> {
+			try { onOpenClicked(event); } catch (FileNotFoundException e) { e.printStackTrace(); }
+		});
         quit.setOnAction(this::onQuitClicked);
         saveAsImg.setOnAction(this::onSaveImg);
         exportAs.setOnAction(this::onExportAsPly);
@@ -134,8 +135,6 @@ public class SuperToolBar extends MenuBar {
         clearRecent.setOnAction(this::onClearRecentClick);
 
 
-        openned = 0;
-        
         theme.getItems().forEach(button -> {
             button.setOnAction(this::onRadioClick);
         });
@@ -185,7 +184,7 @@ public class SuperToolBar extends MenuBar {
         cp.getTabs().remove((Tab) (cp.getSelectionModel().getSelectedItem()));
     }
 
-    public void onOpenClicked(ActionEvent e) {
+    public void onOpenClicked(ActionEvent e) throws FileNotFoundException {
         File file = fileChooser.showOpenDialog(this.getParent().getScene().getWindow());
         if(file == null) {
         	
@@ -194,13 +193,7 @@ public class SuperToolBar extends MenuBar {
         }
         TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
         reader.setFile(file);
-        try {
-			cp.getTabs().add(new TabCanvas(reader.readPly()));
-			openned++;
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+        try { cp.getTabs().add(new TabCanvas(reader.readPly())); } catch (FileNotFoundException e1) { e1.printStackTrace(); }
         CanvasModel t = (CanvasModel) cp.getTabs().get(cp.getTabs().size()-1).getContent();
         t.draw();
 
@@ -423,7 +416,9 @@ public class SuperToolBar extends MenuBar {
        /* ArrayList<ActionLink> array = new ArrayList<>();
         array.add(new ActionLink("Ouvrir un modèle", this::onOpenClicked));
         return array;*/
-        return new ActionLink("Ouvrir un modèle", this::onOpenClicked);
+        return new ActionLink("Ouvrir un modèle", event -> {
+			try { onOpenClicked(event); } catch (FileNotFoundException e) { e.printStackTrace(); }
+		});
     }
 
 
