@@ -235,7 +235,7 @@ public class PlyReader {
 				br.mark(vertexLength);
 				line=br.readLine();
 				splittedLine = line.split(" ");
-				if( splittedLine.length != 3 )
+				if(splittedLine.length != 3)
 					testIfVertex = false;
 			}
 		
@@ -281,7 +281,7 @@ public class PlyReader {
 				sb.append(line);
 				sb.append("\n");
 				
-				if( splittedLine.length != 4 ) testIfFace= false;
+				if(splittedLine.length != 4) testIfFace= false;
 				
 			 }
 			
@@ -363,6 +363,11 @@ public class PlyReader {
 	public File getFile() {
 		return file;
 	}
+
+	public String getFileName() {
+		return fileName;
+	}
+}
 //	public static void main(String args[]) throws FileNotFoundException{
 //		File test = new File("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test.ply");
 //		Reader reader = new Reader(test);
@@ -374,8 +379,3 @@ public class PlyReader {
 //		reader.setFile("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test3.ply");
 //		reader.readPly();
 //	}
-
-	public String getFileName() {
-		return fileName;
-	}
-}

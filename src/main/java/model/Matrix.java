@@ -31,7 +31,6 @@ public class Matrix {
         this.values = values;
     }
    
-
     /**
      * Multiplies matrix by another one
      * <p>
@@ -56,7 +55,6 @@ public class Matrix {
         if(!this.canMultiply(other)) {
             return this;
         }
-
 
         double vals[][];
         int l1 = this.getRowCount();
@@ -171,26 +169,11 @@ public class Matrix {
     public Matrix rotation(Rotation r, double degre) {
         double vals[][] = new double[this.getRowCount()][this.getColumnCount()];
         if(r.equals(Rotation.X)) {
-            vals = new double[][] {
-                    {1, 0, 0, 0},
-                    {0, Math.cos(Math.toRadians(degre)), -Math.sin(Math.toRadians(degre)), 0},
-                    {0, Math.sin(Math.toRadians(degre)), Math.cos(Math.toRadians(degre)), 0},
-                    {0, 0, 0, 1},
-            };
+            vals = xRotationMatrix(degre);
         } else if(r.equals(Rotation.Y)) {
-            vals = new double[][] {
-                    {Math.cos(Math.toRadians(degre)), 0, Math.sin(Math.toRadians(degre)), 0},
-                    {0, 1, 0, 0},
-                    {-Math.sin(Math.toRadians(degre)), 0, Math.cos(Math.toRadians(degre)), 0},
-                    {0, 0, 0, 1},
-            };
+            vals = yRotationMatrix(degre);
         } else if(r.equals(Rotation.Z)) {
-            vals = new double[][] {
-                    {Math.cos(Math.toRadians(degre)), -Math.sin(Math.toRadians(degre)), 0, 0},
-                    {Math.sin(Math.toRadians(degre)), Math.cos(Math.toRadians(degre)), 0, 0},
-                    {0, 0, 1, 0},
-                    {0, 0, 0, 1},
-            };
+            vals = zRotationMatrix(degre);
         } else {
             throw new IllegalArgumentException("Le type de rotation n'est pas valable.");
         }
@@ -198,6 +181,33 @@ public class Matrix {
         return new Matrix(vals).multiplyMatrix(this);
     }
 
+    public double[][] xRotationMatrix(double degre){
+    	return new double[][] {
+            {1, 0, 0, 0},
+            {0, Math.cos(Math.toRadians(degre)), -Math.sin(Math.toRadians(degre)), 0},
+            {0, Math.sin(Math.toRadians(degre)), Math.cos(Math.toRadians(degre)), 0},
+            {0, 0, 0, 1},
+    	};
+    }
+    
+    public double[][] yRotationMatrix(double degre){
+    	return new double[][] {
+            {Math.cos(Math.toRadians(degre)), 0, Math.sin(Math.toRadians(degre)), 0},
+            {0, 1, 0, 0},
+            {-Math.sin(Math.toRadians(degre)), 0, Math.cos(Math.toRadians(degre)), 0},
+            {0, 0, 0, 1},
+    	};
+    }
+
+    private double[][] zRotationMatrix(double degre) {
+    	return new double[][] {
+    		{Math.cos(Math.toRadians(degre)), -Math.sin(Math.toRadians(degre)), 0, 0},
+    		{Math.sin(Math.toRadians(degre)), Math.cos(Math.toRadians(degre)), 0, 0},
+    		{0, 0, 1, 0},
+    		{0, 0, 0, 1},
+    	};
+    }
+    
     /**
      * Verification of multiplications
      * <p>
