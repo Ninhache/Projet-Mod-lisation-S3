@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
- * TODO: ADD DESC
+ * A PlyReader is used to read a .ply file and get a model out of it
  *
  * @author Simon LAGNEAU
  * @version %I%, %G%

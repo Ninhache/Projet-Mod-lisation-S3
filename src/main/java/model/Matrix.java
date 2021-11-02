@@ -7,7 +7,7 @@ package model;
 * */
 
 /**
- * This class handle all matrix calculation we need for the project
+ * This class handle all matrix calculations we need for the project
  *
  * @author Néo ALMEIDA - Paul VANHEE
  * @version %I%, %G%
@@ -20,7 +20,7 @@ public class Matrix {
     /**
      * <b>Constructor of a Matrix</b>
      *
-     * A Matrix is an multidimensional array
+     * A Matrix is a multidimensional array
      *
      * @param values list of values of the Matrix
      */
@@ -35,24 +35,24 @@ public class Matrix {
     /**
      * Multiplies matrix by another one
      * <p>
-     * The function is executed only if both matrix can be multiplied
+     * The function is executed only if both matrices can be multiplied
      *
      * <b><u>For example :</u></b>
-     * If you try multiply these 2 matrix, you will get a new one :
+     * If you try to multiply these 2 matrices, you will get a new one :
      * { 7 , 3 , 2 }         { 1 , 1 , 3 }              { 19 , 26 , 35 }
      * { 5 , 9 , 2 }    x    { 2 , 5 , 2 }      =       { 29 , 54 , 41 }
      * { 0 , 0 , 1 }         { 3 , 2 , 4 }              {  3 ,  2 ,  4 }
      *
-     * If you try multiply these 2 matrix, you will get an error, and get back the actual matrix
+     * If you try to multiply these 2 matrices, you will get an error, and get back the actual matrix
      * { 7 , 3 }         { 1 , 1 }              { 7 , 3 }
      * { 5 , 9 }    x    { 2 , 5 }      =       { 5 , 9 }
      * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
      *
      * @param other the other matrix
-     * @return the result of the both matrix, in a new one
+     * @return the result of the multiplication of both matrices, in a new one
      */
     public Matrix multiplyMatrix(Matrix other) {
-        // TODO : Create errors to check validity of both matrix
+        // TODO : Create errors to check the validity of both matrices
         if(!this.canMultiply(other)) {
             return this;
         }
@@ -79,21 +79,21 @@ public class Matrix {
     /**
      * Sums matrix by another one
      * <p>
-     * The function is executed only if both matrix can be summed
+     * The function is executed only if both matrices can be summed
      *
      * <b><u>For example :</u></b>
-     * If you try to sums these 2 matrix, you will get a new one :
+     * If you try to sum these 2 matrices, you will get a new one :
      * { 7 , 3 , 2 }         { 1 , 1 , 3 }              {  8 ,  4 ,  5 }
      * { 5 , 9 , 2 }    +    { 2 , 5 , 2 }      =       {  7 , 14 ,  4 }
      * { 0 , 0 , 1 }         { 3 , 2 , 4 }              {  3 ,  2 ,  5 }
      *
-     * If you try to sums these 2 matrix, you will get an error, and get back the actual matrix
+     * If you try to sums these 2 matrices, you will get an error, and get back the actual matrix
      * { 7 , 3 }         { 1 , 1 }              { 7 , 3 }
      * { 5 , 9 }    +    { 2 , 5 }      =       { 5 , 9 }
      * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
      *
      * @param other the other matrix
-     * @return the result of the both matrix, in a new one
+     * @return the result of the sum of both matrices, in a new one
      */
     public Matrix sumMatrix(Matrix other) {
         if(canSum(other)) {
@@ -112,21 +112,21 @@ public class Matrix {
     /**
      * Subtracts matrix by another one
      * <p>
-     * The function is executed only if both matrix can be subtracted
+     * The function is executed only if both matrices can be subtracted
      *
      * <b><u>For example :</u></b>
-     * If you try to subs these 2 matrix, you will get a new one :
+     * If you try to subtract these 2 matrices, you will get a new one :
      * { 7 , 3 , 2 }         { 1 , 1 , 3 }              {  6 ,  2 , -1 }
      * { 5 , 9 , 2 }    -    { 2 , 5 , 2 }      =       {  3 ,  4 ,  0 }
      * { 0 , 0 , 1 }         { 3 , 2 , 4 }              { -3 , -2 , -3 }
      *
-     * If you try to sums these 2 matrix, you will get an error, and get back the actual matrix
+     * If you try to subtract these 2 matrices, you will get an error, and get back the actual matrix
      * { 7 , 3 }         { 1 , 1 }              { 7 , 3 }
      * { 5 , 9 }    -    { 2 , 5 }      =       { 5 , 9 }
      * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
      *
      * @param other the other matrix
-     * @return the result of the both matrix, in a new one
+     * @return the result of the subtraction of both matrices, in a new one
      */
     public Matrix subMatrix(Matrix other) {
         if(canSum(other)) {
@@ -213,7 +213,7 @@ public class Matrix {
     /**
      * Verification of sum
      * <p>
-     * The function check if two matrices can be summed
+     * The function checks if two matrices can be summed
      *
      * @param other the other matrix
      * @return the result of the verification

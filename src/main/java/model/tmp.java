@@ -1,10 +1,5 @@
 package model;
 
-import java.io.FileNotFoundException;
-
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-
 public class tmp {
 
     public static void main(String[] args) {

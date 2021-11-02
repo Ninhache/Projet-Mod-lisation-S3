@@ -13,30 +13,30 @@ import java.util.ArrayList;
 public class Model {
 
     private Matrix matrix;
-    private final ArrayList<Vertex> points;
+    private final ArrayList<Vertex> vertices;
     private final ArrayList<Face> faces;
     private String nameOfFile;
 
     /**
      * <b>Constructor of a Model</b>
      *
-     * If you put together a list of points, and in these points you create faces, you get a model
+     * If you put together a list of points, and with these points you create faces, you get a model
      *
-     * @param points list of points of the model
+     * @param vertices list of points of the model
      * @param faces list of faces of the model
      */
     
-    public Model(ArrayList<Vertex> points, ArrayList<Face> faces) {
-        this.points = points;
+    public Model(ArrayList<Vertex> vertices, ArrayList<Face> faces) {
+        this.vertices = vertices;
         this.faces = faces;
         
-        matrix = new Matrix(new double[4][points.size()]);
+        matrix = new Matrix(new double[4][vertices.size()]);
         Vertex.resetAuto();
-        for(Vertex v : points) {
+        for(Vertex v : vertices) {
         	int index = v.getId();
-        	matrix.getValues()[0][index] = points.get(index).getX();
-        	matrix.getValues()[1][index] = points.get(index).getY();
-        	matrix.getValues()[2][index] = points.get(index).getZ();
+        	matrix.getValues()[0][index] = vertices.get(index).getX();
+        	matrix.getValues()[1][index] = vertices.get(index).getY();
+        	matrix.getValues()[2][index] = vertices.get(index).getZ();
         	matrix.getValues()[3][index] = 1;
         }
     }
@@ -51,11 +51,11 @@ public class Model {
      */
     public double getMinY() {
 
-       if(points == null)
+       if(vertices == null)
                throw new NullPointerException();
 
-       double res = points.get(0).getX();
-       for (Vertex v : points) {
+       double res = vertices.get(0).getX();
+       for (Vertex v : vertices) {
                        if(v.getX()<res)
                                res = v.getX();
                }
@@ -68,11 +68,11 @@ public class Model {
      */
    public double getMaxY() {
 
-       if(points == null)
+       if(vertices == null)
              throw new NullPointerException();
 
-       double res = points.get(0).getY();
-       for (Vertex v : points) {
+       double res = vertices.get(0).getY();
+       for (Vertex v : vertices) {
                        if(v.getY()>res)
                                res = v.getY();
                }
@@ -85,11 +85,11 @@ public class Model {
     */
    public double getMinX() {
 
-       if(points == null)
+       if(vertices == null)
                throw new NullPointerException();
 
-       double res = points.get(0).getX();
-       for (Vertex v : points) {
+       double res = vertices.get(0).getX();
+       for (Vertex v : vertices) {
                        if(v.getX()<res)
                                res = v.getX();
                }
@@ -102,11 +102,11 @@ public class Model {
     */
    public double getMaxX() {
 
-       if(points == null)
+       if(vertices == null)
                throw new NullPointerException();
 
-       double res = points.get(0).getX();
-       for (Vertex v : points) {
+       double res = vertices.get(0).getX();
+       for (Vertex v : vertices) {
                        if(v.getX()>res)
                                res = v.getX();
                }
@@ -126,7 +126,7 @@ public class Model {
     }
 
     public ArrayList<Vertex> getPoints() {
-        return points;
+        return vertices;
     }
 
     public ArrayList<Face> getFaces() {

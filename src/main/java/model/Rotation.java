@@ -1,7 +1,7 @@
 package model;
 
 /**
- * This enumeration help for the define wich rotation to use with matrix calculations
+ * This enumeration helps to define which rotation to use with matrix calculations
  *
  * @author Néo ALMEIDA
  * @version %I%, %G%

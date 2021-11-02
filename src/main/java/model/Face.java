@@ -1,11 +1,9 @@
 package model;
 
-import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 
 /**
- *	A model contains faces
+ * A model contains faces
  * A face is build with 3 points, or more !
  *
  * @author Paul VANHEE
@@ -15,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Face {
 
-	private ArrayList<Vertex> vertexs;
+	private ArrayList<Vertex> vertices;
 	private int[] color;
 
 	/**
@@ -23,16 +21,16 @@ public class Face {
 	 *
 	 * A face is build with 3 points (or more), and a color, LAVENDER by default
 	 *
-	 * @param vertexs list of vertexs
+	 * @param vertices list of vertices
 	 * @param color color of faces
 	 */
-	public Face(ArrayList<Vertex> vertexs, int[] color) {
-		this.vertexs = vertexs;
+	public Face(ArrayList<Vertex> vertices, int[] color) {
+		this.vertices = vertices;
 		this.color = color;
 	}
 
-	public Face(ArrayList<Vertex> vertexs){
-		this(vertexs, new int[]{125,125,125});
+	public Face(ArrayList<Vertex> vertices){
+		this(vertices, new int[]{125,125,125});
 	}
 
 
