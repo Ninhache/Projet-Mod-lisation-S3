@@ -33,5 +33,16 @@ public class Face {
 		this(vertices, new int[]{230,230,250});
 	}
 
-
+	public int getColorR() {
+		return color[0];
+	}
+	
+	public int getColorG() {
+		return color[1];
+	}
+	
+	public int getColorB() {
+		return color[2];
+	}
+	
 }
