@@ -50,8 +50,8 @@ public class ControlStage extends ExtendedStage {
         hboxOpen.setAlignment(Pos.CENTER);
 
         HBox hboxCloseRequest = new HBox();
-        hboxOpen.getChildren().addAll(kcCloseRequest, spacerCloseRequest, labelCloseRequest);
-        hboxOpen.setAlignment(Pos.CENTER);
+        hboxCloseRequest.getChildren().addAll(kcCloseRequest, spacerCloseRequest, labelCloseRequest);
+        hboxCloseRequest.setAlignment(Pos.CENTER);
 
         HBox.setHgrow(spacerOpen, Priority.ALWAYS); // EXTRACT METHODE !!
         HBox.setHgrow(spacerCloseRequest, Priority.ALWAYS);
