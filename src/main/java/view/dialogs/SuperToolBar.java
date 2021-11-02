@@ -69,6 +69,8 @@ public class SuperToolBar extends MenuBar {
     private FileChooser fileChooser;
     private PlyReader reader = new PlyReader();
 
+    private int openned;
+    
     public SuperToolBar() {
         super();
 
@@ -138,7 +140,8 @@ public class SuperToolBar extends MenuBar {
         theme.getItems().forEach(button -> {
             button.setOnAction(this::onRadioClick);
         });
-
+        
+        openned = 0;
     }
 
     private void manageRecents() {
@@ -150,7 +153,6 @@ public class SuperToolBar extends MenuBar {
     }
 
     private void setThemes(ToggleGroup group) {
-
         whiteTheme = new ThemeRadioButton("Blanc", group);
         blackTheme = new ThemeRadioButton("Noir", group);
         orangeTheme = new ThemeRadioButton("Orange", group);
@@ -163,7 +165,6 @@ public class SuperToolBar extends MenuBar {
         secretTheme = new ThemeRadioButton("Secret", group);
         secretTheme2 = new ThemeRadioButton("Secret2", group);
         secretTheme3 = new ThemeRadioButton("Secret3", group);
-
     }
 
     
@@ -176,7 +177,10 @@ public class SuperToolBar extends MenuBar {
     }
     public void onNextRequest(ActionEvent e) {
     	TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-    	cp.getSelectionModel().selectNext();
+    	if(cp.getSelectionModel().isSelected(openned-1))
+    		cp.getSelectionModel().selectFirst();
+    	else
+    		cp.getSelectionModel().selectNext();
     }
     
     public void onCloseRequest(ActionEvent e) {
@@ -184,8 +188,8 @@ public class SuperToolBar extends MenuBar {
         cp.getTabs().remove((Tab) (cp.getSelectionModel().getSelectedItem()));
     }
 
-    public void onOpenClicked(ActionEvent e) throws FileNotFoundException {
         File file = fileChooser.showOpenDialog(this.getParent().getScene().getWindow());
+        public void onOpenClicked(ActionEvent e) throws FileNotFoundException {
         if(file == null) {
         	
         	MessageBox.showWarning("Fichier introuvable", "Gros problème la");
@@ -198,7 +202,8 @@ public class SuperToolBar extends MenuBar {
         t.draw();
 
         addToOpenRecent(file);
-        
+
+        openned++;
     }
 
     private void addToOpenRecent(File fileToAdd) {

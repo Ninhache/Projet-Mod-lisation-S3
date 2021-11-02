@@ -67,7 +67,6 @@ public class MainStage extends ExtendedStage {
             try {
 				toolBar.onOpenClicked(new ActionEvent());
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         };
