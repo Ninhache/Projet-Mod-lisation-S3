@@ -66,6 +66,7 @@ public class SuperToolBar extends MenuBar {
 
     private ControlStage controlWindow;
 
+    private int openned;
     private FileChooser fileChooser;
     private PlyReader reader = new PlyReader();
 
@@ -133,6 +134,8 @@ public class SuperToolBar extends MenuBar {
         clearRecent.setOnAction(this::onClearRecentClick);
 
 
+        openned = 0;
+        
         theme.getItems().forEach(button -> {
             button.setOnAction(this::onRadioClick);
         });
@@ -164,10 +167,21 @@ public class SuperToolBar extends MenuBar {
 
     }
 
+    
+    public void onPreviousRequest(ActionEvent e) {
+    	TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+    	if(cp.getSelectionModel().isSelected(0))
+    		cp.getSelectionModel().selectLast();
+    	else
+    		cp.getSelectionModel().selectPrevious();
+    }
+    public void onNextRequest(ActionEvent e) {
+    	TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+    	cp.getSelectionModel().selectNext();
+    }
+    
     public void onCloseRequest(ActionEvent e) {
         TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-        //cp.getSelectionModel().selectNext(); // TODO ADD CTRL FLECHE POUR SWITCH ENTRE CHAQUE CANVAS
-
         cp.getTabs().remove((Tab) (cp.getSelectionModel().getSelectedItem()));
     }
 
@@ -182,6 +196,7 @@ public class SuperToolBar extends MenuBar {
         reader.setFile(file);
         try {
 			cp.getTabs().add(new TabCanvas(reader.readPly()));
+			openned++;
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

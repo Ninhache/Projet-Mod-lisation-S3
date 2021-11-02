@@ -72,6 +72,16 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
+        Runnable kcNextRequest = () -> {
+        	System.out.println("CTRL RIGHT");
+        	toolBar.onNextRequest(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN), kcNextRequest);
 
+        Runnable kcPreviousRequest = () -> {
+        	System.out.println("CTRL LEFT");
+        	toolBar.onPreviousRequest(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN), kcPreviousRequest);
     }
 }

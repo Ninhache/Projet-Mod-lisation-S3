@@ -30,7 +30,7 @@ public class Face {
 	}
 
 	public Face(ArrayList<Vertex> vertices){
-		this(vertices, new int[]{125,125,125});
+		this(vertices, new int[]{230,230,250});
 	}
 
 

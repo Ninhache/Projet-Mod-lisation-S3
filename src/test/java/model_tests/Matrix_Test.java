@@ -1,3 +1,4 @@
+package model_tests;
 import model.Matrix;
 
 import org.junit.jupiter.api.*;
@@ -50,7 +51,7 @@ public class Matrix_Test {
         Assertions.assertTrue(m1.canMultiply(m4));
         Assertions.assertTrue(m2.canMultiply(m3));
         Assertions.assertTrue(m2.canMultiply(m4));
-        Assertions.assertTrue(m4.canMultiply(m5));
+        Assertions.assertFalse(m4.canMultiply(m5));
     }
 
     @Test
