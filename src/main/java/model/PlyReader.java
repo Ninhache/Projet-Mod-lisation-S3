@@ -29,8 +29,12 @@ public class PlyReader {
 	 * @param file the file to read
 	 */
 	public PlyReader(File file){
-		this.file = file;
-		this.fileName = file.getName();
+		if(file.exists()) {
+			this.file = file;
+			this.fileName = file.getName();
+		} else {
+			this.fileName = "none";
+		}
 		verticesList = new ArrayList<Vertex>();
 		facesList = new ArrayList<Face>();
 	}
@@ -71,6 +75,7 @@ public class PlyReader {
 	 * 
 	 */
 	public PlyReader() {
+		this.fileName = "none";
 		verticesList = new ArrayList<Vertex>();
 		facesList = new ArrayList<Face>();
 	}
@@ -95,8 +100,7 @@ public class PlyReader {
 	 */
 	public Model readPly() throws FileNotFoundException {
 		
-		PlyReader reader = new PlyReader(this.file);
-		FileReader fr = new FileReader(reader.getFile());
+		FileReader fr = new FileReader(this.getFile());
 		BufferedReader br = new BufferedReader(fr);
 		
 		readHeader(br);
@@ -104,7 +108,7 @@ public class PlyReader {
 		readFaceLines(br);
 
 		Model model = new Model(verticesList, facesList);
-		model.setNameOfFile(this.fileName);
+		model.setNameOfFile(this.getFileName());
 		return model;
 	}
 	
@@ -292,16 +296,19 @@ public class PlyReader {
 	 * Sets a new file into the Reader
 	 * 
 	 * <p>
-	 * The Reader will now read another file when the readPly is called
-	 * 
-	 * The function also empties all the information container attributes of the Reader
+	 * The Reader will now read another file when the readPly is called<br>
+	 * The function also empties all the information container attributes of the Reader<br>
+	 * <br>
+	 * It will work only if the given file exists,<br>
+	 * otherwise the old file will be kept into the PlyReader
 	 * </p>
 	 * 
 	 * 
 	 * @param file New file to read
+	 * @throws FileNotFoundException 
 	 */
-	public void setFile(File file) {
-		if( file != null) {
+	public void setFile(File file) throws FileNotFoundException {
+		if(file.exists()) {
 			this.nbFaces = -1;
 			this.nbVertex = -1;
 			this.vertexLength = -1;
@@ -310,29 +317,37 @@ public class PlyReader {
 			this.verticesList = new ArrayList<>();
 			this.fileName = file.getName();
 			this.file = file;
-		}
+		} else 
+			throw new FileNotFoundException("File not found");
 	}
 	
 	/**
 	 * Sets a new file into the Reader
 	 * 
 	 * <p>
-	 * The Reader will now read another file when the readPly is called
-	 * 
-	 * The function also empties all the information containers attributes of the Reader
+	 * The Reader will now read another file when the readPly is called<br>
+	 * The function also empties all the information containers attributes of the Reader<br>
+	 * <br>
+	 * It will work only if a file with the given name exists in the resources directory of the project,<br>
+	 * otherwise the old file will be kept into the PlyReader
 	 * </p>	
 	 *  
 	 * @param fileName name of the new file to read
+	 * @throws FileNotFoundException 
 	 */
-	public void setFile(String fileName) {
-		this.nbFaces = -1;
-		this.nbVertex = -1;
-		this.vertexLength = -1;
-		this.authorName = "";
-		this.facesList = new ArrayList<>();
-		this.verticesList = new ArrayList<>();
-		this.fileName = fileName;
-		this.file = new File(fileName);
+	public void setFile(String fileName) throws FileNotFoundException {
+		File file = new File("src/main/resources/"+fileName+".ply");
+		if(file.exists()) {
+			this.nbFaces = -1;
+			this.nbVertex = -1;
+			this.vertexLength = -1;
+			this.authorName = "";
+			this.facesList = new ArrayList<>();
+			this.verticesList = new ArrayList<>();
+			this.fileName = fileName;
+			this.file = new File("src/main/resources/"+fileName+".ply");
+		} else
+			throw new FileNotFoundException("There's no file existing in the resources directory with the given name");
 	}
 	
 	/**
@@ -359,4 +374,8 @@ public class PlyReader {
 //		reader.setFile("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test3.ply");
 //		reader.readPly();
 //	}
+
+	public String getFileName() {
+		return fileName;
+	}
 }
