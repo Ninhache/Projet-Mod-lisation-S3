@@ -125,7 +125,6 @@ public class SuperToolBar extends MenuBar {
         fileChooser.getExtensionFilters().addAll(filters);
 
 
-        
         // EVENT HANDLERS
         open.setOnAction(event -> {
 			try { onOpenClicked(event); } catch (FileNotFoundException e) { e.printStackTrace(); }
@@ -136,12 +135,9 @@ public class SuperToolBar extends MenuBar {
         controlHelp.setOnAction(this::onControlClick);
         clearRecent.setOnAction(this::onClearRecentClick);
 
-
         theme.getItems().forEach(button -> {
             button.setOnAction(this::onRadioClick);
         });
-        
-        openned = 0;
     }
 
     private void manageRecents() {
@@ -167,28 +163,6 @@ public class SuperToolBar extends MenuBar {
         secretTheme3 = new ThemeRadioButton("Secret3", group);
     }
 
-    
-    public void onPreviousRequest(ActionEvent e) {
-    	TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-    	if(cp.getSelectionModel().isSelected(0))
-    		cp.getSelectionModel().selectLast();
-    	else
-    		cp.getSelectionModel().selectPrevious();
-    }
-    public void onNextRequest(ActionEvent e) {
-    	TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-    	if(cp.getSelectionModel().isSelected(openned-1))
-    		cp.getSelectionModel().selectFirst();
-    	else
-    		cp.getSelectionModel().selectNext();
-    }
-    
-    public void onCloseRequest(ActionEvent e) {
-        TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-        cp.getTabs().remove((Tab) (cp.getSelectionModel().getSelectedItem()));
-    }
-
-
     public void onOpenClicked(ActionEvent e) throws FileNotFoundException {
         File file = fileChooser.showOpenDialog(this.getParent().getScene().getWindow());
 
@@ -204,8 +178,6 @@ public class SuperToolBar extends MenuBar {
         t.draw();
 
         addToOpenRecent(file);
-
-        openned++;
     }
 
     private void addToOpenRecent(File fileToAdd) {
@@ -226,7 +198,6 @@ public class SuperToolBar extends MenuBar {
             openRecents.getItems().addAll(getRecentFiles());
             manageRecents();
         }
-
     }
 
     private boolean fileAlreadyInRecent(File fileToAdd) {
@@ -241,7 +212,7 @@ public class SuperToolBar extends MenuBar {
             int nbLine = 0;
             while (sc.hasNext()) {
                 if (sc.hasNext()) {
-                    sb.append(sc.nextLine() + "-");
+                    sb.append(sc.nextLine()).append("-");
                 } else {
                     sb.append(sc.nextLine());
                 }

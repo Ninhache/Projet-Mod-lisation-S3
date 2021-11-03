@@ -18,6 +18,7 @@ import view.dialogs.TabCanvasPane;
 public class MainStage extends ExtendedStage {
 
     private SuperToolBar toolBar;
+    private TabCanvasPane tabPane;
 
     public MainStage() {
         super();
@@ -25,7 +26,7 @@ public class MainStage extends ExtendedStage {
         BorderPane root = new BorderPane();
         toolBar = new SuperToolBar();
 
-        TabCanvasPane tabPane = new TabCanvasPane();
+        tabPane = new TabCanvasPane();
 
         tabPane.setSkin(new CustomTabPaneSkin(tabPane, toolBar.getOpenActionsLink()));
 
@@ -75,22 +76,24 @@ public class MainStage extends ExtendedStage {
         // Ctrl + W
         Runnable kcCloseRequest = () -> {
             System.out.println("CTRL W");
-            toolBar.onCloseRequest(new ActionEvent());
+            tabPane.onCloseRequest(new ActionEvent());
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
+        /*
         // Ctrl + ->
         Runnable kcNextRequest = () -> {
         	System.out.println("CTRL RIGHT");
-        	toolBar.onNextRequest(new ActionEvent());
+            tabPane.onNextRequest(new ActionEvent());
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN), kcNextRequest);
-        
+
         // Ctrl + <-
         Runnable kcPreviousRequest = () -> {
         	System.out.println("CTRL LEFT");
-        	toolBar.onPreviousRequest(new ActionEvent());
+            tabPane.onPreviousRequest(new ActionEvent());
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN), kcPreviousRequest);
+         */
     }
 }
