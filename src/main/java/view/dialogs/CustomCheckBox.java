@@ -12,7 +12,7 @@ import javafx.scene.control.CustomMenuItem;
  */
 public class CustomCheckBox extends CustomMenuItem {
 
-    private CheckBox checkBox;
+    private final CheckBox checkBox;
 
     public CustomCheckBox(String label, boolean hideOnClick) {
         super();

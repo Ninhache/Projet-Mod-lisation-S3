@@ -14,7 +14,7 @@ import model.Vector;
  */
 public class CanvasModel extends Canvas {
 
-    private Model model;
+    private final Model model;
 
     public CanvasModel(Model model, double width, double height) {
         super(width, height);

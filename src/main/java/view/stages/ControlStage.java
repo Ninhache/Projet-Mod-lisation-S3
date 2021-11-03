@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 
 public class ControlStage extends ExtendedStage {
 
-    private Button closeButton;
+    private final Button closeButton;
 
     public ControlStage() {
         super();
@@ -55,10 +55,5 @@ public class ControlStage extends ExtendedStage {
         this.close();
     }
 
-//    private void setupSpacers(Region... spacers) {
-//    	for (Region spacer : spacers) {
-//			HBox.setHgrow(spacer, Priority.ALWAYS);
-//		}
-//    }
 }
 
