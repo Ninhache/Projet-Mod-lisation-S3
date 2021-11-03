@@ -74,6 +74,26 @@ public class Matrix {
         return new Matrix(vals);
     }
 
+    public Matrix multiplyMatrix(Matrix other, double scalaire) {
+       double[][] vals = new double[other.getRowCount()][other.getColumnCount()];
+       for(int i = 0 ; i < vals.length ; i++) {
+           for(int j = 0 ; j < vals[0].length ; j++) {
+               if(i == vals.length -1) {
+                   vals[i][j] = other.getValues()[i][j];
+               } else {
+                   vals[i][j] = other.getValues()[i][j] * scalaire;
+               }
+           }
+       }
+
+       return new Matrix(vals);
+    }
+
+    public Matrix multiplyMatrix(double scalaire) {
+        return multiplyMatrix(this, scalaire);
+    }
+
+
     /**
      * Sums matrix by another one
      * <p>
@@ -142,10 +162,10 @@ public class Matrix {
 
     public Matrix homothety(double ratio) {
         double[][] vals = new double[][] {
-                {ratio, 0, 0, 0},
-                {0, ratio, 0, 0},
-                {0, 0, ratio, 0},
-                {0, 0, 0, 1}
+                {ratio,     0,     0,     0},
+                {    0, ratio,     0,     0},
+                {    0,     0, ratio,     0},
+                {    0,     0,     0,     1}
         };
         return new Matrix(vals).multiplyMatrix(this);
     }
@@ -287,6 +307,10 @@ public class Matrix {
 		return defaultValues;
 	}
 
+    public void resetToDefaultValues() {
+        this.values = defaultValues.clone();
+    }
+
     @Override
     public String toString() {
     	String res = "";
@@ -306,4 +330,5 @@ public class Matrix {
             }
         return res;
     }
+
 }
