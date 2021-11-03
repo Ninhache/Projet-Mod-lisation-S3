@@ -175,7 +175,7 @@ public class SuperToolBar extends MenuBar {
         reader.setFile(file);
         try { cp.getTabs().add(new TabCanvas(reader.readPly())); } catch (FileNotFoundException e1) { e1.printStackTrace(); }
         CanvasModel t = (CanvasModel) cp.getTabs().get(cp.getTabs().size()-1).getContent();
-        t.draw();
+        t.initDraw();
 
         addToOpenRecent(file);
     }

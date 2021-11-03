@@ -81,6 +81,8 @@ public class MainStage extends ExtendedStage {
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
         /*
+
+        // deja implémenté, suffit de faire flèche droite/gauche
         // Ctrl + ->
         Runnable kcNextRequest = () -> {
         	System.out.println("CTRL RIGHT");

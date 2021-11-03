@@ -36,6 +36,6 @@ public class TabCanvas extends Tab {
     }
 
     public void updateDraw() {
-        this.canvas.draw();
+        this.canvas.initDraw();
     }
 }
