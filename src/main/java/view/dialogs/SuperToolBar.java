@@ -188,12 +188,14 @@ public class SuperToolBar extends MenuBar {
         cp.getTabs().remove((Tab) (cp.getSelectionModel().getSelectedItem()));
     }
 
+
+    public void onOpenClicked(ActionEvent e) throws FileNotFoundException {
         File file = fileChooser.showOpenDialog(this.getParent().getScene().getWindow());
-        public void onOpenClicked(ActionEvent e) throws FileNotFoundException {
+
         if(file == null) {
-        	
-        	MessageBox.showWarning("Fichier introuvable", "Gros problème la");
-        	return;
+
+            MessageBox.showWarning("Fichier introuvable", "Gros problème la");
+            return;
         }
         TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
         reader.setFile(file);
