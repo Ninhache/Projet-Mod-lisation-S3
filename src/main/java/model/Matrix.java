@@ -56,7 +56,7 @@ public class Matrix {
             return this;
         }
 
-        double vals[][];
+        double[][] vals;
         int l1 = this.getRowCount();
         int c1 = this.getColumnCount();
 
@@ -141,7 +141,7 @@ public class Matrix {
     }
 
     public Matrix homothety(double ratio) {
-        double vals[][] = new double[][] {
+        double[][] vals = new double[][] {
                 {ratio, 0, 0, 0},
                 {0, ratio, 0, 0},
                 {0, 0, ratio, 0},
@@ -151,7 +151,7 @@ public class Matrix {
     }
 
     public Matrix translation(double t1, double t2, double t3) {
-        double vals[][] = new double[][] {
+        double[][] vals = new double[][] {
                 {1, 0, 0, t1},
                 {0, 1, 0, t2},
                 {0, 0, 1, t3},
@@ -167,7 +167,7 @@ public class Matrix {
 
     // TODO : Test will be hard to make...
     public Matrix rotation(Rotation r, double degre) {
-        double vals[][] = new double[this.getRowCount()][this.getColumnCount()];
+        double[][] vals = new double[this.getRowCount()][this.getColumnCount()];
         if(r.equals(Rotation.X)) {
             vals = xRotationMatrix(degre);
         } else if(r.equals(Rotation.Y)) {

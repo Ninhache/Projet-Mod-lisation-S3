@@ -140,7 +140,7 @@ public class PlyReader {
 				sb.append(line);
 				sb.append("\n");
 			}
-			System.out.printf("contenu Header :\n\n%s________________________________________________________\n", sb.toString());
+			System.out.printf("contenu Header :\n\n%s________________________________________________________\n", sb);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -219,10 +219,9 @@ public class PlyReader {
 
 			StringBuilder sb = new StringBuilder();
 			
-			boolean testIfVertex = false;
-			if(splittedLine.length == 3) testIfVertex = true;
-			
-			int i = 1;
+			boolean testIfVertex = splittedLine.length == 3;
+
+            int i = 1;
 			while(testIfVertex) {
 
 				vertexLength++;
