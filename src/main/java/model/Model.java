@@ -50,7 +50,6 @@ public class Model {
      * @return the smallest Y coordinate value in the model
      */
     public double getMinY() {
-
        if(vertices == null)
                throw new NullPointerException();
 
@@ -113,6 +112,41 @@ public class Model {
        return res;
     }
 
+    /**
+     *
+     * @return the smallest Z coordinate value in the model
+     */
+    public double getMinZ() {
+
+        if(vertices == null)
+            throw new NullPointerException();
+
+        double res = vertices.get(0).getZ();
+        for (Vertex v : vertices) {
+            if(v.getZ()<res)
+                res = v.getZ();
+        }
+        return res;
+    }
+
+    /**
+     *
+     * @return the biggest Z coordinate value in the model
+     */
+    public double getMaxZ() {
+
+        if(vertices == null)
+            throw new NullPointerException();
+
+        double res = vertices.get(0).getZ();
+        for (Vertex v : vertices) {
+            if(v.getZ()>res)
+                res = v.getZ();
+        }
+        return res;
+    }
+
+
     public Matrix getMatrix() {
 		return matrix;
 	}
@@ -136,4 +170,5 @@ public class Model {
     public void setNameOfFile(String nameOfFile) {
         this.nameOfFile = nameOfFile;
     }
+
 }
