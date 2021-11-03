@@ -44,5 +44,12 @@ public class Face {
 	public int getColorB() {
 		return color[2];
 	}
-	
+
+	public ArrayList<Vertex> getVertices() {
+		return vertices;
+	}
+
+	public int[] getColor() {
+		return color;
+	}
 }
