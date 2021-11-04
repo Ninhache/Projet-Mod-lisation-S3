@@ -52,13 +52,13 @@ public class SuperToolBar extends MenuBar {
         private Menu openRecents, exportAs;
 
         // Outils
-        private CustomCheckBox cbFaces, cbLines, cbLight;
-        private CustomMenuItem afficherFaces, afficherLignes, afficherLumieres;
+        //private CustomCheckBox cbFaces, cbLines, cbLight;
+        private CustomCheckBox afficherFaces, afficherLignes, afficherLumieres;
 
         // Aide
         private Menu theme;
         private MenuItem controlHelp;
-        private CheckBox cbWhite, cbBlack;
+        //private CheckBox cbWhite, cbBlack;
         private ThemeRadioButton whiteTheme, blackTheme, orangeTheme, redTheme, pinkTheme, blueTheme, purpleTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3;
         // TODO REMOVE SECRETTHEME !!!!????
 
@@ -98,7 +98,9 @@ public class SuperToolBar extends MenuBar {
         exportAs.getItems().addAll(saveAsImg, saveAsPly);
 
         afficherFaces = new CustomCheckBox("Afficher faces");
+            afficherFaces.getSelectedProperty().set(true);
         afficherLignes = new CustomCheckBox("Afficher lignes");
+            afficherLignes.getSelectedProperty().set(true);
         afficherLumieres = new CustomCheckBox("Afficher lumières");
 
         // Help
