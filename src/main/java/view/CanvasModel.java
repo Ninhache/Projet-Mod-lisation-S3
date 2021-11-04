@@ -65,8 +65,8 @@ public class CanvasModel extends Canvas {
  */
 
         //this.model.getMatrix().translation(centerX/2, centerY/2, centerZ/2);
-        this.model.setMatrix(this.model.getMatrix().homothety(ratio));
-        this.model.setMatrix(this.model.getMatrix().translation(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0));
+        this.model.getMatrix().homothety(ratio);
+        this.model.getMatrix().translation(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0);
 
         initListeners();
         draw();
@@ -177,5 +177,9 @@ public class CanvasModel extends Canvas {
             this.drawLight = newValue;
             if(oldValue != newValue) draw();
         });
+    }
+
+    public Model getModel() {
+        return model;
     }
 }

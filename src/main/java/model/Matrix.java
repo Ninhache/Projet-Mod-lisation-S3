@@ -50,10 +50,10 @@ public class Matrix {
      * @param other the other matrix
      * @return the result of the multiplication of both matrices, in a new one
      */
-    public Matrix multiplyMatrix(Matrix other) {
+    public void multiplyMatrix(Matrix other) {
         // TODO : Create errors to check the validity of both matrices
         if(!this.canMultiply(other)) {
-            return this;
+            return;
         }
 
         double[][] vals;
@@ -71,10 +71,10 @@ public class Matrix {
                     vals[row][col] += this.getValues()[row][k] * other.getValues()[k][col];
             }
         }
-        return new Matrix(vals);
+        this.values = vals;
     }
 
-    public Matrix multiplyMatrix(Matrix other, double scalaire) {
+    public void multiplyMatrix(Matrix other, double scalaire) {
        double[][] vals = new double[other.getRowCount()][other.getColumnCount()];
        for(int i = 0 ; i < vals.length ; i++) {
            for(int j = 0 ; j < vals[0].length ; j++) {
@@ -86,11 +86,11 @@ public class Matrix {
            }
        }
 
-       return new Matrix(vals);
+        this.values = vals;
     }
 
-    public Matrix multiplyMatrix(double scalaire) {
-        return multiplyMatrix(this, scalaire);
+    public void multiplyMatrix(double scalaire) {
+        multiplyMatrix(this, scalaire);
     }
 
 
@@ -113,15 +113,15 @@ public class Matrix {
      * @param other the other matrix
      * @return the result of the sum of both matrices, in a new one
      */
-    public Matrix sumMatrix(Matrix other) {
+    public void sumMatrix(Matrix other) {
         if(canSum(other)) {
-            double[][] res = new double[this.getRowCount()][this.getColumnCount()];
+            double[][] vals = new double[this.getRowCount()][this.getColumnCount()];
             for (int row = 0; row <  this.getRowCount(); row++) {
                 for (int col = 0; col < this.getColumnCount(); col++) {
-                    res[row][col] = this.getValues()[row][col] + other.getValues()[row][col];
+                    vals[row][col] = this.getValues()[row][col] + other.getValues()[row][col];
                 }
             }
-            return new Matrix(res);
+            this.values = vals;
         }else {
             throw new IllegalArgumentException("MatrixNotSummable");
         }
@@ -146,47 +146,54 @@ public class Matrix {
      * @param other the other matrix
      * @return the result of the subtraction of both matrices, in a new one
      */
-    public Matrix subMatrix(Matrix other) {
+    public void subMatrix(Matrix other) {
         if(canSum(other)) {
-            double[][] res = new double[this.getRowCount()][this.getColumnCount()];
+            double[][] vals = new double[this.getRowCount()][this.getColumnCount()];
             for (int row = 0; row <  this.getRowCount(); row++) {
                 for (int col = 0; col < this.getColumnCount(); col++) {
-                    res[row][col] = this.getValues()[row][col] - other.getValues()[row][col];
+                    vals[row][col] = this.getValues()[row][col] - other.getValues()[row][col];
                 }
             }
-            return new Matrix(res);
+            this.values = vals;
         }else {
             throw new IllegalArgumentException("MatrixNotSummable");
         }
     }
 
-    public Matrix homothety(double ratio) {
+    public void homothety(double ratio) {
         double[][] vals = new double[][] {
                 {ratio,     0,     0,     0},
                 {    0, ratio,     0,     0},
                 {    0,     0, ratio,     0},
                 {    0,     0,     0,     1}
         };
-        return new Matrix(vals).multiplyMatrix(this);
+
+        Matrix matrixVal = new Matrix(vals);
+        matrixVal.multiplyMatrix(this);
+
+        this.values = matrixVal.values;
     }
 
-    public Matrix translation(double t1, double t2, double t3) {
+    public void translation(double t1, double t2, double t3) {
         double[][] vals = new double[][] {
                 {1, 0, 0, t1},
                 {0, 1, 0, t2},
                 {0, 0, 1, t3},
                 {0, 0, 0, 1}
         };
-        return new Matrix(vals).multiplyMatrix(this);
+        Matrix matrixVal = new Matrix(vals);
+        matrixVal.multiplyMatrix(this);
+
+        this.values = matrixVal.values;
     }
     
     // TODO : Check if this is correct later
-    public Matrix translation(Vector v) {
-        return this.translation(v.getX(), v.getY(), v.getZ());
+    public void translation(Vector v) {
+        this.translation(v.getX(), v.getY(), v.getZ());
     }
 
     // TODO : Test will be hard to make...
-    public Matrix rotation(Rotation r, double degre) {
+    public void rotation(Rotation r, double degre) {
         double[][] vals = new double[this.getRowCount()][this.getColumnCount()];
         if(r.equals(Rotation.X)) {
             vals = xRotationMatrix(degre);
@@ -198,7 +205,11 @@ public class Matrix {
             throw new IllegalArgumentException("Le type de rotation n'est pas valable.");
         }
 
-        return new Matrix(vals).multiplyMatrix(this);
+        Matrix matrixVal = new Matrix(vals);
+        matrixVal.multiplyMatrix(this);
+
+        this.values = matrixVal.values;
+
     }
 
     public double[][] xRotationMatrix(double degre){
