@@ -98,4 +98,8 @@ public class MainStage extends ExtendedStage {
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN), kcPreviousRequest);
          */
     }
+
+    public SuperToolBar getToolBar() {
+        return toolBar;
+    }
 }

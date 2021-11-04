@@ -48,4 +48,8 @@ public class Vertex {
     	Vertex.idAuto = 0;
     }
 
+    @Override
+    public String toString() {
+        return String.format("[X:%s; Y:%s;Z:%s]",this.x, this.y, this.z);
+    }
 }
