@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * A model contains faces
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * @see Model
  * @see Vertex
  */
-public class Face {
+public class Face implements Comparable<Face> {
 
 	private ArrayList<Vertex> vertices;
 	private int[] color;
@@ -51,5 +53,35 @@ public class Face {
 
 	public int[] getColor() {
 		return color;
+	}
+
+
+
+
+	@Override
+	public int compareTo(Face other) {
+
+		double thisMoyZ = this.getVertices().stream().mapToDouble(Vertex::getZ).sum() / this.getVertices().size();
+		double otherMoyZ = other.getVertices().stream().mapToDouble(Vertex::getZ).sum() / this.getVertices().size();
+
+		if(thisMoyZ < otherMoyZ)
+			return -1;
+		else if(thisMoyZ > otherMoyZ)
+			return 1;
+		else
+			return 0;
+	}
+
+
+
+	@Override
+	public String toString() {
+		String res = "";
+
+		for (Vertex v : this.getVertices()) {
+			res += v.toString() ;
+		}
+		res+="\n";
+		return res;
 	}
 }
