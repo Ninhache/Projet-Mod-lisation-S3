@@ -149,7 +149,7 @@ public class PlyReader {
 				sb.append(line);
 				sb.append("\n");
 			}
-			System.out.printf("contenu Header :\n\n%s________________________________________________________\n", sb);
+			//System.out.printf("contenu Header :\n\n%s________________________________________________________\n", sb);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

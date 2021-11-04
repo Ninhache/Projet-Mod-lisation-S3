@@ -22,13 +22,10 @@ public class Controller implements EventHandler<Event>{
 		
 		switch(s.getId()) {
 			case "SliderX":
-				System.out.println(model.getMatrix());
 				break;
 			case "SliderY":
-				System.out.println(model.getMatrix());
 				break;
 			default:
-				System.out.println("y'a un problème frérot");
 				break;
 		}
 		

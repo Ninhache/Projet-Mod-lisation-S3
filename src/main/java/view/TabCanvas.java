@@ -22,11 +22,6 @@ public class TabCanvas extends Tab {
 
         this.canvas = new CanvasModel(model,width,height);
 
-
-        canvas.setOnMouseClicked((e)->{
-        	System.out.println("MOUSE | x :" + e.getX() + " y: " + e.getY() + " z:" + e.getZ());
-        });
-
         setText(title);
         setContent(canvas);
 
@@ -42,5 +37,9 @@ public class TabCanvas extends Tab {
 
     public void updateDraw() {
         this.canvas.initDraw();
+    }
+
+    public CanvasModel getCanvas() {
+        return canvas;
     }
 }

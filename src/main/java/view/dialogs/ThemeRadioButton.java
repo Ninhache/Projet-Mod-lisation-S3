@@ -51,14 +51,12 @@ public class ThemeRadioButton extends RadioMenuItem {
     public Rectangle getCurrentColor(String color) throws FileNotFoundException {
         //Rectangle tmp = new Rectangle(Color.web())
         File f = new File("src/main/resources/css/theme/Theme" + color + ".css");
-        System.out.println("FILE =>"+f);
         Scanner sc = new Scanner(f);
 
         String rectColor = "white";
         while(sc.hasNext()) {
             String tmp = sc.nextLine();
             if(tmp.contains("-fx-base:")) {
-                System.out.println(tmp.length());
                 rectColor = tmp.substring(14,tmp.length()-1);
                 break;
             }

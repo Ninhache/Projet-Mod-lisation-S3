@@ -62,7 +62,7 @@ public class tmp {
         System.out.println("M2 avec M:" + m2.canMultiply(m));
         System.out.println("M avec M2:" + m.canMultiply(m2));
         //Matrix.printMatrix(m.getValues(), m.getRowCount(), m.getColumnCount());
-        System.out.println(m.multiplyMatrix(m2));
+        //System.out.println(m.multiplyMatrix(m2));
 
         //printMatrix(m2.getValues(), m2.getRowCount(), m2.getColumnCount());
     }
