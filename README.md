@@ -23,10 +23,10 @@
 
 ## Distribution du travail (qui a fait quoi)
 
-ALMEIDA     Néo     :   ?
-LAGNEAU     Simon   :   ?
-MACIEIRA    Matteo  :   ?
-VANHEE      Paul    :   ?
+ALMEIDA     Néo     :   ?<br>
+LAGNEAU     Simon   :   ?<br>
+MACIEIRA    Matteo  :   ?<br>
+VANHEE      Paul    :   ?<br>
 
 ## Difficultés rencontrées
 
@@ -61,10 +61,10 @@ Néo : Respecter le MCV à 100% !
 
 ## Distribution du travail (qui a fait quoi)
 
-ALMEIDA     Néo     :   ?
-LAGNEAU     Simon   :   ?
-MACIEIRA    Matteo  :   ?
-VANHEE      Paul    :   ?
+ALMEIDA     Néo     :   ?<br>
+LAGNEAU     Simon   :   ?<br>
+MACIEIRA    Matteo  :   ?<br>
+VANHEE      Paul    :   ?<br>
 
 
 ## Difficultés rencontrées
