@@ -14,10 +14,14 @@ public class PlyReader {
 
 	private String fileName, authorName;
 	private File file;
-	private final String END_HEADER = "end_header";
+	private final String END_HEADER = "end_header"; // < Simplfied into normal string, idk why this is used...
 	private int nbVertex,nbFaces,vertexLength;
 	private ArrayList<Vertex> verticesList;
 	private ArrayList<Face> facesList;
+
+	private double barycenterX = 0;
+	private double barycenterY = 0;
+	private double barycenterZ = 0;
 
 	/**
 	 * <b>Constructor of a PlyReader</b>
@@ -109,6 +113,11 @@ public class PlyReader {
 
 		Model model = new Model(verticesList, facesList);
 		model.setNameOfFile(this.getFileName());
+
+		model.setBarycenterX(this.barycenterX / this.verticesList.size());
+		model.setBarycenterY(this.barycenterY / this.verticesList.size());
+		model.setBarycenterZ(this.barycenterZ / this.verticesList.size());
+
 		return model;
 	}
 	
@@ -173,12 +182,20 @@ public class PlyReader {
 	 * <p>
 	 * The line currently being read when this function is called describes a Vertex.<br>
 	 * The function collects the coordinates in the line to create a Vertex and put it into the verticesList.<br>
+	 * It's also build the barycenter of the model. The barycenter can be used to center the figure in the middle of the canvas.
 	 * </p>
 	 * 
 	 * @param line The line describing a Vertex currently being read
 	 */
 	public void collectVertexInfo(String[] line) {
-		verticesList.add(new Vertex(Double.parseDouble(line[0]), Double.parseDouble(line[1]), Double.parseDouble(line[2])));
+		double x = Double.parseDouble(line[0]);
+		double y = Double.parseDouble(line[1]);
+		double z = Double.parseDouble(line[2]);
+
+		this.verticesList.add(new Vertex(x,y,z));
+		this.barycenterX += x;
+		this.barycenterY += y;
+		this.barycenterZ += z;
 	}
 
 	/**
@@ -232,7 +249,7 @@ public class PlyReader {
 				sb.append("\n");
 				
 				br.mark(vertexLength);
-				line=br.readLine();
+				line = br.readLine();
 				splittedLine = line.split(" ");
 				if(splittedLine.length != 3)
 					testIfVertex = false;

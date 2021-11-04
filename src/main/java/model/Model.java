@@ -17,6 +17,10 @@ public class Model {
     private final ArrayList<Face> faces;
     private String nameOfFile;
 
+    private double barycenterX;
+    private double barycenterY;
+    private double barycenterZ; // < probably useless
+
     /**
      * <b>Constructor of a Model</b>
      *
@@ -39,6 +43,7 @@ public class Model {
         	matrix.getValues()[2][index] = vertices.get(index).getZ();
         	matrix.getValues()[3][index] = 1;
         }
+
     }
 
     public Model(){
@@ -159,7 +164,7 @@ public class Model {
         this.matrix = matrix;
     }
 
-    public ArrayList<Vertex> getPoints() {
+    public ArrayList<Vertex> getVertices() {
         return vertices;
     }
 
@@ -171,4 +176,27 @@ public class Model {
         this.nameOfFile = nameOfFile;
     }
 
+    public void setBarycenterX(double barycenterX) {
+        this.barycenterX = barycenterX;
+    }
+
+    public void setBarycenterY(double barycenterY) {
+        this.barycenterY = barycenterY;
+    }
+
+    public void setBarycenterZ(double barycenterZ) {
+        this.barycenterZ = barycenterZ;
+    }
+
+    public double getBarycenterX() {
+        return barycenterX;
+    }
+
+    public double getBarycenterY() {
+        return barycenterY;
+    }
+
+    public double getBarycenterZ() {
+        return barycenterZ;
+    }
 }
