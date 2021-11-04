@@ -13,18 +13,13 @@ import model.Model;
 import model.PlyReader;
 
 import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import javafx.embed.swing.SwingFXUtils;
 import view.ActionLink;
@@ -52,13 +47,13 @@ public class SuperToolBar extends MenuBar {
         private Menu openRecents, exportAs;
 
         // Outils
-        //private CustomCheckBox cbFaces, cbLines, cbLight;
         private CustomCheckBox afficherFaces, afficherLignes, afficherLumieres;
+        private Menu sortMenu;
+        private MenuItem sortAlpha, sortRevert, sortRandom;
 
         // Aide
         private Menu theme;
         private MenuItem controlHelp;
-        //private CheckBox cbWhite, cbBlack;
         private ThemeRadioButton whiteTheme, blackTheme, orangeTheme, redTheme, pinkTheme, blueTheme, purpleTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3;
         // TODO REMOVE SECRETTHEME !!!!????
 
@@ -102,6 +97,14 @@ public class SuperToolBar extends MenuBar {
         afficherLignes = new CustomCheckBox("Afficher lignes");
             afficherLignes.getSelectedProperty().set(true);
         afficherLumieres = new CustomCheckBox("Afficher lumières");
+            afficherLumieres.getSelectedProperty().set(false);
+
+        sortMenu = new Menu("Trier par...");
+            sortAlpha = new MenuItem("A . . . Z");
+            sortRevert = new MenuItem("Z . . . A");
+            sortRandom = new MenuItem("Aléatoire");
+
+        sortMenu.getItems().addAll(sortAlpha, sortRevert, sortRandom);
 
         // Help
         theme = new Menu("Thème");
@@ -113,19 +116,17 @@ public class SuperToolBar extends MenuBar {
 
         getMenus().addAll(fichier, outils, aide);
         fichier.getItems().addAll(open, openRecents, new SeparatorMenuItem(), exportAs, print3d,new SeparatorMenuItem(), quit);
-        outils.getItems().addAll(afficherFaces, afficherLignes, afficherLumieres);
+        outils.getItems().addAll(afficherFaces, afficherLignes, afficherLumieres, new SeparatorMenuItem(), sortMenu);
         aide.getItems().addAll(theme, controlHelp);
         theme.getItems().addAll(whiteTheme, blackTheme, new SeparatorMenuItem(), orangeTheme, redTheme, pinkTheme, purpleTheme, blueTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3);
 
         // FILE CHOOSER
-
         fileChooser = new FileChooser();
         FileChooser.ExtensionFilter[] filters = new FileChooser.ExtensionFilter[]{
                 new FileChooser.ExtensionFilter("Fichier ply (*.ply)", "*.ply"),
                 new FileChooser.ExtensionFilter("Tous les fichiers (*)", "*"),
         };
         fileChooser.getExtensionFilters().addAll(filters);
-
 
         // EVENT HANDLERS
         open.setOnAction(event -> {
@@ -134,8 +135,13 @@ public class SuperToolBar extends MenuBar {
         quit.setOnAction(this::onQuitClicked);
         saveAsImg.setOnAction(this::onSaveImg);
         exportAs.setOnAction(this::onExportAsPly);
+        print3d.setOnAction(this::onPrint3dClick);
         controlHelp.setOnAction(this::onControlClick);
         clearRecent.setOnAction(this::onClearRecentClick);
+
+        sortAlpha.setOnAction(this::onSortAlphaClick);
+        sortRevert.setOnAction(this::onSortAlphaReverseClick);
+        sortRandom.setOnAction(this::onShuffleClick);
 
         theme.getItems().forEach(button -> {
             button.setOnAction(this::onRadioClick);
@@ -192,11 +198,33 @@ public class SuperToolBar extends MenuBar {
 
         Path path = Paths.get("src/main/resources/tmp/openRecentFile.txt");
 
+
+
         try {
+
             if(!fileAlreadyInRecent(fileToAdd)) {
-                Files.write(path, (fileToAdd.getName() + "#" + fileToAdd.getAbsolutePath() + "\n").getBytes(StandardCharsets.UTF_8),
+
+            File mFile = path.toFile();
+            FileInputStream fis = new FileInputStream(mFile);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            String result = "";
+            String line = "";
+            while( (line = br.readLine()) != null){
+                result = result + line + "\n";
+            }
+
+            result = fileToAdd.getName() + "#" + fileToAdd.getAbsolutePath() + "\n" + result;
+
+            mFile.delete();
+            FileOutputStream fos = new FileOutputStream(mFile);
+            fos.write(result.getBytes());
+            fos.flush();
+
+              /*  Files.write(path, (fileToAdd.getName() + "#" + fileToAdd.getAbsolutePath() + "\n").getBytes(StandardCharsets.UTF_8),
                         StandardOpenOption.CREATE,
                         StandardOpenOption.APPEND);
+               */
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -277,6 +305,7 @@ public class SuperToolBar extends MenuBar {
 
         getParent().getScene().getStylesheets().clear();
         getParent().getScene().getStylesheets().add(getClass().getResource("/css/theme/"+newCss+".css").toExternalForm());
+
     }
 
     private void onControlClick(ActionEvent e) {
@@ -290,28 +319,64 @@ public class SuperToolBar extends MenuBar {
         }
     }
 
-    private void onClearRecentClick(ActionEvent e) {
-        File file = new File("src/main/resources/tmp/openRecentFile.txt");
+    private void onSortAlphaClick(ActionEvent e) {
+        TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
-        try {
-            PrintWriter writer = new PrintWriter(file.getAbsolutePath());
-
-            writer.print("");
-            writer.close();
-
-            openRecents.getItems().clear();
-            openRecents.getItems().addAll(getRecentFiles());
-            manageRecents();
-
-        } catch (FileNotFoundException ex) {
-            try {
-                file.createNewFile();
-            } catch (IOException exc) {
-                exc.printStackTrace();
-            }
-            ex.printStackTrace();
+        if(tabPane.getTabs().size() > 0) {
+            tabPane.getTabs().sort(Comparator.comparing(Tab::getText));
         }
 
+    }
+
+    private void onSortAlphaReverseClick(ActionEvent e) {
+        TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+
+        if(tabPane.getTabs().size() > 0) {
+            tabPane.getTabs().sort((o1, o2) -> o2.getText().compareTo(o1.getText()));
+        }
+
+    }
+
+    private void onShuffleClick(ActionEvent e) {
+        TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+
+        if(tabPane.getTabs().size() > 0) {
+            tabPane.getTabs().sort(((o1, o2) -> {
+                return new Random().nextInt(3) - 1;
+            }));
+        }
+
+    }
+
+    private void onClearRecentClick(ActionEvent e) {
+
+        if(MessageBox.showConfirm("Supprimer la liste de fichier récents ?", "Êtes-vous sûr de vouloir supprimer la liste de fichier récents ?\nCe choix est irréversible.") == ButtonType.OK) {
+            File file = new File("src/main/resources/tmp/openRecentFile.txt");
+
+            try {
+                PrintWriter writer = new PrintWriter(file.getAbsolutePath());
+
+                writer.print("");
+                writer.close();
+
+                openRecents.getItems().clear();
+                openRecents.getItems().addAll(getRecentFiles());
+                manageRecents();
+
+            } catch (FileNotFoundException ex) {
+                try {
+                    file.createNewFile();
+                } catch (IOException exc) {
+                    exc.printStackTrace();
+                }
+                ex.printStackTrace();
+            }
+        }
+
+    }
+
+    private void onPrint3dClick(ActionEvent e) {
+        MessageBox.showError("Feature non implémentée !", "Cette feature sera ajoutée si on trouve une librairie qui gère l'imprimerie en 3D...");
     }
 
     private void onExportAsPly(ActionEvent e) {
@@ -378,6 +443,7 @@ public class SuperToolBar extends MenuBar {
                 for(String s : sb.toString().split("-")) {
                     List<String> list = Arrays.asList(s.split("#"));
                     MenuItem tmp = new MenuItem(list.get(0));
+                    if(x >= 10) break;
                     itemList[x] = tmp;
 
                     tmp.setOnAction(event -> {
@@ -405,7 +471,6 @@ public class SuperToolBar extends MenuBar {
 			try { onOpenClicked(event); } catch (FileNotFoundException e) { e.printStackTrace(); }
 		});
     }
-
 
     private void onQuitClicked(ActionEvent e) {
         if(MessageBox.showConfirm("Quitter ?", "Êtes-vous sûr de vouloir quitter ?\nCe choix est irréversible.") == ButtonType.OK) Platform.exit();
