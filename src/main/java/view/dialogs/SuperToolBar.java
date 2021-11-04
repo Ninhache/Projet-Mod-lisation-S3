@@ -171,10 +171,15 @@ public class SuperToolBar extends MenuBar {
             MessageBox.showWarning("Fichier introuvable", "Gros problème la");
             return;
         }
-        TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+        TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
         reader.setFile(file);
-        try { cp.getTabs().add(new TabCanvas(reader.readPly())); } catch (FileNotFoundException e1) { e1.printStackTrace(); }
-        CanvasModel t = (CanvasModel) cp.getTabs().get(cp.getTabs().size()-1).getContent();
+        try {
+            tabPane.getTabs().add(new TabCanvas(reader.readPly(), tabPane.getWidth(), tabPane.getHeight()));
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        CanvasModel t = (CanvasModel) tabPane.getTabs().get(tabPane.getTabs().size()-1).getContent();
+        tabPane.getSelectionModel().selectLast();
         t.initDraw();
 
         addToOpenRecent(file);
@@ -241,26 +246,26 @@ public class SuperToolBar extends MenuBar {
 
     private void openFiles(List<String> list) {
 
-        TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
+        TabCanvasPane tabCanvas = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
         // add path
-        Path p = Paths.get(list.get(1));
-        Model m = null;
+        Path path = Paths.get(list.get(1));
+        Model model = null;
 
         try {
-            m = new PlyReader(p).readPly();
+            model = new PlyReader(path).readPly();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        TabCanvas tb = new TabCanvas( m , list.get(0));
+        TabCanvas tab = new TabCanvas( model , list.get(0), tabCanvas.getWidth(), tabCanvas.getHeight());
 
-        cp.getTabs().add(tb);
+        tabCanvas.getTabs().add(tab);
 
-        SingleSelectionModel<Tab> selectionModel = cp.getSelectionModel();
+        SingleSelectionModel<Tab> selectionModel = tabCanvas.getSelectionModel();
 
-        selectionModel.select(tb);
-        tb.updateDraw();
+        selectionModel.select(tab);
+        tab.updateDraw();
 
     }
 
