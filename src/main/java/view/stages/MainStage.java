@@ -75,10 +75,21 @@ public class MainStage extends ExtendedStage {
 
         // Ctrl + W
         Runnable kcCloseRequest = () -> {
-            System.out.println("CTRL W");
             tabPane.onCloseRequest(new ActionEvent());
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
+
+        //Ctrl shift ==>
+        Runnable kcTabMoveToRight = () -> {
+            tabPane.onSwitchToRight(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToRight);
+
+        //Ctrl shift <==
+        Runnable kcTabMoveToLeft = () -> {
+            tabPane.onSwitchToLeft(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToLeft);
 
         /*
 
