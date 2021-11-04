@@ -56,7 +56,7 @@ public class CanvasModel extends Canvas {
 
         //this.model.getMatrix().translation(centerX/2, centerY/2, centerZ/2);
         this.model.setMatrix(this.model.getMatrix().homothety(ratio));
-        this.model.setMatrix(this.model.getMatrix().translation(this.getWidth()/2, this.getHeight()/2, 0));
+        this.model.setMatrix(this.model.getMatrix().translation(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0));
 
 
 
@@ -70,7 +70,7 @@ public class CanvasModel extends Canvas {
 
         gc.clearRect(0, 0, getWidth(), getHeight());
         gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, getWidth(), getWidth());
+        gc.fillRect(0, 0, getWidth(), getHeight());
 
         gc.beginPath();
         gc.setLineWidth(1);

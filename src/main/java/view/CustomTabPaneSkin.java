@@ -67,7 +67,7 @@ public class CustomTabPaneSkin extends TabPaneSkin {
             container.setAlignment(Pos.CENTER);
             container.setVgap(2);
             container.setHgap(4);
-            container.setMaxWidth(500);
+
 
             HBox.setHgrow(container, Priority.ALWAYS);
 

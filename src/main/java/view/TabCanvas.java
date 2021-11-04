@@ -17,10 +17,11 @@ public class TabCanvas extends Tab {
 
     private CanvasModel canvas;
 
-    public TabCanvas(Model model, String title) {
+    public TabCanvas(Model model, String title, double width, double height) {
         super(title);
 
-        this.canvas = new CanvasModel(model, 500,500);
+        this.canvas = new CanvasModel(model,width,height);
+
 
         canvas.setOnMouseClicked((e)->{
         	System.out.println("MOUSE | x :" + e.getX() + " y: " + e.getY() + " z:" + e.getZ());
@@ -31,8 +32,12 @@ public class TabCanvas extends Tab {
 
     }
 
+    public TabCanvas(Model model, double width, double height) {
+        this(model, model == null ? "" : model.getNameOfFile(), width,height);
+    }
+
     public TabCanvas(Model model) {
-        this(model, model == null ? "" : model.getNameOfFile());
+        this(model, model == null ? "" : model.getNameOfFile(), 500,500);
     }
 
     public void updateDraw() {
