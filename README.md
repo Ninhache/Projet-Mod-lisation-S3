@@ -10,24 +10,27 @@
 - [ ] Message d'erreur en cas d'erreur de format dans le fichier
 - [ ] La visualisation est correcte
 - [ ] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
-- [ ] Rotation
-- [ ] Translation
-- [ ] Homotétie (L'échelle)
+- [x] Rotation
+- [x] Translation
+- [x] Homotétie (L'échelle)
 
 ## Autres éléments demandés
 
-- [ ] Tests pour les classes de calcul mathématique
+- [x] Tests pour les classes de calcul mathématique
 - [ ] Captures d'écran pour le rendu
 - [ ] Vidéo de présentation du rendu
 - [ ] Respect du format de rendu (cf Moodle)
 
 ## Distribution du travail (qui a fait quoi)
 
-
+ALMEIDA     Néo     :   ?
+LAGNEAU     Simon   :   ?
+MACIEIRA    Matteo  :   ?
+VANHEE      Paul    :   ?
 
 ## Difficultés rencontrées
 
-
+Néo : Respecter le MCV à 100% !
 
 # Livrable 2
 
@@ -43,23 +46,27 @@
 - [ ] Lissage
 - [ ] Ombre portée
 - [ ] Vue en tranches
-- [ ] Controleur horloge
-- [ ] Autres, préciser
+- [ ] Controleur horloge ?
+- [x] Autres, préciser :
+    - Choix du thème de l'interface
 
 ## Autres exigences
 
 - [ ] Tests unitaires
 - [ ] Diagramme de classes UML
-- [ ] Javadoc
+- [x] Javadoc
 - [ ] Captures d'écran
 - [ ] Vidéo de présentation
 - [ ] Respect du format de rendu
 
 ## Distribution du travail (qui a fait quoi)
 
+ALMEIDA     Néo     :   ?
+LAGNEAU     Simon   :   ?
+MACIEIRA    Matteo  :   ?
+VANHEE      Paul    :   ?
 
 
 ## Difficultés rencontrées
 
-
-
+Néo : Respecter le MCV à 200% !
