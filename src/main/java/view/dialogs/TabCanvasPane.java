@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import model.Rotation;
 import view.TabCanvas;
 
 public class TabCanvasPane extends TabPane {
@@ -69,6 +70,26 @@ public class TabCanvasPane extends TabPane {
 
             getSelectionModel().select(previousIndex);
         }
+    }
+
+    public void rotateModel(ActionEvent e) {
+        TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
+
+        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().getMatrix().rotation(Rotation.X, 15);
+        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+
+        tab.getCanvas().draw();
+    }
+
+    public void rotateInverseModel(ActionEvent e) {
+        TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
+
+        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().getMatrix().rotation(Rotation.X, -15);
+        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+
+        tab.getCanvas().draw();
     }
 
 }

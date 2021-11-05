@@ -91,6 +91,20 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToLeft);
 
+        // Ctrl + R
+        Runnable kcRotateModel = () -> {
+            tabPane.rotateModel(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN), kcRotateModel);
+
+        // Ctrl + shift + r
+        Runnable kcRotateInverseModel = () -> {
+            tabPane.rotateInverseModel(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcRotateInverseModel);
+
+
+
         /*
 
         // deja implémenté, suffit de faire flèche droite/gauche
