@@ -1,10 +1,10 @@
 package view;
 
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.EventType;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.*;
 import view.dialogs.CustomCheckBox;
@@ -36,6 +36,18 @@ public class CanvasModel extends Canvas {
             this.draw();
         });
 
+        //addEventHandler(MouseEvent.ANY, mouseDraggedEvent());
+
+    }
+
+    public EventHandler<MouseEvent> mouseDraggedEvent() {
+        EventHandler<MouseEvent> res = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseDragged) {
+                System.out.println("hello");
+            }
+        };
+        return res;
     }
 
     public CanvasModel(Model model) {
@@ -65,6 +77,7 @@ public class CanvasModel extends Canvas {
  */
 
         //this.model.getMatrix().translation(centerX/2, centerY/2, centerZ/2);
+
         this.model.getMatrix().homothety(ratio);
         this.model.getMatrix().translation(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0);
 
@@ -77,11 +90,47 @@ public class CanvasModel extends Canvas {
 
         setupDrawStuff(gc);
 
-        if(this.drawFaces && !drawLight) drawFaces(gc);
-        if(this.drawStrokes) drawStrokes(gc);
+        if(this.drawFaces && !this.drawStrokes) {
+            drawFaces(gc);
+        } else if(this.drawFaces && this.drawStrokes) {
+            drawFacesStrokes(gc);
+        }
        // if(this.drawLight && this.drawFaces) drawLight();
 
 
+    }
+
+    public void drawFacesStrokes(GraphicsContext gc) {
+        Collections.sort(this.model.getFaces());
+
+        double[] tmpX, tmpY, tmpZ;
+        int pt1, pt2;
+
+        gc.setFill(Color.RED);
+
+        for(Face face : this.model.getFaces()) {
+
+            tmpX = new double[face.getVertices().size()];
+            tmpY = new double[face.getVertices().size()];
+            tmpZ = new double[face.getVertices().size()];
+
+            for(int i = 0 ; i < face.getVertices().size() ; i++) {
+                tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
+                tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
+                tmpZ[i] = this.model.getMatrix().getValues()[2][face.getVertices().get(i).getId()];
+
+                pt1 = face.getVertices().get(i).getId();
+                if( i < face.getVertices().size() -1 ) {
+                    pt2 = face.getVertices().get(i+1).getId();
+                } else {
+                    pt2 = face.getVertices().get(0).getId();
+                }
+                gc.strokeLine(this.model.getMatrix().getValues()[0][pt1], this.model.getMatrix().getValues()[1][pt1], this.model.getMatrix().getValues()[0][pt2], this.model.getMatrix().getValues()[1][pt2]);
+            }
+
+            gc.fillPolygon(tmpX, tmpY, tmpX.length);
+
+        }
     }
 
     public void drawFaces(GraphicsContext gc) {
