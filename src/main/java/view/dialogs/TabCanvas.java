@@ -1,9 +1,10 @@
-package view;
+package view.dialogs;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Tab;
 import javafx.scene.paint.Color;
 import model.Model;
+import view.CanvasModel;
 
 /**
  * The TabCanvas is just a Tab, handeling a canvas
@@ -13,7 +14,7 @@ import model.Model;
  * @see javafx.scene.control.Tab
  * @see view.CanvasModel
  */
-public class TabCanvas extends Tab {
+public class TabCanvas extends DraggableTab {
 
     private CanvasModel canvas;
 
@@ -22,7 +23,7 @@ public class TabCanvas extends Tab {
 
         this.canvas = new CanvasModel(model,width,height);
 
-        setText(title);
+        //setText(title);
         setContent(canvas);
 
     }

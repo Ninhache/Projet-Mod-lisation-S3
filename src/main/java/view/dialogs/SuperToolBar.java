@@ -14,18 +14,14 @@ import model.PlyReader;
 
 import java.awt.image.RenderedImage;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 import javafx.embed.swing.SwingFXUtils;
 import view.ActionLink;
 import view.CanvasModel;
 import view.MessageBox;
-import view.TabCanvas;
 import view.stages.ControlStage;
 
 import javax.imageio.ImageIO;

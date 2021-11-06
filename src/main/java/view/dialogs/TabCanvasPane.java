@@ -6,7 +6,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import model.Rotation;
 import view.CanvasModel;
-import view.TabCanvas;
 
 public class TabCanvasPane extends TabPane {
 

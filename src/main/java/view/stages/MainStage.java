@@ -1,7 +1,6 @@
 package view.stages;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -11,7 +10,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import view.CanvasModel;
 import view.CustomTabPaneSkin;
-import view.TabCanvas;
+import view.dialogs.TabCanvas;
 import view.dialogs.SuperToolBar;
 import view.dialogs.TabCanvasPane;
 

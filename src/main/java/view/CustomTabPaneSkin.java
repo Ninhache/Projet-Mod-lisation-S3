@@ -11,6 +11,7 @@ import javafx.scene.control.skin.TabPaneSkin;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import view.dialogs.TabCanvas;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +22,7 @@ import java.util.Collection;
  * @author Néo ALMEIDA
  * @version %I%, %G%
  * @see javafx.scene.control.skin.TabPaneSkin
- * @see view.TabCanvas
+ * @see TabCanvas
  */
 public class CustomTabPaneSkin extends TabPaneSkin {
 
