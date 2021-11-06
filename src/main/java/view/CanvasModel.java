@@ -85,6 +85,7 @@ public class CanvasModel extends Canvas {
         draw();
     }
 
+    // use different method to draw
     public void draw() {
         GraphicsContext gc = getGraphicsContext2D();
 
