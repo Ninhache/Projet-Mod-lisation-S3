@@ -91,10 +91,20 @@ public class CanvasModel extends Canvas {
 
         setupDrawStuff(gc);
 
-        if(this.drawFaces && !this.drawStrokes) {
+        if(this.drawFaces & !this.drawStrokes & !this.drawLight) {
             drawFaces(gc);
-        } else if(this.drawFaces && this.drawStrokes) {
+        } else if(!this.drawFaces & this.drawStrokes & !this.drawLight) {
+            drawStrokes(gc);
+        } else if (this.drawFaces & this.drawStrokes & !this.drawLight){
             drawFacesStrokes(gc);
+        } else if (this.drawFaces & this.drawLight & !this.drawStrokes) {
+            System.out.println("faces coché | light coché | lignes non coché");
+        } else if (this.drawFaces & this.drawLight & this.drawStrokes) {
+            System.out.println("faces coché | light coché | lignes coché");
+        } else if (!this.drawFaces & this.drawLight & !this.drawStrokes) {
+            MessageBox.showWarning("Impossible d'afficher !", "Il est impossible d'afficher les effet de la lumière sur notre modèle, si les faces ne sont pas dessinées !");
+        } else if (!this.drawFaces & this.drawLight & this.drawStrokes) {
+            MessageBox.showWarning("Impossible d'afficher !", "Il est impossible d'afficher les effet de la lumière sur notre modèle, si les faces ne sont pas dessinées !");
         }
        // if(this.drawLight && this.drawFaces) drawLight();
 
