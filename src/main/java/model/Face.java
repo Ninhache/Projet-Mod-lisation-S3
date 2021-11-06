@@ -64,9 +64,9 @@ public class Face implements Comparable<Face> {
 		double thisMoyZ = this.getVertices().stream().mapToDouble(Vertex::getZ).sum() / this.getVertices().size();
 		double otherMoyZ = other.getVertices().stream().mapToDouble(Vertex::getZ).sum() / this.getVertices().size();
 
-		if(thisMoyZ < otherMoyZ)
+		if(thisMoyZ > otherMoyZ)
 			return -1;
-		else if(thisMoyZ > otherMoyZ)
+		else if(thisMoyZ < otherMoyZ)
 			return 1;
 		else
 			return 0;
