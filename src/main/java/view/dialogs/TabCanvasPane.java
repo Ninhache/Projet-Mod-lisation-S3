@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import model.Rotation;
+import view.CanvasModel;
 import view.TabCanvas;
 
 public class TabCanvasPane extends TabPane {
@@ -34,8 +35,10 @@ public class TabCanvasPane extends TabPane {
             String textPremier = getTabs().get(currentIndex).getText();
             String textDeuxieme = getTabs().get(nextIndex).getText();
 
-            Canvas premier = (Canvas) getTabs().get(currentIndex).getContent();
-            Canvas deuxieme = (Canvas) getTabs().get(nextIndex).getContent();
+
+
+            CanvasModel premier = (CanvasModel) getTabs().get(currentIndex).getContent();
+            CanvasModel deuxieme = (CanvasModel) getTabs().get(nextIndex).getContent();
 
             getTabs().get(currentIndex).setContent(deuxieme);
             getTabs().get(nextIndex).setContent(premier);
@@ -45,6 +48,7 @@ public class TabCanvasPane extends TabPane {
 
             getSelectionModel().select(nextIndex);
         }
+
     }
 
     public void onSwitchToLeft(ActionEvent e) {
@@ -87,6 +91,26 @@ public class TabCanvasPane extends TabPane {
 
         tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
         tab.getCanvas().getModel().getMatrix().rotation(Rotation.X, -15);
+        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+
+        tab.getCanvas().draw();
+    }
+
+    public void translateModel(ActionEvent e) {
+        TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
+
+        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().getMatrix().translation(10,0,0);
+        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+
+        tab.getCanvas().draw();
+    }
+
+    public void translateInverseModel(ActionEvent e) {
+        TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
+
+        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().getMatrix().translation(-10,0,0);
         tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
 
         tab.getCanvas().draw();

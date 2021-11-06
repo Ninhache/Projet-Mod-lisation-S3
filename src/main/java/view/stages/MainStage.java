@@ -103,7 +103,17 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcRotateInverseModel);
 
+        // Ctrl + T
+        Runnable kcTranslateModel = () -> {
+            tabPane.translateModel(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN), kcTranslateModel);
 
+        // Ctrl + Shift + T
+        Runnable kcTranslateInverseModel = () -> {
+            tabPane.translateInverseModel(new ActionEvent());
+        };
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTranslateInverseModel);
 
         /*
 
