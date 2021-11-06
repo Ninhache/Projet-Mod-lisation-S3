@@ -1,6 +1,7 @@
 package view.dialogs;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -75,11 +76,11 @@ public class TabCanvasPane extends TabPane {
         }
     }
 
-    public void rotateModel(ActionEvent e) {
+    public void rotateModel(Event e, double angle) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
         tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().rotation(Rotation.X, 15);
+        tab.getCanvas().getModel().getMatrix().rotation(Rotation.X, angle); //15
         tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
 
         tab.getCanvas().draw();
@@ -95,11 +96,11 @@ public class TabCanvasPane extends TabPane {
         tab.getCanvas().draw();
     }
 
-    public void translateModel(ActionEvent e) {
+    public void translateModel(Event e, double distanceX, double distanceY) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
         tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().translation(10,0,0);
+        tab.getCanvas().getModel().getMatrix().translation(distanceX,distanceY,0);
         tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
 
         tab.getCanvas().draw();

@@ -4,10 +4,14 @@ import java.io.FileNotFoundException;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import view.CanvasModel;
 import view.CustomTabPaneSkin;
 import view.dialogs.TabCanvas;
@@ -18,7 +22,10 @@ public class MainStage extends ExtendedStage {
 
     private SuperToolBar toolBar;
     private TabCanvasPane tabPane;
+    private ToggleButton translate, rotate;
+    private ToggleGroup tg;
 
+    private double mousePosX, mouseOldY, mousePosY, mouseOldX;
     public MainStage() {
         super();
 
@@ -35,6 +42,17 @@ public class MainStage extends ExtendedStage {
 
         root.setTop(toolBar);
         root.setCenter(tabPane);
+
+
+        tg = new ToggleGroup();
+        translate = new ToggleButton("Translate");
+        translate.setToggleGroup(tg);
+        rotate = new ToggleButton("Rotate");
+        rotate.setToggleGroup(tg);
+        HBox movementButton = new HBox(translate,rotate);
+        root.setBottom(movementButton);
+
+
 
         Scene scene = new Scene(root);
         setScene(scene);
@@ -72,6 +90,14 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCodeCombination.CONTROL_DOWN), kcImport);
 
+
+        //Déplacement souris
+        tabPane.setOnMouseDragged(event -> {
+            mousePosX = event.getSceneX();
+            mousePosY = event.getSceneY();
+        });
+        tabPane.setOnMousePressed(this::movingModel);
+
         // Ctrl + W
         Runnable kcCloseRequest = () -> {
             tabPane.onCloseRequest(new ActionEvent());
@@ -92,7 +118,7 @@ public class MainStage extends ExtendedStage {
 
         // Ctrl + R
         Runnable kcRotateModel = () -> {
-            tabPane.rotateModel(new ActionEvent());
+            tabPane.rotateModel(new ActionEvent(),15);
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN), kcRotateModel);
 
@@ -104,7 +130,7 @@ public class MainStage extends ExtendedStage {
 
         // Ctrl + T
         Runnable kcTranslateModel = () -> {
-            tabPane.translateModel(new ActionEvent());
+            tabPane.translateModel(new ActionEvent(),10,0);
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN), kcTranslateModel);
 
@@ -131,6 +157,21 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN), kcPreviousRequest);
          */
+    }
+
+    private void movingModel(MouseEvent event) {
+        mousePosX = event.getSceneX();
+        mousePosY = event.getSceneY();
+        ToggleButton selectedToggleButton = (ToggleButton) tg.getSelectedToggle();
+        if(selectedToggleButton != null){
+            if(selectedToggleButton.equals(rotate)){
+                tabPane.rotateModel(event, (mousePosY - mouseOldY));
+            } else if(selectedToggleButton.equals(translate)){
+                tabPane.translateModel(event, (mousePosX-mouseOldX),(mousePosY-mouseOldY));
+            }
+        }
+        mouseOldX = mousePosX;
+        mouseOldY = mousePosY;
     }
 
     public SuperToolBar getToolBar() {
