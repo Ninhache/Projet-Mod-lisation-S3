@@ -1,7 +1,6 @@
 package view;
 
 
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
@@ -26,6 +25,10 @@ public class SlidersModel extends VBox {
 
         showTickMarks();
         
+        slidX.setBlockIncrement(10);
+        slidY.setBlockIncrement(10);
+        slidZ.setBlockIncrement(10);
+        
        
         setSpacing(10);
         getChildren().addAll(labX,slidX,labY,slidY,labZ,slidZ);
@@ -46,6 +49,10 @@ public class SlidersModel extends VBox {
 		slidX.setShowTickLabels(true);
         slidY.setShowTickLabels(true);
         slidZ.setShowTickLabels(true);
+        
+        slidX.setMinorTickCount(0);
+        slidY.setMinorTickCount(0);
+        slidZ.setMinorTickCount(0);
         
         slidX.setShowTickMarks(true);
         slidY.setShowTickMarks(true);
