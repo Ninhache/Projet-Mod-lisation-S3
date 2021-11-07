@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import view.CanvasModel;
 import view.CustomTabPaneSkin;
+import view.SlidersModel;
 import view.dialogs.TabCanvas;
 import view.dialogs.SuperToolBar;
 import view.dialogs.TabCanvasPane;
@@ -24,6 +25,7 @@ public class MainStage extends ExtendedStage {
     private TabCanvasPane tabPane;
     private ToggleButton translate, rotate;
     private ToggleGroup tg;
+    private SlidersModel slidModel;
 
     private double mousePosX, mouseOldY, mousePosY, mouseOldX;
     public MainStage() {
@@ -40,8 +42,11 @@ public class MainStage extends ExtendedStage {
         tabPane.getTabs().add(tab);
         tabPane.getTabs().clear();
 
+        slidModel = new SlidersModel();
+        
         root.setTop(toolBar);
         root.setCenter(tabPane);
+        root.setRight(slidModel);
 
 
         tg = new ToggleGroup();
