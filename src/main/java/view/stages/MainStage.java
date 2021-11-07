@@ -95,6 +95,7 @@ public class MainStage extends ExtendedStage {
         tabPane.setOnMouseDragged(event -> {
             mousePosX = event.getSceneX();
             mousePosY = event.getSceneY();
+            movingModel(event);
         });
         tabPane.setOnMousePressed(this::movingModel);
 
