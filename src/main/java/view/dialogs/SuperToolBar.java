@@ -1,6 +1,7 @@
 package view.dialogs;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -59,8 +60,6 @@ public class SuperToolBar extends MenuBar {
 
     private FileChooser fileChooser;
     private PlyReader reader = new PlyReader();
-
-    private int openned;
     
     public SuperToolBar() {
         super();
@@ -283,7 +282,7 @@ public class SuperToolBar extends MenuBar {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
+        
         TabCanvas tab = new TabCanvas( model , list.get(0), tabCanvas.getWidth(), tabCanvas.getHeight());
 
         tabCanvas.getTabs().add(tab);

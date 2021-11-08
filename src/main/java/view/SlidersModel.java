@@ -17,8 +17,8 @@ import javafx.scene.layout.VBox;
 public class SlidersModel extends VBox {
 	
 	private Slider slidX, slidY, slidZ;
-	private Label labX, labY, labZ, valX, valY, valZ;
-
+	private Label labX, labY, labZ, labValX, labValY, labValZ;
+	private double valX,valY,valZ;
 	
 	public SlidersModel() {
 		super();
@@ -30,11 +30,13 @@ public class SlidersModel extends VBox {
 		labZ = new Label("Z : ");
 		slidZ = new Slider();
         
-		valX = new Label("0");
-		valY = new Label("0");
-		valZ = new Label("0");
+		labValX = new Label("0");
+		labValY = new Label("0");
+		labValZ = new Label("0");
 		
-		
+		valX = 0;
+		valY = 0;
+		valZ = 0;
 		
 		setMinMax();
 
@@ -45,8 +47,8 @@ public class SlidersModel extends VBox {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				
-				valX.setText(""+newValue.intValue());
+				valX = (double) newValue;
+				labValX.setText(""+(int) valX);
 				
 			}
          });
@@ -55,8 +57,8 @@ public class SlidersModel extends VBox {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				
-				valY.setText(""+newValue.intValue());
+				valY = (double) newValue;
+				labValY.setText(""+(int) valY);
 				
 			}
          });
@@ -65,8 +67,8 @@ public class SlidersModel extends VBox {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				
-				valZ.setText(""+newValue.intValue());
+				valZ = (double) newValue;
+				labValZ.setText(""+(int) valZ);
 				
 			}
          });
@@ -74,7 +76,7 @@ public class SlidersModel extends VBox {
         
        
         setSpacing(10);
-        getChildren().addAll(labX,slidX,valX,labY,slidY,valY,labZ,slidZ,valZ);
+        getChildren().addAll(labX,slidX,labValX,labY,slidY,labValY,labZ,slidZ,labValZ);
         
 	}
 
@@ -104,6 +106,31 @@ public class SlidersModel extends VBox {
         slidX.setBlockIncrement(10);
         slidY.setBlockIncrement(10);
         slidZ.setBlockIncrement(10);
+	}
+
+	
+	public double getValX() {
+		return valX;
+	}
+
+	public void setValX(int valX) {
+		this.valX = valX;
+	}
+
+	public double getValY() {
+		return valY;
+	}
+
+	public void setValY(int valY) {
+		this.valY = valY;
+	}
+
+	public double getValZ() {
+		return valZ;
+	}
+
+	public void setValZ(int valZ) {
+		this.valZ = valZ;
 	}       
      
 }
