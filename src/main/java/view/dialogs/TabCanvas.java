@@ -40,6 +40,10 @@ public class TabCanvas extends DraggableTab {
         this.canvas.initDraw();
     }
 
+    public void draw() {
+        this.canvas.draw();
+    }
+
     public CanvasModel getCanvas() {
         return canvas;
     }

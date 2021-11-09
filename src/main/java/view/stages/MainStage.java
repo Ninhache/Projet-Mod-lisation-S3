@@ -57,6 +57,7 @@ public class MainStage extends ExtendedStage {
         HBox movementButton = new HBox(translate,rotate);
         root.setBottom(movementButton);
 
+        //movementButton.setVisible(false);
 
 
         Scene scene = new Scene(root);
