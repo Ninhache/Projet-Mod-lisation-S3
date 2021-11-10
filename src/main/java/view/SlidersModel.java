@@ -4,7 +4,12 @@ package view;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Rotate;
+import model.Rotation;
+import view.dialogs.TabCanvasPane;
 
 
 /**
@@ -18,6 +23,8 @@ public class SlidersModel extends VBox {
 	
 	private Slider slidX, slidY, slidZ;
 	private Label labX, labY, labZ, labValX, labValY, labValZ;
+	private TextField tfX,tfY,tfZ;
+	private HBox labTfX,labTfY,labTfZ;
 	private double valX,valY,valZ;
 	
 	public SlidersModel() {
@@ -34,9 +41,22 @@ public class SlidersModel extends VBox {
 		labValY = new Label("0");
 		labValZ = new Label("0");
 		
+		tfX = new TextField();
+		tfY = new TextField();
+		tfZ = new TextField();
+		
 		valX = 0;
 		valY = 0;
 		valZ = 0;
+		
+		labTfX = new HBox();
+		labTfY = new HBox();
+		labTfZ = new HBox();
+		
+		
+		labTfX.getChildren().addAll(labX,tfX);
+		labTfY.getChildren().addAll(labY,tfY);
+		labTfZ.getChildren().addAll(labZ,tfZ);
 		
 		setMinMax();
 
@@ -49,7 +69,9 @@ public class SlidersModel extends VBox {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				valX = (double) newValue;
 				labValX.setText(""+(int) valX);
-				
+				BorderPane bp=(BorderPane) getParent().getScene().getRoot();
+				TabCanvasPane tp=(TabCanvasPane) bp.getCenter();
+				tp.rotateModel(Rotation.X,newValue.intValue()-oldValue.intValue());
 			}
          });
         
@@ -59,7 +81,9 @@ public class SlidersModel extends VBox {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				valY = (double) newValue;
 				labValY.setText(""+(int) valY);
-				
+				BorderPane bp=(BorderPane) getParent().getScene().getRoot();
+				TabCanvasPane tp=(TabCanvasPane) bp.getCenter();
+				tp.rotateModel(Rotation.Y,newValue.intValue()-oldValue.intValue());
 			}
          });
         
@@ -69,14 +93,16 @@ public class SlidersModel extends VBox {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				valZ = (double) newValue;
 				labValZ.setText(""+(int) valZ);
-				
+				BorderPane bp=(BorderPane) getParent().getScene().getRoot();
+				TabCanvasPane tp=(TabCanvasPane) bp.getCenter();
+				tp.rotateModel(Rotation.Z,newValue.intValue()-oldValue.intValue());
 			}
          });
         
         
        
         setSpacing(10);
-        getChildren().addAll(labX,slidX,labValX,labY,slidY,labValY,labZ,slidZ,labValZ);
+        getChildren().addAll(labTfX,slidX,labValX,labTfY,slidY,labValY,labTfZ,slidZ,labValZ);
         
 	}
 
@@ -132,5 +158,10 @@ public class SlidersModel extends VBox {
 	public void setValZ(int valZ) {
 		this.valZ = valZ;
 	}       
-     
+ 
+	public Slider getSlidX() {
+		return slidX;
+	}
 }
+
+

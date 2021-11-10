@@ -12,6 +12,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import model.Rotation;
 import view.CanvasModel;
 import view.CustomTabPaneSkin;
 import view.SlidersModel;
@@ -111,21 +112,21 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
-        //Ctrl shift ==>
-        Runnable kcTabMoveToRight = () -> {
-            tabPane.onSwitchToRight(new ActionEvent());
-        };
-        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToRight);
-
-        //Ctrl shift <==
-        Runnable kcTabMoveToLeft = () -> {
-            tabPane.onSwitchToLeft(new ActionEvent());
-        };
-        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToLeft);
+//        //Ctrl shift ==>
+//        Runnable kcTabMoveToRight = () -> {
+//            tabPane.onSwitchToRight();
+//        };
+//        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToRight);
+//
+//        //Ctrl shift <==
+//        Runnable kcTabMoveToLeft = () -> {
+//            tabPane.onSwitchToLeft();
+//        };
+//        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToLeft);
 
         // Ctrl + R
         Runnable kcRotateModel = () -> {
-            tabPane.rotateModel(new ActionEvent(),15);
+            tabPane.rotateModel(Rotation.X,15);
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN), kcRotateModel);
 
@@ -172,7 +173,7 @@ public class MainStage extends ExtendedStage {
         ToggleButton selectedToggleButton = (ToggleButton) tg.getSelectedToggle();
         if(selectedToggleButton != null){
             if(selectedToggleButton.equals(rotate)){
-                tabPane.rotateModel(event, (mousePosY - mouseOldY));
+                tabPane.rotateModel(Rotation.X,(mousePosY - mouseOldY));
             } else if(selectedToggleButton.equals(translate)){
                 tabPane.translateModel(event, (mousePosX-mouseOldX),(mousePosY-mouseOldY));
             }

@@ -23,7 +23,7 @@ public class TabCanvasPane extends TabPane {
         cp.getTabs().remove(cp.getSelectionModel().getSelectedItem());
     }
 
-    public void onSwitchToRight(ActionEvent e) {
+    public void onSwitchToRight() {
 
         TabCanvas tabToSwitch = (TabCanvas) getSelectionModel().getSelectedItem();
 
@@ -51,7 +51,7 @@ public class TabCanvasPane extends TabPane {
 
     }
 
-    public void onSwitchToLeft(ActionEvent e) {
+    public void onSwitchToLeft() {
 
         TabCanvas tabToSwitch = (TabCanvas) getSelectionModel().getSelectedItem();
 
@@ -76,11 +76,11 @@ public class TabCanvasPane extends TabPane {
         }
     }
 
-    public void rotateModel(Event e, double angle) {
+    public void rotateModel(Rotation r,double angle) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
         tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().rotation(Rotation.X, angle); //15
+        tab.getCanvas().getModel().getMatrix().rotation(r, angle); //15
         tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
 
         tab.getCanvas().draw();
