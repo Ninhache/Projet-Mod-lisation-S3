@@ -19,7 +19,7 @@ import view.dialogs.TabCanvasPane;
  * @version %I%, %G%
  */
 
-public class SlidersModel extends VBox {
+public class SlidersModel extends TitledPane {
 	
 	private Slider slidX, slidY, slidZ;
 	private Label labX, labY, labZ, labValX, labValY, labValZ;
@@ -29,7 +29,14 @@ public class SlidersModel extends VBox {
 	
 	public SlidersModel() {
 		super();
-		
+
+		setText("Sliders");
+		setCollapsible(true);
+
+
+		VBox root = new VBox();
+		root.setMinWidth(300);
+
 		labX = new Label("X : ");
 		slidX = new Slider();
 		labY = new Label("Y : ");
@@ -67,8 +74,10 @@ public class SlidersModel extends VBox {
 		setMinMax();
 
         showTickMarks();
-        
-        
+
+		root.getChildren().addAll(labTfX,slidX,labValX,labTfY,slidY,labValY,labTfZ,slidZ,labValZ);
+		setContent(root);
+
         slidX.valueProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
@@ -80,7 +89,7 @@ public class SlidersModel extends VBox {
 				tp.rotateModel(Rotation.X,newValue.intValue()-oldValue.intValue());
 			}
          });
-        
+
         slidY.valueProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
@@ -92,7 +101,6 @@ public class SlidersModel extends VBox {
 				tp.rotateModel(Rotation.Y,newValue.intValue()-oldValue.intValue());
 			}
          });
-        
         slidZ.valueProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
@@ -104,7 +112,6 @@ public class SlidersModel extends VBox {
 				tp.rotateModel(Rotation.Z,newValue.intValue()-oldValue.intValue());
 			}
          });
-        
         tfX.textProperty().addListener(new ChangeListener<>() {
 
 
@@ -114,7 +121,6 @@ public class SlidersModel extends VBox {
 				slidX.setValue(valX);				
 			}
 		});
-        
         tfY.textProperty().addListener(new ChangeListener<>() {
 
 
@@ -124,9 +130,7 @@ public class SlidersModel extends VBox {
 				slidY.setValue(valY);				
 			}
 		});
-       
         tfZ.textProperty().addListener(new ChangeListener<>() {
-
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -134,10 +138,8 @@ public class SlidersModel extends VBox {
 				slidZ.setValue(valZ);				
 			}
 		});
-        
-        setSpacing(10);
-        getChildren().addAll(labTfX,slidX,labValX,labTfY,slidY,labValY,labTfZ,slidZ,labValZ);
-        
+
+
 	}
 
 	private void setMinMax() {

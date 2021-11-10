@@ -4,8 +4,7 @@ import java.io.FileNotFoundException;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -15,6 +14,7 @@ import javafx.scene.layout.HBox;
 import model.Rotation;
 import view.CanvasModel;
 import view.CustomTabPaneSkin;
+import view.LibraryPane;
 import view.SlidersModel;
 import view.dialogs.TabCanvas;
 import view.dialogs.SuperToolBar;
@@ -43,11 +43,16 @@ public class MainStage extends ExtendedStage {
         tabPane.getTabs().add(tab);
         tabPane.getTabs().clear();
 
-        slidModel = new SlidersModel();
+        Accordion accordion = new Accordion();
+
+        TitledPane t1 = new TitledPane("ça dit", new Button("En vrai"));
+        TitledPane t2 = new TitledPane("quoi", new Button("C'est stylé non ????? ?"));
+
+        accordion.getPanes().addAll(t1,t2,new SlidersModel(),new LibraryPane());
         
         root.setTop(toolBar);
         root.setCenter(tabPane);
-        root.setRight(slidModel);
+        root.setRight(accordion);
 
 
         tg = new ToggleGroup();
