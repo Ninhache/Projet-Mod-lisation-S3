@@ -1,5 +1,4 @@
 /target/
 .settings
 /.idea/
-/tmp/
 /src/main/resources/tmp/*
