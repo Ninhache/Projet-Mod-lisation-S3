@@ -42,8 +42,14 @@ public class SlidersModel extends VBox {
 		labValZ = new Label("0");
 		
 		tfX = new TextField();
+		tfX.setMaxWidth(40);
+		tfX.setText("0");
 		tfY = new TextField();
+		tfY.setMaxWidth(40);
+		tfY.setText("0");
 		tfZ = new TextField();
+		tfZ.setMaxWidth(40);
+		tfZ.setText("0");
 		
 		valX = 0;
 		valY = 0;
@@ -99,8 +105,36 @@ public class SlidersModel extends VBox {
 			}
          });
         
+        tfX.textProperty().addListener(new ChangeListener<>() {
+
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				valX=(double) Integer.parseInt(newValue);
+				slidX.setValue(valX);				
+			}
+		});
         
+        tfY.textProperty().addListener(new ChangeListener<>() {
+
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				valY=(double) Integer.parseInt(newValue);
+				slidY.setValue(valY);				
+			}
+		});
        
+        tfZ.textProperty().addListener(new ChangeListener<>() {
+
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				valZ=(double) Integer.parseInt(newValue);
+				slidZ.setValue(valZ);				
+			}
+		});
+        
         setSpacing(10);
         getChildren().addAll(labTfX,slidX,labValX,labTfY,slidY,labValY,labTfZ,slidZ,labValZ);
         
