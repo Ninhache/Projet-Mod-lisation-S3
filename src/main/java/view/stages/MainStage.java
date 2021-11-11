@@ -18,6 +18,7 @@ import view.components.tiltedPane.LibraryPane;
 import view.components.tiltedPane.ModelePane;
 import view.components.tiltedPane.SlidersModel;
 import view.components.tabpane.TabCanvas;
+import view.nodes.RightMenu;
 import view.nodes.SuperToolBar;
 import view.nodes.TabCanvasPane;
 
@@ -43,16 +44,10 @@ public class MainStage extends ExtendedStage {
         tabPane.getTabs().add(tab);
         tabPane.getTabs().clear();
 
-        Accordion accordion = new Accordion();
 
-        TitledPane t1 = new TitledPane("ça dit", new Button("En vrai"));
-        TitledPane t2 = new TitledPane("quoi", new Button("C'est stylé non ????? ?"));
-
-        accordion.getPanes().addAll(t1,new ModelePane(),new SlidersModel(),new LibraryPane());
-        
         root.setTop(toolBar);
         root.setCenter(tabPane);
-        root.setRight(accordion);
+        root.setRight(new RightMenu());
 
 
         tg = new ToggleGroup();
