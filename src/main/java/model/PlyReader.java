@@ -88,6 +88,8 @@ public class PlyReader {
 		this.fileName = "none";
 		verticesList = new ArrayList<Vertex>();
 		facesList = new ArrayList<Face>();
+		rgbList = new ArrayList<int[]>();
+		alphaList = new ArrayList<Double>();
 	}
     
 	
@@ -281,12 +283,28 @@ public class PlyReader {
 		try {
 			String line = br.readLine();
 			String[] splittedLine = line.split(" ");
-
-			StringBuilder sb = new StringBuilder();
 			
-			boolean testIfVertex = splittedLine.length == 3;
+			if(line.length()<=1)
+				line = br.readLine();
 
-            int i = 1;
+			splittedLine = line.split(" ");
+			
+			System.out.println(line);
+			
+			StringBuilder sb = new StringBuilder();
+
+			int nbColorInfo = 0;
+			if(isColored)
+				nbColorInfo+=3;
+			if(alpha)
+				nbColorInfo++;
+			
+			
+			boolean testIfVertex = splittedLine.length == 3+nbColorInfo;
+
+			System.out.printf("nbColorInfo == %d && splittedLine.length == %d && testIfVertex == %s\n", nbColorInfo, splittedLine.length, testIfVertex);
+
+			int i = 1;
 			while(testIfVertex) {
 
 				vertexLength++;
@@ -298,16 +316,13 @@ public class PlyReader {
 				
 				br.mark(vertexLength);
 				line = br.readLine();
+				System.out.println(line);
 				splittedLine = line.split(" ");
 				
-				int nbColorInfo = 0;
-				if(isColored)
-					nbColorInfo+=3;
-				if(alpha)
-					nbColorInfo++;
-				
+				System.out.println(splittedLine.length);
 				if(splittedLine.length != 3+nbColorInfo)
 					testIfVertex = false;
+				System.out.println(testIfVertex);
 			}
 		
 			if (nbVertexLines != nbVertex)
