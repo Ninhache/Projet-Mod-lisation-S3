@@ -18,11 +18,17 @@ public class PlyReader {
 	private int nbVertex,nbFaces,vertexLength;
 	private ArrayList<Vertex> verticesList;
 	private ArrayList<Face> facesList;
-
+	private ArrayList<int[]> rgbList;
+	private ArrayList<Double> alphaList;
+	private int colorParser = 0;
+	
 	private double barycenterX = 0;
 	private double barycenterY = 0;
 	private double barycenterZ = 0;
 
+	private boolean isColored = false,
+					alpha = false;
+	
 	/**
 	 * <b>Constructor of a PlyReader</b>
 	 * 
@@ -145,7 +151,18 @@ public class PlyReader {
 					nbVertex = Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
 				else if (line.contains("comment created by "))
 					authorName = line.substring(line.lastIndexOf(" ")+1);
-
+				else if(!isColored) {
+					
+					if(line.contains("property uchar red"))
+						isColored = true;
+					else if(line.contains("property uchar green"))
+						isColored = true;
+					else if(line.contains("property uchar blue"))
+						isColored = true;
+					
+				} else if(line.contains("property uchar alpha"))
+						alpha = true;
+				
 				sb.append(line);
 				sb.append("\n");
 			}
@@ -192,6 +209,17 @@ public class PlyReader {
 		double y = Double.parseDouble(line[1]);
 		double z = Double.parseDouble(line[2]);
 
+		if(isColored) {
+			int r = Integer.parseInt(line[3]);
+			int g = Integer.parseInt(line[4]);
+			int b = Integer.parseInt(line[5]);
+			if(alpha) {
+				alphaList.add(Double.parseDouble(line[6]));
+			}else {
+				rgbList.add(new int[] {r,g,b});
+			}
+		}
+		
 		this.verticesList.add(new Vertex(x,y,z));
 		this.barycenterX += x;
 		this.barycenterY += y;
@@ -213,10 +241,17 @@ public class PlyReader {
 		for(int i = 1 ; i <= Integer.parseInt(line[0]) ; i++) {
 			pointsOfFace.add(verticesList.get(Integer.parseInt(line[i])));
 		}
-		
-		facesList.add(new Face(pointsOfFace)); 
-	}
+		if(isColored) {
+			if(alpha)
+				facesList.add(new Face(pointsOfFace, rgbList.get(colorParser), alphaList.get(colorParser)));
+			else 
+				facesList.add(new Face(pointsOfFace, rgbList.get(colorParser)));
+		} else 
+			facesList.add(new Face(pointsOfFace)); 
 
+		colorParser++;
+	}
+	
     /**
      * Reading of the Vertex part of a .ply file
      * <p>
@@ -251,7 +286,14 @@ public class PlyReader {
 				br.mark(vertexLength);
 				line = br.readLine();
 				splittedLine = line.split(" ");
-				if(splittedLine.length != 3)
+				
+				int nbColorInfo = 0;
+				if(isColored)
+					nbColorInfo+=3;
+				if(alpha)
+					nbColorInfo++;
+				
+				if(splittedLine.length != 3+nbColorInfo)
 					testIfVertex = false;
 			}
 		
@@ -296,6 +338,8 @@ public class PlyReader {
 				
 				sb.append(line);
 				sb.append("\n");
+				
+				
 				
 				if(splittedLine.length != 4) testIfFace= false;
 				
