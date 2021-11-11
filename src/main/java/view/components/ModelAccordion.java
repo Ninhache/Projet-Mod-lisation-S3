@@ -2,18 +2,17 @@ package view.components;
 
 import javafx.scene.control.Accordion;
 import view.components.tiltedPane.LibraryPane;
-import view.components.tiltedPane.ModelePane;
-import view.components.tiltedPane.SlidersModel;
+import view.components.tiltedPane.SlidersModelPane;
 
 public class ModelAccordion extends Accordion {
 
-    private SlidersModel slidersModel;
+    private SlidersModelPane slidersModel;
     private LibraryPane libraryPane;
 
 
     public ModelAccordion() {
         super();
-        slidersModel = new SlidersModel();
+        slidersModel = new SlidersModelPane();
         libraryPane = new LibraryPane();
 
         getPanes().addAll(slidersModel,libraryPane);
@@ -23,7 +22,7 @@ public class ModelAccordion extends Accordion {
         return libraryPane;
     }
 
-    public SlidersModel getSlidersModel() {
+    public SlidersModelPane getSlidersModel() {
         return slidersModel;
     }
 }

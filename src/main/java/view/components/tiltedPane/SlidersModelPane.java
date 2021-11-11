@@ -15,11 +15,11 @@ import view.nodes.SliderBox;
  * @version %I%, %G%
  */
 
-public class SlidersModel extends TitledPane {
+public class SlidersModelPane extends TitledPane {
 
 	private SliderBox sliderBoxX, sliderBoxY, sliderBoxZ;
 
-	public SlidersModel() {
+	public SlidersModelPane() {
 		super();
 		setText("Sliders");
 
