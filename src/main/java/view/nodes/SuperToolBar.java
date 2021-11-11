@@ -1,7 +1,6 @@
-package view.dialogs;
+package view.nodes;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,9 +19,12 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import javafx.embed.swing.SwingFXUtils;
-import view.ActionLink;
-import view.CanvasModel;
-import view.MessageBox;
+import view.dialogs.ActionLink;
+import view.components.CanvasModel;
+import view.dialogs.MessageBox;
+import view.components.CustomCheckBox;
+import view.components.ThemeRadioButton;
+import view.components.tabpane.TabCanvas;
 import view.stages.ControlStage;
 
 import javax.imageio.ImageIO;

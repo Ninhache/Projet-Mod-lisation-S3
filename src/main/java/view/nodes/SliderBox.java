@@ -1,14 +1,12 @@
-package view;
+package view.nodes;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.Rotation;
-import view.dialogs.TabCanvasPane;
+import view.nodes.TabCanvasPane;
 
 public class SliderBox extends HBox {
 
@@ -73,11 +71,4 @@ public class SliderBox extends HBox {
         return label;
     }
 
-    public Slider getSlider() {
-        return slider;
-    }
-
-    public TextField getTextField() {
-        return textField;
-    }
 }

@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.*;
-import view.dialogs.CustomCheckBox;
+import view.dialogs.MessageBox;
 import view.stages.MainStage;
 
 import java.util.Collections;

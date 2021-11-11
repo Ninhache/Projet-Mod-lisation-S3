@@ -1,12 +1,10 @@
-package view.dialogs;
+package view.nodes;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import model.Rotation;
-import view.CanvasModel;
+import view.components.tabpane.TabCanvas;
 
 public class TabCanvasPane extends TabPane {
 

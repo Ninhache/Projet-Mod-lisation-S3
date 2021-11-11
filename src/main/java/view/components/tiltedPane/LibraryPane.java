@@ -1,4 +1,4 @@
-package view;
+package view.components.tiltedPane;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,12 +10,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.FilePly;
 import model.PlyReader;
-import view.dialogs.TabCanvas;
-import view.dialogs.TabCanvasPane;
+import view.components.tabpane.TabCanvas;
+import view.nodes.TabCanvasPane;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package view.dialogs;
+package view.components;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.RadioMenuItem;

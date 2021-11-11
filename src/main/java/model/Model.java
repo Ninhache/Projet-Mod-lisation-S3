@@ -1,5 +1,7 @@
 package model;
 
+import view.components.CanvasModel;
+
 import java.util.ArrayList;
 
 
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Néo ALMEIDA - Paul VANHEE - Simon LAGNEAU
  * @version %I%, %G%
- * @see view.CanvasModel
+ * @see CanvasModel
  */
 public class Model {
 

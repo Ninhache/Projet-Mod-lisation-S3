@@ -1,10 +1,7 @@
-package view.dialogs;
+package view.components.tabpane;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Tab;
-import javafx.scene.paint.Color;
 import model.Model;
-import view.CanvasModel;
+import view.components.CanvasModel;
 
 /**
  * The TabCanvas is just a Tab, handeling a canvas
@@ -12,7 +9,7 @@ import view.CanvasModel;
  * @author Néo ALMEIDA
  * @version %I%, %G%
  * @see javafx.scene.control.Tab
- * @see view.CanvasModel
+ * @see CanvasModel
  */
 public class TabCanvas extends DraggableTab {
 

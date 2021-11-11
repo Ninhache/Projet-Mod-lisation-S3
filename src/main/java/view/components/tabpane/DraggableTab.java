@@ -1,4 +1,4 @@
-package view.dialogs;
+package view.components.tabpane;
 
 import java.util.HashSet;
 import java.util.Set;

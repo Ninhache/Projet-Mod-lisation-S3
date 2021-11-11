@@ -12,13 +12,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.Rotation;
-import view.CanvasModel;
-import view.CustomTabPaneSkin;
-import view.LibraryPane;
-import view.SlidersModel;
-import view.dialogs.TabCanvas;
-import view.dialogs.SuperToolBar;
-import view.dialogs.TabCanvasPane;
+import view.components.CanvasModel;
+import view.components.misc.CustomTabPaneSkin;
+import view.components.tiltedPane.LibraryPane;
+import view.components.tiltedPane.ModelePane;
+import view.components.tiltedPane.SlidersModel;
+import view.components.tabpane.TabCanvas;
+import view.nodes.SuperToolBar;
+import view.nodes.TabCanvasPane;
 
 public class MainStage extends ExtendedStage {
 
@@ -26,7 +27,6 @@ public class MainStage extends ExtendedStage {
     private TabCanvasPane tabPane;
     private ToggleButton translate, rotate;
     private ToggleGroup tg;
-    private SlidersModel slidModel;
 
     private double mousePosX, mouseOldY, mousePosY, mouseOldX;
     public MainStage() {
@@ -48,7 +48,7 @@ public class MainStage extends ExtendedStage {
         TitledPane t1 = new TitledPane("ça dit", new Button("En vrai"));
         TitledPane t2 = new TitledPane("quoi", new Button("C'est stylé non ????? ?"));
 
-        accordion.getPanes().addAll(t1,t2,new SlidersModel(),new LibraryPane());
+        accordion.getPanes().addAll(t1,new ModelePane(),new SlidersModel(),new LibraryPane());
         
         root.setTop(toolBar);
         root.setCenter(tabPane);
