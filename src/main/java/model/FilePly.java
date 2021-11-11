@@ -19,7 +19,7 @@ public class FilePly {
     }
 
     public String getPath() {
-        return file.getAbsolutePath();
+        return "./exemples/" + this.getName();
     }
 
     @Override
