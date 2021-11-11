@@ -2,6 +2,7 @@ package view.nodes;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -14,7 +15,7 @@ public class SliderBox extends HBox {
 
     private Label label;
     private Slider slider;
-    private TextField textField;
+    private Spinner<Integer> spinner;
 
     public SliderBox(Rotation rotation) {
         super();
@@ -22,31 +23,31 @@ public class SliderBox extends HBox {
         this.rotation = rotation;
 
         this.slider = new Slider(0,360,180);
-        this.label = new Label(rotation.getRotation() + " : " + this.slider.valueProperty().intValue());
-        this.textField = new TextField();
-        this.textField.setMaxWidth(40);
-        this.textField.setText("0");
+        this.label = new Label(rotation.getRotation() + " : ");
+        this.spinner = new Spinner<Integer>(0,360,180);
+        this.spinner.setMaxWidth(80);
 
         setupSliders();
 
         this.slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            label.setText(rotation.getRotation() + " : " + correctString(newValue.intValue()));
+            label.setText(rotation.getRotation() + " : ");
+            spinner.getValueFactory().setValue(newValue.intValue());
             BorderPane bp = (BorderPane) getParent().getScene().getRoot();
             TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
             tp.rotateModel(rotation,newValue.intValue()-oldValue.intValue() );
         });
 
-        this.textField.textProperty().addListener((observable, oldValue, newValue) -> {
+        this.spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
 
             try {
-                this.slider.setValue(Integer.parseInt(newValue));
+                this.slider.setValue(newValue);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         });
 
-        getChildren().addAll(label, slider, textField);
+        getChildren().addAll(label, slider, spinner);
 
     }
 
