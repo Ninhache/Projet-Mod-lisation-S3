@@ -106,7 +106,10 @@ public class CanvasModel extends Canvas {
     	int[] rgbArray = face.getColor();
     	
     	if(rgbArray.length == 3)
-    		return Color.rgb(rgbArray[0], rgbArray[1],rgbArray[2]);
+    		if(face.getAlpha()>=0)
+    			return Color.rgb(rgbArray[0], rgbArray[1],rgbArray[2],face.getAlpha());
+    		else
+    			return Color.rgb(rgbArray[0], rgbArray[1],rgbArray[2]);
     	else
     		return Color.LAVENDER;
     }
