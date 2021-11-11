@@ -1,16 +1,17 @@
 package view.components;
 
+import java.util.Collections;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import model.*;
+import model.Face;
+import model.Model;
 import view.dialogs.MessageBox;
 import view.stages.MainStage;
-
-import java.util.Collections;
 
 /**
  * The CanvasModel handle a model
@@ -105,7 +106,10 @@ public class CanvasModel extends Canvas {
     	int[] rgbArray = face.getColor();
     	
     	if(rgbArray.length == 3)
-    		return Color.rgb(rgbArray[0], rgbArray[1],rgbArray[2]);
+    		if(face.getAlpha()>=0)
+    			return Color.rgb(rgbArray[0], rgbArray[1],rgbArray[2],face.getAlpha());
+    		else
+    			return Color.rgb(rgbArray[0], rgbArray[1],rgbArray[2]);
     	else
     		return Color.LAVENDER;
     }

@@ -18,11 +18,17 @@ public class PlyReader {
 	private int nbVertex,nbFaces,vertexLength;
 	private ArrayList<Vertex> verticesList;
 	private ArrayList<Face> facesList;
-
+	private ArrayList<int[]> rgbList;
+	private ArrayList<Double> alphaList;
+	private int colorParser = 0;
+	
 	private double barycenterX = 0;
 	private double barycenterY = 0;
 	private double barycenterZ = 0;
 
+	private boolean isColored = false,
+					alpha = false;
+	
 	/**
 	 * <b>Constructor of a PlyReader</b>
 	 * 
@@ -82,6 +88,8 @@ public class PlyReader {
 		this.fileName = "none";
 		verticesList = new ArrayList<Vertex>();
 		facesList = new ArrayList<Face>();
+		rgbList = new ArrayList<int[]>();
+		alphaList = new ArrayList<Double>();
 	}
     
 	
@@ -145,7 +153,18 @@ public class PlyReader {
 					nbVertex = Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
 				else if (line.contains("comment created by "))
 					authorName = line.substring(line.lastIndexOf(" ")+1);
-
+				else if(!isColored) {
+					
+					if(line.contains("property uchar red"))
+						isColored = true;
+					else if(line.contains("property uchar green"))
+						isColored = true;
+					else if(line.contains("property uchar blue"))
+						isColored = true;
+					
+				} else if(line.contains("property uchar alpha"))
+						alpha = true;
+				
 				sb.append(line);
 				sb.append("\n");
 			}
@@ -192,6 +211,17 @@ public class PlyReader {
 		double y = Double.parseDouble(line[1]);
 		double z = Double.parseDouble(line[2]);
 
+		if(isColored) {
+			int r = Integer.parseInt(line[3]);
+			int g = Integer.parseInt(line[4]);
+			int b = Integer.parseInt(line[5]);
+			if(alpha) {
+				alphaList.add(Double.parseDouble(line[6]));
+			}else {
+				rgbList.add(new int[] {r,g,b});
+			}
+		}
+		
 		this.verticesList.add(new Vertex(x,y,z));
 		this.barycenterX += x;
 		this.barycenterY += y;
@@ -210,13 +240,33 @@ public class PlyReader {
 	public void collectFaceInfo(String[] line) {
 		ArrayList<Vertex> pointsOfFace = new ArrayList<>();
 
+		int r = 0,
+			g = 0,
+			b = 0,
+			a = 0;
 		for(int i = 1 ; i <= Integer.parseInt(line[0]) ; i++) {
-			pointsOfFace.add(verticesList.get(Integer.parseInt(line[i])));
+			int currenVertexIdx = Integer.parseInt(line[i]);
+			pointsOfFace.add(verticesList.get(currenVertexIdx));
+			
+			if(isColored) {
+				r += rgbList.get(currenVertexIdx)[0];
+				g += rgbList.get(currenVertexIdx)[1];
+				b += rgbList.get(currenVertexIdx)[2];
+				if(alpha)
+					a += alphaList.get(currenVertexIdx);
+			}
 		}
-		
-		facesList.add(new Face(pointsOfFace)); 
-	}
+		if(isColored) {
+			if(alpha)
+				facesList.add(new Face(pointsOfFace, new int[]{r/3, g/3, b/3}, a/3));
+			else 
+				facesList.add(new Face(pointsOfFace, new int[]{r/3, g/3, b/3}));
+		} else 
+			facesList.add(new Face(pointsOfFace)); 
 
+		colorParser++;
+	}
+	
     /**
      * Reading of the Vertex part of a .ply file
      * <p>
@@ -233,12 +283,28 @@ public class PlyReader {
 		try {
 			String line = br.readLine();
 			String[] splittedLine = line.split(" ");
-
-			StringBuilder sb = new StringBuilder();
 			
-			boolean testIfVertex = splittedLine.length == 3;
+			if(line.length()<=1)
+				line = br.readLine();
 
-            int i = 1;
+			splittedLine = line.split(" ");
+			
+			System.out.println(line);
+			
+			StringBuilder sb = new StringBuilder();
+
+			int nbColorInfo = 0;
+			if(isColored)
+				nbColorInfo+=3;
+			if(alpha)
+				nbColorInfo++;
+			
+			
+			boolean testIfVertex = splittedLine.length == 3+nbColorInfo;
+
+			System.out.printf("nbColorInfo == %d && splittedLine.length == %d && testIfVertex == %s\n", nbColorInfo, splittedLine.length, testIfVertex);
+
+			int i = 1;
 			while(testIfVertex) {
 
 				vertexLength++;
@@ -250,9 +316,13 @@ public class PlyReader {
 				
 				br.mark(vertexLength);
 				line = br.readLine();
+				System.out.println(line);
 				splittedLine = line.split(" ");
-				if(splittedLine.length != 3)
+				
+				System.out.println(splittedLine.length);
+				if(splittedLine.length != 3+nbColorInfo)
 					testIfVertex = false;
+				System.out.println(testIfVertex);
 			}
 		
 			if (nbVertexLines != nbVertex)
@@ -296,6 +366,8 @@ public class PlyReader {
 				
 				sb.append(line);
 				sb.append("\n");
+				
+				
 				
 				if(splittedLine.length != 4) testIfFace= false;
 				
