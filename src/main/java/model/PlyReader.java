@@ -238,14 +238,27 @@ public class PlyReader {
 	public void collectFaceInfo(String[] line) {
 		ArrayList<Vertex> pointsOfFace = new ArrayList<>();
 
+		int r = 0,
+			g = 0,
+			b = 0,
+			a = 0;
 		for(int i = 1 ; i <= Integer.parseInt(line[0]) ; i++) {
-			pointsOfFace.add(verticesList.get(Integer.parseInt(line[i])));
+			int currenVertexIdx = Integer.parseInt(line[i]);
+			pointsOfFace.add(verticesList.get(currenVertexIdx));
+			
+			if(isColored) {
+				r += rgbList.get(currenVertexIdx)[0];
+				g += rgbList.get(currenVertexIdx)[1];
+				b += rgbList.get(currenVertexIdx)[2];
+				if(alpha)
+					a += alphaList.get(currenVertexIdx);
+			}
 		}
 		if(isColored) {
 			if(alpha)
-				facesList.add(new Face(pointsOfFace, rgbList.get(colorParser), alphaList.get(colorParser)));
+				facesList.add(new Face(pointsOfFace, new int[]{r/3, g/3, b/3}, a/3));
 			else 
-				facesList.add(new Face(pointsOfFace, rgbList.get(colorParser)));
+				facesList.add(new Face(pointsOfFace, new int[]{r/3, g/3, b/3}));
 		} else 
 			facesList.add(new Face(pointsOfFace)); 
 
