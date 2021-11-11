@@ -111,15 +111,25 @@ public class CanvasModel extends Canvas {
 
     }
 
+    public Color getFacesColor(Face face) {
+    	int[] rgbArray = face.getColor();
+    	
+    	if(rgbArray.length == 3)
+    		return Color.rgb(rgbArray[0], rgbArray[1],rgbArray[2]);
+    	else
+    		return Color.LAVENDER;
+    }
+    
     public void drawFacesStrokes(GraphicsContext gc) {
         Collections.sort(this.model.getFaces());
 
         double[] tmpX, tmpY, tmpZ;
         int pt1, pt2;
 
-        gc.setFill(Color.RED);
 
-        for(Face face : this.model.getFaces()) {
+        for(Face face : this.model.getFaces()) 
+        {
+        	gc.setFill(getFacesColor(face));
 
             tmpX = new double[face.getVertices().size()];
             tmpY = new double[face.getVertices().size()];
