@@ -117,18 +117,6 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
-//        //Ctrl shift ==>
-//        Runnable kcTabMoveToRight = () -> {
-//            tabPane.onSwitchToRight();
-//        };
-//        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToRight);
-//
-//        //Ctrl shift <==
-//        Runnable kcTabMoveToLeft = () -> {
-//            tabPane.onSwitchToLeft();
-//        };
-//        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTabMoveToLeft);
-
         // Ctrl + R
         Runnable kcRotateModel = () -> {
             tabPane.rotateModel(Rotation.X,15);
@@ -137,19 +125,19 @@ public class MainStage extends ExtendedStage {
 
         // Ctrl + shift + r
         Runnable kcRotateInverseModel = () -> {
-            tabPane.rotateInverseModel(new ActionEvent());
+            tabPane.rotateModel(Rotation.X,-15);
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcRotateInverseModel);
 
         // Ctrl + T
         Runnable kcTranslateModel = () -> {
-            tabPane.translateModel(new ActionEvent(),10,0);
+            tabPane.translateModel(0,10,0);
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN), kcTranslateModel);
 
         // Ctrl + Shift + T
         Runnable kcTranslateInverseModel = () -> {
-            tabPane.translateInverseModel(new ActionEvent());
+            tabPane.translateModel(0,-10,0);
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTranslateInverseModel);
 
@@ -180,7 +168,7 @@ public class MainStage extends ExtendedStage {
             if(selectedToggleButton.equals(rotate)){
                 tabPane.rotateModel(Rotation.X,(mousePosY - mouseOldY));
             } else if(selectedToggleButton.equals(translate)){
-                tabPane.translateModel(event, (mousePosX-mouseOldX),(mousePosY-mouseOldY));
+                tabPane.translateModel((mousePosX-mouseOldX),(mousePosY-mouseOldY),0);
             }
         }
         mouseOldX = mousePosX;

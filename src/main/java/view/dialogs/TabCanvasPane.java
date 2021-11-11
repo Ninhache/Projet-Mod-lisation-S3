@@ -23,59 +23,6 @@ public class TabCanvasPane extends TabPane {
         cp.getTabs().remove(cp.getSelectionModel().getSelectedItem());
     }
 
-    public void onSwitchToRight() {
-
-        TabCanvas tabToSwitch = (TabCanvas) getSelectionModel().getSelectedItem();
-
-        int currentIndex = getTabs().indexOf(tabToSwitch);
-        int nextIndex = currentIndex+1;
-
-        if(((nextIndex < getTabs().size()))) {
-
-            String textPremier = getTabs().get(currentIndex).getText();
-            String textDeuxieme = getTabs().get(nextIndex).getText();
-
-
-
-            CanvasModel premier = (CanvasModel) getTabs().get(currentIndex).getContent();
-            CanvasModel deuxieme = (CanvasModel) getTabs().get(nextIndex).getContent();
-
-            getTabs().get(currentIndex).setContent(deuxieme);
-            getTabs().get(nextIndex).setContent(premier);
-
-            getTabs().get(currentIndex).setText(textDeuxieme);
-            getTabs().get(nextIndex).setText(textPremier);
-
-            getSelectionModel().select(nextIndex);
-        }
-
-    }
-
-    public void onSwitchToLeft() {
-
-        TabCanvas tabToSwitch = (TabCanvas) getSelectionModel().getSelectedItem();
-
-        int currentIndex = getTabs().indexOf(tabToSwitch);
-        int previousIndex = currentIndex - 1;
-
-        if(((previousIndex >= 0))) {
-
-            String textPremier = getTabs().get(currentIndex).getText();
-            String textDeuxieme = getTabs().get(previousIndex).getText();
-
-            Canvas premier = (Canvas) getTabs().get(currentIndex).getContent();
-            Canvas deuxieme = (Canvas) getTabs().get(previousIndex).getContent();
-
-            getTabs().get(currentIndex).setContent(deuxieme);
-            getTabs().get(previousIndex).setContent(premier);
-
-            getTabs().get(currentIndex).setText(textDeuxieme);
-            getTabs().get(previousIndex).setText(textPremier);
-
-            getSelectionModel().select(previousIndex);
-        }
-    }
-
     public void rotateModel(Rotation r,double angle) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
@@ -86,31 +33,11 @@ public class TabCanvasPane extends TabPane {
         tab.getCanvas().draw();
     }
 
-    public void rotateInverseModel(ActionEvent e) {
+    public void translateModel(double distanceX, double distanceY, double distanceZ) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
         tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().rotation(Rotation.X, -15);
-        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
-
-        tab.getCanvas().draw();
-    }
-
-    public void translateModel(Event e, double distanceX, double distanceY) {
-        TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
-
-        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().translation(distanceX,distanceY,0);
-        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
-
-        tab.getCanvas().draw();
-    }
-
-    public void translateInverseModel(ActionEvent e) {
-        TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
-
-        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().translation(-10,0,0);
+        tab.getCanvas().getModel().getMatrix().translation(distanceX,distanceY,distanceZ);
         tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
 
         tab.getCanvas().draw();
