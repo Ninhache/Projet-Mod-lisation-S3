@@ -34,19 +34,9 @@ public class LibraryPane extends TitledPane {
         tableView = new TableView<>();
 
         fileNameCol = new TableColumn<>("Fichiers");
-        fileNameCol.setMinWidth(tableView.getWidth()/2);
-        fileNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        fileNameCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.25));
-        fileNameCol.minWidthProperty().bind(fileNameCol.maxWidthProperty());
-
-        fileNameCol.setResizable(false);
-
         filePathCol = new TableColumn<>("Chemin des fichiers.ply");
-        filePathCol.setMinWidth(tableView.getWidth()/2);
-        filePathCol.setCellValueFactory(new PropertyValueFactory<>("path"));
-        filePathCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.75));
-        filePathCol.minWidthProperty().bind(filePathCol.maxWidthProperty());
-        filePathCol.setResizable(false);
+
+        setProperty();
 
 
         list = getFilePly();
@@ -78,7 +68,20 @@ public class LibraryPane extends TitledPane {
                 }
             }
         });
+    }
 
+    private void setProperty() {
+        fileNameCol.setMinWidth(tableView.getWidth()/2);
+        fileNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        fileNameCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.30));
+        fileNameCol.minWidthProperty().bind(fileNameCol.maxWidthProperty());
+        fileNameCol.setResizable(false);
+
+        filePathCol.setMinWidth(tableView.getWidth()/2);
+        filePathCol.setCellValueFactory(new PropertyValueFactory<>("path"));
+        filePathCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.60));
+        filePathCol.minWidthProperty().bind(filePathCol.maxWidthProperty());
+        filePathCol.setResizable(false);
     }
 
     private ObservableList<FilePly> getFilePly() {
