@@ -7,11 +7,23 @@ import view.components.tiltedPane.SlidersModel;
 
 public class ModelAccordion extends Accordion {
 
+    private SlidersModel slidersModel;
+    private LibraryPane libraryPane;
+
+
     public ModelAccordion() {
         super();
+        slidersModel = new SlidersModel();
+        libraryPane = new LibraryPane();
 
-        getPanes().addAll(new ModelePane(),new SlidersModel(),new LibraryPane());
-
+        getPanes().addAll(slidersModel,libraryPane);
     }
 
+    public LibraryPane getLibraryPane() {
+        return libraryPane;
+    }
+
+    public SlidersModel getSlidersModel() {
+        return slidersModel;
+    }
 }

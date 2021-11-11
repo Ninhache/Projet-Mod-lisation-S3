@@ -2,6 +2,9 @@ package view.stages;
 
 import java.io.FileNotFoundException;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,6 +31,7 @@ public class MainStage extends ExtendedStage {
     private TabCanvasPane tabPane;
     private ToggleButton translate, rotate;
     private ToggleGroup tg;
+    private RightMenu rightMenu;
 
     private double mousePosX, mouseOldY, mousePosY, mouseOldX;
     public MainStage() {
@@ -44,11 +48,11 @@ public class MainStage extends ExtendedStage {
         tabPane.getTabs().add(tab);
         tabPane.getTabs().clear();
 
+        rightMenu = new RightMenu();
 
         root.setTop(toolBar);
         root.setCenter(tabPane);
-        root.setRight(new RightMenu());
-
+        root.setRight(rightMenu);
 
         tg = new ToggleGroup();
         translate = new ToggleButton("Translate");
@@ -82,7 +86,14 @@ public class MainStage extends ExtendedStage {
         });
 
         setupRunnable();
+        setupDisabledComponents();
 
+    }
+
+    private void setupDisabledComponents() {
+        IntegerBinding integerBinding = Bindings.size(tabPane.getTabs());
+        BooleanBinding listGreaterThanZero = integerBinding.greaterThan(0);
+        rightMenu.getModelAccordion().getSlidersModel().disableProperty().bind(listGreaterThanZero.not());
     }
 
     private void setupRunnable() {
