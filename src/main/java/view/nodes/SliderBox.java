@@ -51,16 +51,6 @@ public class SliderBox extends HBox {
 
     }
 
-    private String correctString(int value) {
-        String res = "" + value;
-
-        while(res.length() < 3) {
-            res = "0" + res;
-        }
-
-        return res;
-    }
-
     private void setupSliders() {
         this.slider.setShowTickLabels(true);
         this.slider.setMinorTickCount(0);
