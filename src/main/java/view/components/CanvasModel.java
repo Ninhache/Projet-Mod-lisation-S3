@@ -69,14 +69,6 @@ public class CanvasModel extends Canvas {
         } else {
             ratio = (getHeight() / distanceY) ;
         }
-/*
-        System.out.println("distanceX :" + distanceX);
-        System.out.println("distanceY :" + distanceY);
-        System.out.println("distanceZ :" + distanceZ);
-        System.out.println(ratio);
- */
-
-        //this.model.getMatrix().translation(centerX/2, centerY/2, centerZ/2);
 
         this.model.getMatrix().homothety(ratio);
         this.model.getMatrix().translation(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0);
@@ -106,8 +98,6 @@ public class CanvasModel extends Canvas {
         } else if (!this.drawFaces & this.drawLight & this.drawStrokes) {
             MessageBox.showWarning("Impossible d'afficher !", "Il est impossible d'afficher les effet de la lumière sur notre modèle, si les faces ne sont pas dessinées !");
         }
-       // if(this.drawLight && this.drawFaces) drawLight();
-
 
     }
 
@@ -194,23 +184,6 @@ public class CanvasModel extends Canvas {
                 gc.strokeLine(this.model.getMatrix().getValues()[0][pt1], this.model.getMatrix().getValues()[1][pt1], this.model.getMatrix().getValues()[0][pt2], this.model.getMatrix().getValues()[1][pt2]);
             }
         }
-
-/*
-    	double ratio = (canvasWidth*canvasWidth)/(canvasWidth/canvasHeight);
-    	Vector v = new Vector(canvasWidth/2, canvasHeight/2, 0);
-    	m = m.homothety(50);
-        m = m.translation(v);
-        //m = m.translation(new Vector(-(canvasWidth/2), 1, 0));
-        //m = m.rotation(Rotation.Z, 45);
-        System.out.println(ratio);
-
-        //System.out.println(m);
-    	for (int i = 0; i < m.getColumnCount(); i++) {
-			gc.fillOval(m.getValues()[0][i], m.getValues()[1][i], 5, 5);
-			//gc.fill();
-		}
-*/
-
 
     }
 
