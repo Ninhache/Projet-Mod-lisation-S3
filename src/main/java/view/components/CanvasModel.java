@@ -22,7 +22,7 @@ import view.stages.MainStage;
  */
 public class CanvasModel extends Canvas {
 
-    private final Model model;
+    private Model model;
     
     private boolean drawFaces = true, drawStrokes = true, drawLight;
 
@@ -61,7 +61,10 @@ public class CanvasModel extends Canvas {
     public CanvasModel(Model model) {
         this(model, 0,0);
     }
-
+    
+    public CanvasModel() {
+    	this(null);
+    }
     public void initDraw() {
 
         this.model.getMatrix().resetToDefaultValues();
@@ -160,8 +163,8 @@ public class CanvasModel extends Canvas {
 
         double[] tmpX, tmpY, tmpZ;
 
-        gc.setFill(Color.RED);
         for(Face face : this.model.getFaces()) {
+        	gc.setFill(getFacesColor(face));
 
             tmpX = new double[face.getVertices().size()];
             tmpY = new double[face.getVertices().size()];
@@ -234,5 +237,9 @@ public class CanvasModel extends Canvas {
 
     public Model getModel() {
         return model;
+    }
+    
+    public void setModel(Model model) {
+    	this.model=model;
     }
 }

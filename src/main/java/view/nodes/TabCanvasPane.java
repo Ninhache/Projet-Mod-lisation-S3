@@ -12,7 +12,7 @@ import view.components.tabpane.TabCanvas;
 import java.io.File;
 
 public class TabCanvasPane extends TabPane {
-
+	
     public TabCanvasPane() {
         super();
 
@@ -22,7 +22,9 @@ public class TabCanvasPane extends TabPane {
         getSelectionModel().selectedIndexProperty().addListener((observableValue, numberOld, numberSelected) -> {
 
             try {
-                ((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getModelAccordion().getSlidersModel().updateInformations(numberSelected);
+            	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getModelAccordion().getSlidersModel().updateInformations(numberSelected);
+            	Model model=((TabCanvas) getSelectionModel().getSelectedItem()).getCanvas().getModel();
+            	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getCanvasBox().setModel(model);;
             } catch (Exception e) {
             	//e.printStackTrace();
             }

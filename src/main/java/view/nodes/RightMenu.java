@@ -23,4 +23,8 @@ public class RightMenu extends VBox {
     public ModelAccordion getModelAccordion() {
         return modelAccordion;
     }
+    
+    public CanvasBox getCanvasBox() {
+		return canvasBox;
+	}
 }

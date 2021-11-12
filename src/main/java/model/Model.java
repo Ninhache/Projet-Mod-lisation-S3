@@ -30,13 +30,15 @@ public class Model {
      *
      * @param vertices list of points of the model
      * @param faces list of faces of the model
+     * @param rotation
+     * @param degree of the rotation
      */
     
-    public Model(ArrayList<Vertex> vertices, ArrayList<Face> faces) {
-        this.vertices = vertices;
+    public Model(ArrayList<Vertex> vertices, ArrayList<Face> faces, Rotation rotation, int degree) {
+    	this.vertices = vertices;
         this.faces = faces;
         
-        matrix = new Matrix(new double[4][vertices.size()]);
+        matrix = new Matrix(new double[4][vertices.size()], rotation, degree);
         Vertex.resetAuto();
         for(Vertex v : vertices) {
         	int index = v.getId();
@@ -45,9 +47,12 @@ public class Model {
         	matrix.getValues()[2][index] = vertices.get(index).getZ();
         	matrix.getValues()[3][index] = 1;
         }
-
     }
-
+    
+    public Model(ArrayList<Vertex> vertices, ArrayList<Face> faces) {
+    	this(vertices,faces,Rotation.X,0);
+    }
+    
     public Model(){
         this(new ArrayList<Vertex>(), new ArrayList<Face>());
     }
