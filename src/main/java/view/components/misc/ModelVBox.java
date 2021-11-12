@@ -50,7 +50,7 @@ public class ModelVBox extends VBox {
                     //System.out.println(dataK.get("contents"));
                     OnlineLibraryStage ols = (OnlineLibraryStage) getScene().getWindow();
 
-                    File f = new File("tmp.ply");
+                    File f = new File(model.getName());
                     try {
                         if(f.exists()){
                             f.delete();

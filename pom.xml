@@ -5,7 +5,7 @@
 	<groupId>fr.ulille.dut.s3</groupId>
 	<!-- Modifier le nom de votre projet ci-dessous -->
 	<artifactId>projetmode0</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>Livrable1</version>
 
 
 	<properties>
@@ -37,7 +37,7 @@
 				<artifactId>javafx-maven-plugin</artifactId>
 				<version>0.0.6</version>
 				<configuration>
-					<mainClass>view.Window</mainClass>
+					<mainClass>controller.Launcher</mainClass>
 				</configuration>
 			</plugin>
 			<!-- Make this jar executable -->
@@ -51,7 +51,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>view.Window</mainClass>
+							<mainClass>controller.Launcher</mainClass>
 							<classpathPrefix>dependency-jars/</classpathPrefix>
 						</manifest>
 					</archive>
