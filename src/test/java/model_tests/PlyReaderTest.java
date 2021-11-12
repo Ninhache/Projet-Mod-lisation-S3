@@ -55,7 +55,7 @@ class PlyReaderTest {
 	}
 	
 	@Test
-	void set_FileInResourceWithFileObject_Test() throws FileNotFoundException{
+	void set_FileInResourceWithFileObject_Test() throws Exception {
 		PlyReader reader = new PlyReader();
 		File file = new File("./exemples/ant.ply");
 		reader.setFile(file);

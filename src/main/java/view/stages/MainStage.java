@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import model.Rotation;
 import view.components.CanvasModel;
 import view.components.misc.CustomTabPaneSkin;
@@ -36,7 +37,7 @@ public class MainStage extends ExtendedStage {
         super();
 
         BorderPane root = new BorderPane();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 1920,1080);
             setScene(scene);
 
         toolBar = new SuperToolBar();
@@ -69,6 +70,8 @@ public class MainStage extends ExtendedStage {
         setupListeners();
         setupRunnable();
         setupDisabledComponents();
+        setWidth(Screen.getPrimary().getBounds().getWidth());
+        setHeight(Screen.getPrimary().getBounds().getHeight()-50);
 
     }
 
@@ -152,23 +155,6 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTranslateInverseModel);
 
-        /*
-
-        // deja implémenté, suffit de faire flèche droite/gauche
-        // Ctrl + ->
-        Runnable kcNextRequest = () -> {
-        	System.out.println("CTRL RIGHT");
-            tabPane.onNextRequest(new ActionEvent());
-        };
-        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN), kcNextRequest);
-
-        // Ctrl + <-
-        Runnable kcPreviousRequest = () -> {
-        	System.out.println("CTRL LEFT");
-            tabPane.onPreviousRequest(new ActionEvent());
-        };
-        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN), kcPreviousRequest);
-         */
     }
 
     private void movingModel(MouseEvent event) {
@@ -189,4 +175,5 @@ public class MainStage extends ExtendedStage {
     public SuperToolBar getToolBar() {
         return toolBar;
     }
+
 }

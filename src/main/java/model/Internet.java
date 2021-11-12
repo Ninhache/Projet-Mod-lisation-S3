@@ -20,7 +20,6 @@ public class Internet {
         httpURLConnection.setRequestProperty("User-Agent", USER_AGENT);
 
         int responseCode = httpURLConnection.getResponseCode();
-        System.out.println(responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
             String inputLine;

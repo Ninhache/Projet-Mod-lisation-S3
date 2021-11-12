@@ -29,7 +29,7 @@ public class ControlStage extends ExtendedStage {
 
         closeButton.setOnAction(this::onCloseBtnClicked);
 
-        Scene scene = new Scene(root, 300,150);
+        Scene scene = new Scene(root, 400,300);
         setScene(scene);
         setResizable(false);
 
@@ -38,8 +38,10 @@ public class ControlStage extends ExtendedStage {
 
         HBox hboxOpen = setupHBox("Ctrl+O", new Region(), "Ouvrir");
         HBox hboxCloseRequest = setupHBox("Ctrl+W", new Region(), "Fermer un onglet");
+        HBox hboxRotate = setupHBox("Ctrl+R | Ctrl+Shift+R", new Region(), "Rotation X");
+        HBox hboxTranslate = setupHBox("Ctrl+T | Ctrl+Shift+T", new Region(), "Translation X");
 
-        root.getChildren().addAll(hboxOpen, hboxCloseRequest, new Separator(Orientation.HORIZONTAL), closeButton);
+        root.getChildren().addAll(hboxOpen, hboxCloseRequest, hboxRotate, hboxTranslate, new Separator(Orientation.HORIZONTAL), closeButton);
         root.setAlignment(Pos.CENTER);
     }
     

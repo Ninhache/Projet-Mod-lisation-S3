@@ -224,6 +224,6 @@ public class Model{
     }
     
     public Model clone() throws CloneNotSupportedException {
-    	return new Model(this.vertices, this.faces);
+    	return new Model((ArrayList<Vertex>) this.vertices.clone(), (ArrayList<Face>) this.faces.clone());
     }
 }

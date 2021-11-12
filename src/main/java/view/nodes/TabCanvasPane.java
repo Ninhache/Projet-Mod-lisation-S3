@@ -8,11 +8,13 @@ import model.PlyReader;
 import model.Rotation;
 import view.components.CanvasModel;
 import view.components.tabpane.TabCanvas;
+import view.dialogs.MessageBox;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class TabCanvasPane extends TabPane {
-	
+
     public TabCanvasPane() {
         super();
 
@@ -33,19 +35,16 @@ public class TabCanvasPane extends TabPane {
 
     }
 
-    public void addModel(File file) {
+    public void addModel(File file) throws Exception {
 
         PlyReader read = new PlyReader();
         TabCanvas tab = new TabCanvas();
-        try {
-            read.setFile(file);
-            tab = new TabCanvas(read.readPly(), getWidth(), getHeight());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        getTabs().add(tab);
 
-        tab.getCanvas().setId("mainCanvas");
+        read.setFile(file);
+        tab = new TabCanvas(read.readPly(), getWidth(), getHeight());
+
+
+        getTabs().add(tab);
         tab.updateDraw();
         getSelectionModel().select(tab);
 

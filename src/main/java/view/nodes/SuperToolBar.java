@@ -178,9 +178,14 @@ public class SuperToolBar extends MenuBar {
             return;
         }
         TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-        tabPane.addModel(file);
 
-        addToOpenRecent(file);
+        try {
+            tabPane.addModel(file);
+            addToOpenRecent(file);
+        } catch (Exception ex) {
+            MessageBox.showError("Format Incorrect", "Le format du fichier chargé n'est pas compatible, merci de réassayer avec un format correct");
+            return;
+        }
     }
 
     public void addToOpenRecent(File fileToAdd) {
@@ -267,15 +272,13 @@ public class SuperToolBar extends MenuBar {
 
         TabCanvasPane tabCanvas = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
-        // add path
         Path path = Paths.get(list.get(1));
         Model model = null;
+
         try {
             model = new PlyReader(path).readPly();
-            //TODO: add msgError
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            //TODO: add msgError
         } catch (Exception e) {
 			e.printStackTrace();
 		}

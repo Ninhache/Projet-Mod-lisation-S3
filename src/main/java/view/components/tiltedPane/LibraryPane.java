@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import model.FilePly;
 import model.PlyReader;
 import view.components.tabpane.TabCanvas;
+import view.dialogs.MessageBox;
 import view.nodes.TabCanvasPane;
 import view.stages.OnlineLibraryStage;
 
@@ -64,7 +65,13 @@ public class LibraryPane extends TitledPane {
                     BorderPane borderPane = (BorderPane) getParent().getScene().getRoot();
                     TabCanvasPane tabPane = (TabCanvasPane) borderPane.getCenter();
 
-                    tabPane.addModel(file);
+                    try {
+                        tabPane.addModel(file);
+                    } catch (FileNotFoundException e) {
+                        MessageBox.showError("Fichier introuvable", "Fichier introuvable");
+                    } catch (Exception e) {
+                        MessageBox.showError("Format Incorrect", "Le format du fichier chargé n'est pas compatible, merci de réassayer avec un format correct");
+                    }
 
                 } catch (NullPointerException e) {
                     e.printStackTrace();
