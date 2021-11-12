@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @version %I%, %G%
  * @see CanvasModel
  */
-public class Model {
+public class Model{
 
     private Matrix matrix;
     private final ArrayList<Vertex> vertices;
@@ -221,5 +221,9 @@ public class Model {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public Model clone() throws CloneNotSupportedException {
+    	return new Model(this.vertices, this.faces);
     }
 }
