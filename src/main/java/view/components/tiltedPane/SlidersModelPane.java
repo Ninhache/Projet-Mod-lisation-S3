@@ -8,6 +8,7 @@ import model.Model;
 import model.Rotation;
 import view.components.tabpane.TabCanvas;
 import view.nodes.SliderBox;
+import view.nodes.SpinnerBox;
 import view.nodes.TabCanvasPane;
 
 
@@ -21,6 +22,7 @@ import view.nodes.TabCanvasPane;
 public class SlidersModelPane extends TitledPane {
 
 	private SliderBox sliderBoxX, sliderBoxY, sliderBoxZ;
+	private SpinnerBox scale;
 	private Label title, labelVertices, labelFaces, labelAuteur, labelComment;
 
 	public SlidersModelPane() {
@@ -42,8 +44,9 @@ public class SlidersModelPane extends TitledPane {
 		sliderBoxX = new SliderBox(Rotation.X);
 		sliderBoxY = new SliderBox(Rotation.Y);
 		sliderBoxZ = new SliderBox(Rotation.Z);
+		scale = new SpinnerBox();
 
-		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ);
+		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ,scale);
 		setContent(root);
 
 	}

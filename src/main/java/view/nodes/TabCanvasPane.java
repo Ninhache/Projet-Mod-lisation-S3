@@ -76,5 +76,15 @@ public class TabCanvasPane extends TabPane {
         tab.getCanvas().draw();
     }
 
+    public void scaleModel(double scale){
+        TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
+
+        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().getMatrix().homothety(scale);
+        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+
+        tab.getCanvas().draw();
+    }
+
 }
 
