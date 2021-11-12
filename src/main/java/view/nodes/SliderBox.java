@@ -58,8 +58,4 @@ public class SliderBox extends HBox {
         this.slider.setBlockIncrement(10);
     }
 
-    public Label getLabel() {
-        return label;
-    }
-
 }

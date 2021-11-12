@@ -23,7 +23,6 @@ import view.stages.MainStage;
 public class CanvasModel extends Canvas {
 
     private final Model model;
-    private Rotation rotation;
     
     private boolean drawFaces = true, drawStrokes = true, drawLight;
 
@@ -43,9 +42,10 @@ public class CanvasModel extends Canvas {
 
     }
     
-    public CanvasModel(Model model, double width, double height, Rotation rota) {
+    public CanvasModel(Model model, double width, double height, Rotation rota, int degree) {
     	this(model,width,height);
-    	this.rotation=rota;
+    	initDraw();
+    	this.model.getMatrix().rotation(rota, degree);
     }
 
     public EventHandler<MouseEvent> mouseDraggedEvent() {
