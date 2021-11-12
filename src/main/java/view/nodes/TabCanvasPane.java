@@ -23,8 +23,9 @@ public class TabCanvasPane extends TabPane {
 
             try {
             	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getModelAccordion().getSlidersModel().updateInformations(numberSelected);
-            	Model model=((TabCanvas) getSelectionModel().getSelectedItem()).getCanvas().getModel();
-            	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getCanvasBox().setModel(model);;
+//            	Model model=((TabCanvas) getSelectionModel().)).getCanvas().getModel();
+            	Model model = ((TabCanvas)getTabs().get(numberSelected.intValue())).getCanvas().getModel();
+            	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getCanvasBox().setModel(model);
             } catch (Exception e) {
             	//e.printStackTrace();
             }
@@ -44,6 +45,7 @@ public class TabCanvasPane extends TabPane {
         }
         getTabs().add(tab);
 
+        tab.getCanvas().setId("mainCanvas");
         tab.updateDraw();
         getSelectionModel().select(tab);
 
