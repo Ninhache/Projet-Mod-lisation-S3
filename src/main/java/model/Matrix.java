@@ -30,6 +30,12 @@ public class Matrix {
 
         this.values = values;
     }
+    
+    public Matrix(double[][] values, Rotation rotation, int degree) {
+    	this.values=values;
+    	this.rotation(rotation, degree);
+    	this.defaultValues = this.values.clone();
+    }
    
     /**
      * Multiplies matrix by another one
