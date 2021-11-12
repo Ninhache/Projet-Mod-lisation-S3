@@ -14,6 +14,8 @@ public class CanvasSingle extends HBox {
 		getChildren().add(canvasModel);
 		setHeight(300);
 		setWidth(300);
+		canvasModel.setWidth(300.0);
+		canvasModel.setHeight(300.0);
 	}
 	
 	public void setModel(Model model) {
@@ -23,5 +25,14 @@ public class CanvasSingle extends HBox {
 	
 	public void draw() {
 		this.canvasModel.draw();
+	}
+	
+	public CanvasModel getCanvasModel() {
+		return canvasModel;
+	}
+	
+	@Override
+	public String toString() {
+		return this.canvasModel.getModel().getVertices().toString();
 	}
 }
