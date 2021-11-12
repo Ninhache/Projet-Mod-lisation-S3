@@ -426,7 +426,7 @@ public class PlyReader {
 	 * @throws FileNotFoundException 
 	 */
 	public void setFile(String fileName) throws FileNotFoundException {
-		File file = new File("src/main/resources/"+fileName+".ply");
+		File file = new File("./exemples/"+fileName+".ply");
 		if(file.exists()) {
 			this.nbFaces = -1;
 			this.nbVertex = -1;
@@ -435,7 +435,7 @@ public class PlyReader {
 			this.facesList = new ArrayList<>();
 			this.verticesList = new ArrayList<>();
 			this.fileName = fileName;
-			this.file = new File("src/main/resources/"+fileName+".ply");
+			this.file = new File("./exemples/"+fileName+".ply");
 		} else
 			throw new FileNotFoundException("There's no file existing in the resources directory with the given name");
 	}

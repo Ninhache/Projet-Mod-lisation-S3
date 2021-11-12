@@ -49,6 +49,7 @@ public class SlidersModelPane extends TitledPane {
 	}
 
 	public void updateInformations(Number number) {
+		System.out.println("bite");
 
 		if(number.intValue() == -1) {
 			this.setExpanded(false);

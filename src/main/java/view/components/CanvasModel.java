@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Face;
 import model.Model;
+import model.Rotation;
 import view.dialogs.MessageBox;
 import view.stages.MainStage;
 
@@ -22,7 +23,8 @@ import view.stages.MainStage;
 public class CanvasModel extends Canvas {
 
     private final Model model;
-
+    private Rotation rotation;
+    
     private boolean drawFaces = true, drawStrokes = true, drawLight;
 
     public CanvasModel(Model model, double width, double height) {
@@ -39,6 +41,11 @@ public class CanvasModel extends Canvas {
 
         //addEventHandler(MouseEvent.ANY, mouseDraggedEvent());
 
+    }
+    
+    public CanvasModel(Model model, double width, double height, Rotation rota) {
+    	this(model,width,height);
+    	this.rotation=rota;
     }
 
     public EventHandler<MouseEvent> mouseDraggedEvent() {

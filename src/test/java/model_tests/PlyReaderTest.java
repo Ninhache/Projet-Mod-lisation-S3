@@ -57,7 +57,7 @@ class PlyReaderTest {
 	@Test
 	void set_FileInResourceWithFileObject_Test() throws FileNotFoundException{
 		PlyReader reader = new PlyReader();
-		File file = new File("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\ant.ply");
+		File file = new File("./exemples/ant.ply");
 		reader.setFile(file);
 		
 		assertTrue(reader.getFileName().equals(file.getName()));

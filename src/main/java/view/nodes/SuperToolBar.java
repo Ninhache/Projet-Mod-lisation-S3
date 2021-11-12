@@ -231,6 +231,8 @@ public class SuperToolBar extends MenuBar {
 
     private boolean fileAlreadyInRecent(File fileToAdd) {
         File file = new File("src/main/resources/tmp/openRecentFile.txt");
+        
+        System.out.println("FILE EXIST :" + file.exists());
 
         Scanner sc;
         StringBuilder sb = new StringBuilder();

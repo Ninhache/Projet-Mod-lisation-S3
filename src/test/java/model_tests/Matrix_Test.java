@@ -95,14 +95,14 @@ public class Matrix_Test {
         //Assertions.assertArrayEquals(tmpMatrixM3M1.getValues(), m3.multiplyMatrix(m1).getValues());
     }
 
-    @Test
-    public void test_sub_matrix_matrix() {
-        Matrix tmpMatrixM1M2 = new Matrix(new double[][] {{1,-6,-1},{3,-5,1}});
-        Matrix tmpMatrixM2M1 = new Matrix(new double[][] {{-1,6,1},{-3,5,-1}});
-
-        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m1.subMatrix(m2).getValues());
-        Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.subMatrix(m1).getValues());
-    }
+//    @Test
+//    public void test_sub_matrix_matrix() {
+//        Matrix tmpMatrixM1M2 = new Matrix(new double[][] {{1,-6,-1},{3,-5,1}});
+//        Matrix tmpMatrixM2M1 = new Matrix(new double[][] {{-1,6,1},{-3,5,-1}});
+//
+//        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m1.subMatrix(m2).getValues());
+//        Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.subMatrix(m1).getValues());
+//    }
 
 
 

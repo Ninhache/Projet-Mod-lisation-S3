@@ -24,7 +24,7 @@ public class TabCanvasPane extends TabPane {
             try {
                 ((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getModelAccordion().getSlidersModel().updateInformations(numberSelected);
             } catch (Exception e) {
-                // :)
+            	//e.printStackTrace();
             }
         });
 
