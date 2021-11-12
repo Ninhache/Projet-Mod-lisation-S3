@@ -4,12 +4,12 @@
 
 ## Fonctionnalités implémentées
 
-- [ ] Afficher la liste détaillée des modèles
-- [ ] Il est possible de choisir le modèle à visualiser dans la liste
-- [ ] Le modèle est chargé et visualisé
-- [ ] Message d'erreur en cas d'erreur de format dans le fichier
-- [ ] La visualisation est correcte
-- [ ] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
+- [x] Afficher la liste détaillée des modèles
+- [x] Il est possible de choisir le modèle à visualiser dans la liste
+- [x] Le modèle est chargé et visualisé
+- [x] Message d'erreur en cas d'erreur de format dans le fichier
+- [x] La visualisation est correcte (La visualisation centrale oui, les deux autres ont quelques erreurs)
+- [x] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
 - [x] Rotation
 - [x] Translation
 - [x] Homotétie (L'échelle)
@@ -17,16 +17,16 @@
 ## Autres éléments demandés
 
 - [x] Tests pour les classes de calcul mathématique
-- [ ] Captures d'écran pour le rendu
-- [ ] Vidéo de présentation du rendu
-- [ ] Respect du format de rendu (cf Moodle)
+- [x] Captures d'écran pour le rendu
+- [x] Vidéo de présentation du rendu
+- [x] Respect du format de rendu (cf Moodle)
 
 ## Distribution du travail (qui a fait quoi)
 
-ALMEIDA     Néo     :   ?<br>
-LAGNEAU     Simon   :   ?<br>
-MACIEIRA    Matteo  :   ?<br>
-VANHEE      Paul    :   ?<br>
+ALMEIDA     Néo  (Ninhache/Néo Almeida)  :  Interface/Implémentation des 3 vues/Thèmes/Modif de classes/Javadoc <br>
+LAGNEAU     Simon (Simon Lagneau)  :  PLYReader/Implémentation des 3 vues/Modif de classes/Javadoc/Tests <br>
+MACIEIRA    Matteo (Matte/matteo.macieira.etu/Matteo Macieira) :  Rotation (Sliders/Spinners)/Fix Tests et classes/Implémentation des 3 vues/Modif de classes <br>
+VANHEE      Paul (Extasio15/Paul Vanhee) :  API/Zoom/Calcul Matriciel (Rotation/Translation)/Modif de classes ?<br>
 
 ## Difficultés rencontrées
 
@@ -37,7 +37,7 @@ Néo : Respecter le MCV à 100% !
 ## Fonctionnalités implémentées
 
 
-- [ ] Affichage faces seulement / segments seulement
+- [x] Affichage faces seulement / segments seulement
 - [ ] Affichage avancé de la bibliothèque de modèles
 - [ ] Recherche dans la bibliothèque de modèles
 - [ ] Éditer les informations sur un modèle
