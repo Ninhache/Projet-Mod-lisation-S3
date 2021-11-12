@@ -30,7 +30,10 @@ VANHEE      Paul (Extasio15/Paul Vanhee) :  API/Zoom/Calcul Matriciel (Rotation/
 
 ## Difficultés rencontrées
 
+Simon : Maintenir le Reader à jour
 Néo : Respecter le MCV à 100% !
+Matteo : Link les sliders sur toutes les vues
+Paul : Les calculs Matriciel
 
 # Livrable 2
 
