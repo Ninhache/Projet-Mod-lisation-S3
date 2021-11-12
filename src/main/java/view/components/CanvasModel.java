@@ -92,6 +92,7 @@ public class CanvasModel extends Canvas {
     public void draw() {
         GraphicsContext gc = getGraphicsContext2D();
 
+        System.out.println("Id  == " + getId() + " + drawFaces == " + drawFaces + " + drawLight == " + drawLight + " + drawStrokes == " + drawStrokes);
         setupDrawStuff(gc);
 
         if(this.drawFaces & !this.drawStrokes & !this.drawLight) {
