@@ -21,6 +21,7 @@ import view.components.tabpane.TabCanvas;
 import view.nodes.RightMenu;
 import view.nodes.SuperToolBar;
 import view.nodes.TabCanvasPane;
+import view.components.tiltedPane.SlidersModelPane;
 
 public class MainStage extends ExtendedStage {
 
