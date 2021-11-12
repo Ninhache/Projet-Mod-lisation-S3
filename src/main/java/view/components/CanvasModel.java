@@ -52,7 +52,7 @@ public class CanvasModel extends Canvas {
         EventHandler<MouseEvent> res = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseDragged) {
-                System.out.println("hello");
+
             }
         };
         return res;
@@ -161,7 +161,6 @@ public class CanvasModel extends Canvas {
         double[] tmpX, tmpY, tmpZ;
 
         gc.setFill(Color.RED);
-
         for(Face face : this.model.getFaces()) {
 
             tmpX = new double[face.getVertices().size()];

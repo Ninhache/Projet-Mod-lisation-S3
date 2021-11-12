@@ -76,7 +76,9 @@ public class LibraryPane extends TitledPane {
     private void openLibraryClick(ActionEvent actionEvent) {
 
         if (onlineLibraryStage == null || !onlineLibraryStage.isShowing()) {
-            onlineLibraryStage = new OnlineLibraryStage();
+            BorderPane borderPane = (BorderPane) getParent().getScene().getRoot();
+            TabCanvasPane tabPane = (TabCanvasPane) borderPane.getCenter();
+            onlineLibraryStage = new OnlineLibraryStage(tabPane);
             onlineLibraryStage.initOwner(this.getParent().getScene().getWindow());
             onlineLibraryStage.show();
         } else {

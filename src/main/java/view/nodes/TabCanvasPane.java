@@ -49,6 +49,8 @@ public class TabCanvasPane extends TabPane {
         ((SuperToolBar)((BorderPane) getParent().getScene().getRoot()).getTop()).addToOpenRecent(file);
     }
 
+
+
     public void onCloseRequest(ActionEvent e) {
         TabCanvasPane cp = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
         cp.getTabs().remove(cp.getSelectionModel().getSelectedItem());

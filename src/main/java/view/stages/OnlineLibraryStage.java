@@ -2,6 +2,7 @@ package view.stages;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import model.Internet;
@@ -11,6 +12,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import view.components.misc.ModelVBox;
+import view.components.tabpane.TabCanvas;
+import view.nodes.TabCanvasPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,14 +25,14 @@ public class OnlineLibraryStage extends ExtendedStage {
     private Label label;
     private VBox root;
     public static TilePane tilePane;
+    public TabCanvasPane tp;
 
-
-    public OnlineLibraryStage() {
+    public OnlineLibraryStage(TabCanvasPane tabPane) {
 
         root = new VBox();
         label = new Label("Bibliothèque en ligne PLY");
         tilePane = new TilePane();
-
+        tp = tabPane;
         loadData();
 
 
@@ -72,4 +75,7 @@ public class OnlineLibraryStage extends ExtendedStage {
 
     }
 
+    public TabCanvasPane getTp() {
+        return tp;
+    }
 }
