@@ -20,7 +20,6 @@ public class PlyReader {
 	private ArrayList<Face> facesList;
 	private ArrayList<int[]> rgbList;
 	private ArrayList<Double> alphaList;
-	private int colorParser = 0;
 	
 	private double barycenterX = 0;
 	private double barycenterY = 0;
@@ -37,13 +36,19 @@ public class PlyReader {
 	 * </p>
 	 *
 	 * @param file the file to read
+	 * @throws Exception 
 	 */
-	public PlyReader(File file){
+	public PlyReader(File file) throws Exception{
 		if(file.exists()) {
-			this.file = file;
-			this.fileName = file.getName();
+			if(file.getName().endsWith(".ply")) {
+				this.file = file;
+				this.fileName = file.getName();
+			} else {
+				throw new Exception("Mauvais type de fichier");
+			}
 		} else {
 			this.fileName = "none";
+			throw new FileNotFoundException();
 		}
 		verticesList = new ArrayList<Vertex>();
 		facesList = new ArrayList<Face>();
@@ -57,8 +62,9 @@ public class PlyReader {
 	 * </p>
 	 *
 	 * @param fileName the name of the file to read
+	 * @throws Exception 
 	 */
-	public PlyReader(String fileName) {
+	public PlyReader(String fileName) throws Exception {
 		this(new File("src/main/resources/"+fileName+".ply"));
 	}
 	
@@ -70,8 +76,9 @@ public class PlyReader {
 	 * </p>
 	 * 
 	 * @param path the path towards the file to read
+	 * @throws Exception 
 	 */
-	public PlyReader(Path path) {
+	public PlyReader(Path path) throws Exception {
 			this(path.toFile());
 	}
 
@@ -122,6 +129,7 @@ public class PlyReader {
 		Model model = new Model(verticesList, facesList);
 		model.setNameOfFile(this.getFileName());
 		model.setAuthor(this.authorName);
+		System.out.println(description  + "AHHHHHH");
 		model.setDescription(this.description);
 
 		model.setBarycenterX(this.barycenterX / this.verticesList.size());
@@ -145,6 +153,7 @@ public class PlyReader {
 		try {
 			
 			StringBuilder sb = new StringBuilder();
+			StringBuilder sbComments = new StringBuilder();
 			String line;
 
 			while((line=br.readLine())!=null && !line.equals(END_HEADER)) {
@@ -155,7 +164,10 @@ public class PlyReader {
 					nbVertex = Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
 				else if (line.contains("comment created by "))
 					authorName = line.substring(line.lastIndexOf(" ")+1);
-				else if(!isColored) {
+				else if(line.contains("comment")) {
+					sbComments.append(line.substring(7) + "\n");
+					System.out.println("in comment if");
+				}else if(!isColored) {
 					
 					if(line.contains("property uchar red"))
 						isColored = true;
@@ -163,13 +175,16 @@ public class PlyReader {
 						isColored = true;
 					else if(line.contains("property uchar blue"))
 						isColored = true;
-					
+
 				} else if(line.contains("property uchar alpha"))
 						alpha = true;
 				
 				sb.append(line);
 				sb.append("\n");
+				
 			}
+			System.out.println(sbComments.toString() + "aedezdfzesfdezsf");
+			description = sbComments.toString();
 			//System.out.printf("contenu Header :\n\n%s________________________________________________________\n", sb);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -265,8 +280,6 @@ public class PlyReader {
 				facesList.add(new Face(pointsOfFace, new int[]{r/3, g/3, b/3}));
 		} else 
 			facesList.add(new Face(pointsOfFace)); 
-
-		colorParser++;
 	}
 	
     /**

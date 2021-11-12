@@ -270,12 +270,15 @@ public class SuperToolBar extends MenuBar {
         // add path
         Path path = Paths.get(list.get(1));
         Model model = null;
-
         try {
             model = new PlyReader(path).readPly();
+            //TODO: add msgError
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+            //TODO: add msgError
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
         
         TabCanvas tab = new TabCanvas( model , list.get(0), tabCanvas.getWidth(), tabCanvas.getHeight());
 
