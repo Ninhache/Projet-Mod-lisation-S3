@@ -3,8 +3,13 @@ package view.nodes;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import model.Model;
+import model.PlyReader;
 import model.Rotation;
+import view.components.CanvasModel;
 import view.components.tabpane.TabCanvas;
+
+import java.io.File;
 
 public class TabCanvasPane extends TabPane {
 
@@ -23,6 +28,25 @@ public class TabCanvasPane extends TabPane {
             }
         });
 
+    }
+
+    public void addModel(File file) {
+
+        PlyReader read = new PlyReader();
+        TabCanvas tab = new TabCanvas();
+        try {
+            read.setFile(file);
+            tab = new TabCanvas(read.readPly(), getWidth(), getHeight());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        getTabs().add(tab);
+
+        tab.updateDraw();
+        getSelectionModel().select(tab);
+
+        // add manage recent
+        ((SuperToolBar)((BorderPane) getParent().getScene().getRoot()).getTop()).addToOpenRecent(file);
     }
 
     public void onCloseRequest(ActionEvent e) {

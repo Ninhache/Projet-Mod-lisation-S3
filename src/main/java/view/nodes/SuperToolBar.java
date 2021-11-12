@@ -14,6 +14,7 @@ import model.PlyReader;
 
 import java.awt.image.RenderedImage;
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -177,25 +178,21 @@ public class SuperToolBar extends MenuBar {
             return;
         }
         TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-        reader.setFile(file);
-        try {
-            tabPane.getTabs().add(new TabCanvas(reader.readPly(), tabPane.getWidth(), tabPane.getHeight()));
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        CanvasModel t = (CanvasModel) tabPane.getTabs().get(tabPane.getTabs().size()-1).getContent();
-        tabPane.getSelectionModel().selectLast();
-        t.initDraw();
+        tabPane.addModel(file);
 
         addToOpenRecent(file);
     }
 
-    private void addToOpenRecent(File fileToAdd) {
+    public void addToOpenRecent(File fileToAdd) {
         if(fileToAdd == null) return;
-
+        //if(new File("src/main/resources/tmp").exists())
+        Path pathDir = Paths.get("src/main/resources/tmp");
+        try {
+            Files.createDirectory(pathDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Path path = Paths.get("src/main/resources/tmp/openRecentFile.txt");
-
-
 
         try {
 

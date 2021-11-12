@@ -33,6 +33,10 @@ public class TabCanvas extends DraggableTab {
         this(model, model == null ? "" : model.getNameOfFile(), 500,500);
     }
 
+    public TabCanvas() {
+        super("null");
+    }
+
     public void updateDraw() {
         this.canvas.initDraw();
     }

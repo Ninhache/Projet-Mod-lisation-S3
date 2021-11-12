@@ -56,7 +56,7 @@ public class LibraryPane extends TitledPane {
         setContent(root);
 
         tableView.setOnMouseClicked(mouseEvent -> {
-            if(mouseEvent.getClickCount() ==2 ) {
+            if(mouseEvent.getClickCount() == 2 ) {
                 try {
                     File file = new File(tableView.getSelectionModel().getSelectedItem().getPath());
 
@@ -64,14 +64,9 @@ public class LibraryPane extends TitledPane {
                     BorderPane borderPane = (BorderPane) getParent().getScene().getRoot();
                     TabCanvasPane tabPane = (TabCanvasPane) borderPane.getCenter();
 
-                    TabCanvas tab = new TabCanvas(new PlyReader(file).readPly(), tabPane.getWidth(), tabPane.getHeight());
+                    tabPane.addModel(file);
 
-                    tabPane.getTabs().add(tab);
-                    tab.updateDraw();
-
-                    tabPane.getSelectionModel().select(tab);
-
-                } catch (NullPointerException | FileNotFoundException e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
             }
