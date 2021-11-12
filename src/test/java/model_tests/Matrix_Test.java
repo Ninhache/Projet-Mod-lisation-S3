@@ -81,28 +81,34 @@ public class Matrix_Test {
     @Test
     public void test_sum_matrix_matrix() {
         Matrix tmpMatrixM1M2 = new Matrix(new double[][] {{1,8,3},{3,5,3}});
-
-        //Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m1.sumMatrix(m2).getValues());
-        //Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m2.sumMatrix(m1).getValues());
+        m1.sumMatrix(m2);
+        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m1.getValues());
+        setUp();
+        m2.sumMatrix(m1);
+        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m2.getValues());
     }
 
     @Test
     public void test_multiply_matrix_matrix() {
         Matrix tmpMatrixM1M3 = new Matrix(new double[][] {{2,14},{4,25}});
         Matrix tmpMatrixM3M1 = new Matrix(new double[][] {{21,0,14}, {15,0,10},{8,2,6}});
-
-        //Assertions.assertArrayEquals(tmpMatrixM1M3.getValues(), m1.multiplyMatrix(m3).getValues());
-        //Assertions.assertArrayEquals(tmpMatrixM3M1.getValues(), m3.multiplyMatrix(m1).getValues());
+        m1.multiplyMatrix(m3);
+        Assertions.assertArrayEquals(tmpMatrixM1M3.getValues(), m1.getValues());
+        setUp();
+        m3.multiplyMatrix(m1);
+        Assertions.assertArrayEquals(tmpMatrixM3M1.getValues(), m3.getValues());
     }
 
-//    @Test
-//    public void test_sub_matrix_matrix() {
-//        Matrix tmpMatrixM1M2 = new Matrix(new double[][] {{1,-6,-1},{3,-5,1}});
-//        Matrix tmpMatrixM2M1 = new Matrix(new double[][] {{-1,6,1},{-3,5,-1}});
-//
-//        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m1.subMatrix(m2).getValues());
-//        Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.subMatrix(m1).getValues());
-//    }
+    @Test
+    public void test_sub_matrix_matrix() {
+        Matrix tmpMatrixM1M2 = new Matrix(new double[][] {{1,-6,-1},{3,-5,1}});
+        Matrix tmpMatrixM2M1 = new Matrix(new double[][] {{-1,6,1},{-3,5,-1}});
+        m1.subMatrix(m2);
+        Assertions.assertArrayEquals(tmpMatrixM1M2.getValues(), m1.getValues());
+        setUp();
+        m2.subMatrix(m1);
+        Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.getValues());
+    }
 
 
 
