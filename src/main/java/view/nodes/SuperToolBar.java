@@ -185,13 +185,6 @@ public class SuperToolBar extends MenuBar {
 
     public void addToOpenRecent(File fileToAdd) {
         if(fileToAdd == null) return;
-        //if(new File("src/main/resources/tmp").exists())
-        Path pathDir = Paths.get("src/main/resources/tmp");
-        try {
-            Files.createDirectory(pathDir);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Path path = Paths.get("src/main/resources/tmp/openRecentFile.txt");
 
         try {
@@ -410,6 +403,16 @@ public class SuperToolBar extends MenuBar {
     }
 
     private MenuItem[] getRecentFiles() {
+
+        Path pathDir = Paths.get("src/main/resources/tmp");
+        if(!Files.exists(pathDir)) {
+            try {
+                Files.createDirectory(pathDir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         File file = new File("src/main/resources/tmp/openRecentFile.txt");
 
         Scanner sc;
@@ -455,7 +458,6 @@ public class SuperToolBar extends MenuBar {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            e.printStackTrace();
             itemList = new MenuItem[] {
                     new MenuItem("Pas de fichiers récents")
             };
