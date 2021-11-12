@@ -6,15 +6,15 @@ import view.components.ModelAccordion;
 
 public class RightMenu extends VBox {
 
-    private ModelAccordion modelAccordion;
     private CanvasBox canvasBox;
+    private ModelAccordion modelAccordion;
 
 
     public RightMenu() {
         super();
 
-        modelAccordion = new ModelAccordion();
         canvasBox = new CanvasBox();
+        modelAccordion = new ModelAccordion();
 
         getChildren().addAll(canvasBox, modelAccordion);
 

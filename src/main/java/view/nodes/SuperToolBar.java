@@ -451,6 +451,11 @@ public class SuperToolBar extends MenuBar {
                 }
             }
         } catch (FileNotFoundException e) {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
             itemList = new MenuItem[] {
                     new MenuItem("Pas de fichiers récents")

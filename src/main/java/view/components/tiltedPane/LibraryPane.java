@@ -2,6 +2,8 @@ package view.components.tiltedPane;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
@@ -12,6 +14,7 @@ import model.FilePly;
 import model.PlyReader;
 import view.components.tabpane.TabCanvas;
 import view.nodes.TabCanvasPane;
+import view.stages.OnlineLibraryStage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,9 +23,11 @@ import java.util.Arrays;
 
 public class LibraryPane extends TitledPane {
 
+    private Button buttonOnline;
     private TableView<FilePly> tableView;
     private TableColumn<FilePly, String> fileNameCol, filePathCol;
     private ObservableList<FilePly> list;
+    private OnlineLibraryStage onlineLibraryStage;
 
     public LibraryPane() {
         super();
@@ -38,13 +43,15 @@ public class LibraryPane extends TitledPane {
 
         setProperty();
 
+        buttonOnline = new Button("Librairie en ligne");
+        buttonOnline.setOnAction(this::openLibraryClick);
 
         list = getFilePly();
         tableView.setItems(list);
 
         tableView.getColumns().addAll(fileNameCol,filePathCol);
 
-        root.getChildren().add(tableView);
+        root.getChildren().addAll(buttonOnline, tableView);
 
         setContent(root);
 
@@ -61,6 +68,7 @@ public class LibraryPane extends TitledPane {
 
                     tabPane.getTabs().add(tab);
                     tab.updateDraw();
+
                     tabPane.getSelectionModel().select(tab);
 
                 } catch (NullPointerException | FileNotFoundException e) {
@@ -68,6 +76,19 @@ public class LibraryPane extends TitledPane {
                 }
             }
         });
+    }
+
+    private void openLibraryClick(ActionEvent actionEvent) {
+
+        if (onlineLibraryStage == null || !onlineLibraryStage.isShowing()) {
+            onlineLibraryStage = new OnlineLibraryStage();
+            onlineLibraryStage.initOwner(this.getParent().getScene().getWindow());
+            onlineLibraryStage.show();
+        } else {
+            onlineLibraryStage.close();
+            onlineLibraryStage = null;
+        }
+
     }
 
     private void setProperty() {

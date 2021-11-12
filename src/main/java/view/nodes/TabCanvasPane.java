@@ -14,6 +14,15 @@ public class TabCanvasPane extends TabPane {
         setMinWidth(500);
         setMinHeight(500);
 
+        getSelectionModel().selectedIndexProperty().addListener((observableValue, numberOld, numberSelected) -> {
+
+            try {
+                ((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getModelAccordion().getSlidersModel().updateInformations(numberSelected);
+            } catch (Exception e) {
+                // :)
+            }
+        });
+
     }
 
     public void onCloseRequest(ActionEvent e) {

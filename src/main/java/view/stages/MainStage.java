@@ -35,39 +35,50 @@ public class MainStage extends ExtendedStage {
         super();
 
         BorderPane root = new BorderPane();
+        Scene scene = new Scene(root);
+            setScene(scene);
+
         toolBar = new SuperToolBar();
-
         tabPane = new TabCanvasPane();
+            tabPane.setSkin(new CustomTabPaneSkin(tabPane, toolBar.getOpenActionsLink()));
+            loadingUpdate();
 
-        tabPane.setSkin(new CustomTabPaneSkin(tabPane, toolBar.getOpenActionsLink()));
-
-        TabCanvas tab = new TabCanvas(null);
-        tabPane.getTabs().add(tab);
-        tabPane.getTabs().clear();
 
         rightMenu = new RightMenu();
+
+        tg = new ToggleGroup();
+            translate = new ToggleButton("Translate");
+            translate.setToggleGroup(tg);
+            rotate = new ToggleButton("Rotate");
+            rotate.setToggleGroup(tg);
+
+        HBox movementButton = new HBox(translate,rotate);
+
+
+        scene.getStylesheets().add(getClass().getResource("/css/theme/ThemeBlanc.css").toExternalForm());
 
         root.setTop(toolBar);
         root.setCenter(tabPane);
         root.setRight(rightMenu);
-
-        tg = new ToggleGroup();
-        translate = new ToggleButton("Translate");
-        translate.setToggleGroup(tg);
-        rotate = new ToggleButton("Rotate");
-        rotate.setToggleGroup(tg);
-        HBox movementButton = new HBox(translate,rotate);
         root.setBottom(movementButton);
 
-        //movementButton.setVisible(false);
-
-
-        Scene scene = new Scene(root);
-        setScene(scene);
         setTitle("test");
 
-        scene.getStylesheets().add(getClass().getResource("/css/theme/ThemeBlanc.css").toExternalForm());
 
+        setupListeners();
+        setupRunnable();
+        setupDisabledComponents();
+
+    }
+
+    // FONCTION QUI SERT A CE QUE LE SKIN SOIT PRIS EN COMPTE, OUI C'EST DÉBILE !!
+    private void loadingUpdate() {
+        TabCanvas tab = new TabCanvas(null);
+        tabPane.getTabs().add(tab);
+        tabPane.getTabs().clear();
+    }
+
+    private void setupListeners() {
         widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPane.getTabs().forEach(tabs -> {
                 CanvasModel c = (CanvasModel) tabs.getContent();
@@ -81,10 +92,6 @@ public class MainStage extends ExtendedStage {
                 c.setHeight(newValue.doubleValue());
             });
         });
-
-        setupRunnable();
-        setupDisabledComponents();
-
     }
 
     private void setupDisabledComponents() {

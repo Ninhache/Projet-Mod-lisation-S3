@@ -17,7 +17,7 @@ public class Model {
     private Matrix matrix;
     private final ArrayList<Vertex> vertices;
     private final ArrayList<Face> faces;
-    private String nameOfFile;
+    private String nameOfFile, author, description;
 
     private double barycenterX;
     private double barycenterY;
@@ -200,5 +200,21 @@ public class Model {
 
     public double getBarycenterZ() {
         return barycenterZ;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class PlyReader {
 
-	private String fileName, authorName;
+	private String fileName, authorName, description;
 	private File file;
 	private final String END_HEADER = "end_header"; // < Simplfied into normal string, idk why this is used...
 	private int nbVertex,nbFaces,vertexLength;
@@ -121,6 +121,8 @@ public class PlyReader {
 
 		Model model = new Model(verticesList, facesList);
 		model.setNameOfFile(this.getFileName());
+		model.setAuthor(this.authorName);
+		model.setDescription(this.description);
 
 		model.setBarycenterX(this.barycenterX / this.verticesList.size());
 		model.setBarycenterY(this.barycenterY / this.verticesList.size());
@@ -289,7 +291,7 @@ public class PlyReader {
 
 			splittedLine = line.split(" ");
 			
-			System.out.println(line);
+			//System.out.println(line);
 			
 			StringBuilder sb = new StringBuilder();
 
@@ -302,7 +304,7 @@ public class PlyReader {
 			
 			boolean testIfVertex = splittedLine.length == 3+nbColorInfo;
 
-			System.out.printf("nbColorInfo == %d && splittedLine.length == %d && testIfVertex == %s\n", nbColorInfo, splittedLine.length, testIfVertex);
+			//System.out.printf("nbColorInfo == %d && splittedLine.length == %d && testIfVertex == %s\n", nbColorInfo, splittedLine.length, testIfVertex);
 
 			int i = 1;
 			while(testIfVertex) {
@@ -316,13 +318,13 @@ public class PlyReader {
 				
 				br.mark(vertexLength);
 				line = br.readLine();
-				System.out.println(line);
+				//System.out.println(line);
 				splittedLine = line.split(" ");
 				
-				System.out.println(splittedLine.length);
+				//System.out.println(splittedLine.length);
 				if(splittedLine.length != 3+nbColorInfo)
 					testIfVertex = false;
-				System.out.println(testIfVertex);
+				//System.out.println(testIfVertex);
 			}
 		
 			if (nbVertexLines != nbVertex)
