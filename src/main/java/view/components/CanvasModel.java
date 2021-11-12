@@ -160,8 +160,8 @@ public class CanvasModel extends Canvas {
 
         double[] tmpX, tmpY, tmpZ;
 
-        gc.setFill(Color.RED);
         for(Face face : this.model.getFaces()) {
+        	gc.setFill(getFacesColor(face));
 
             tmpX = new double[face.getVertices().size()];
             tmpY = new double[face.getVertices().size()];
