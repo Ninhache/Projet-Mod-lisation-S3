@@ -34,7 +34,8 @@ public class SliderBox extends HBox {
             spinner.getValueFactory().setValue(newValue.intValue());
             BorderPane bp = (BorderPane) getParent().getScene().getRoot();
             TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
-            tp.rotateModel(rotation,newValue.intValue()-oldValue.intValue() );
+            tp.rotateModel(rotation,newValue.intValue()-oldValue.intValue());
+            ((RightMenu)bp.getRight()).updateSideDraws();
         });
 
         this.spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
