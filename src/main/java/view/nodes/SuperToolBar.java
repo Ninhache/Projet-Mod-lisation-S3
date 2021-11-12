@@ -452,7 +452,7 @@ public class SuperToolBar extends MenuBar {
                     x++;
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
             try {
                 file.createNewFile();
             } catch (IOException ex) {
