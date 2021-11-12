@@ -20,6 +20,11 @@ public class RightMenu extends VBox {
 
     }
 
+    public void updateSideDraws() {
+    	this.canvasBox.getCanvasBot().draw();
+    	this.canvasBox.getCanvasTop().draw();
+    }
+    
     public ModelAccordion getModelAccordion() {
         return modelAccordion;
     }
