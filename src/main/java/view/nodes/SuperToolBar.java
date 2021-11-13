@@ -178,9 +178,14 @@ public class SuperToolBar extends MenuBar {
             return;
         }
         TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
-        tabPane.addModel(file);
 
-        addToOpenRecent(file);
+        try {
+            tabPane.addModel(file);
+            addToOpenRecent(file);
+        } catch (Exception ex) {
+            MessageBox.showError("Format Incorrect", "Le format du fichier chargé n'est pas compatible, merci de réassayer avec un format correct");
+            return;
+        }
     }
 
     public void addToOpenRecent(File fileToAdd) {
@@ -267,15 +272,13 @@ public class SuperToolBar extends MenuBar {
 
         TabCanvasPane tabCanvas = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
-        // add path
         Path path = Paths.get(list.get(1));
         Model model = null;
+
         try {
             model = new PlyReader(path).readPly();
-            //TODO: add msgError
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            //TODO: add msgError
         } catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -378,10 +381,6 @@ public class SuperToolBar extends MenuBar {
     private void onSaveImg(ActionEvent e) {
         Canvas canvas = (Canvas)((TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter()).getSelectionModel().getSelectedItem().getContent();
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.LIGHTBLUE);
-        gc.fillRect(0,0,canvas.getHeight(), canvas.getWidth());
-        gc.fill();
-
 
         fileChooser = new FileChooser();
 

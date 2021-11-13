@@ -20,6 +20,7 @@ public class PlyReader {
 	private ArrayList<Face> facesList;
 	private ArrayList<int[]> rgbList;
 	private ArrayList<Double> alphaList;
+	private int colorParser = 0;
 	
 	private double barycenterX = 0;
 	private double barycenterY = 0;
@@ -36,7 +37,7 @@ public class PlyReader {
 	 * </p>
 	 *
 	 * @param file the file to read
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public PlyReader(File file) throws Exception{
 		if(file.exists()) {
@@ -62,7 +63,7 @@ public class PlyReader {
 	 * </p>
 	 *
 	 * @param fileName the name of the file to read
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public PlyReader(String fileName) throws Exception {
 		this(new File("src/main/resources/"+fileName+".ply"));
@@ -76,7 +77,7 @@ public class PlyReader {
 	 * </p>
 	 * 
 	 * @param path the path towards the file to read
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public PlyReader(Path path) throws Exception {
 			this(path.toFile());
@@ -129,7 +130,6 @@ public class PlyReader {
 		Model model = new Model(verticesList, facesList);
 		model.setNameOfFile(this.getFileName());
 		model.setAuthor(this.authorName);
-		System.out.println(description  + "AHHHHHH");
 		model.setDescription(this.description);
 
 		model.setBarycenterX(this.barycenterX / this.verticesList.size());
@@ -166,7 +166,6 @@ public class PlyReader {
 					authorName = line.substring(line.lastIndexOf(" ")+1);
 				else if(line.contains("comment")) {
 					sbComments.append(line.substring(7) + "\n");
-					System.out.println("in comment if");
 				}else if(!isColored) {
 					
 					if(line.contains("property uchar red"))
@@ -181,11 +180,7 @@ public class PlyReader {
 				
 				sb.append(line);
 				sb.append("\n");
-				
 			}
-			System.out.println(sbComments.toString() + "aedezdfzesfdezsf");
-			description = sbComments.toString();
-			//System.out.printf("contenu Header :\n\n%s________________________________________________________\n", sb);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -280,6 +275,8 @@ public class PlyReader {
 				facesList.add(new Face(pointsOfFace, new int[]{r/3, g/3, b/3}));
 		} else 
 			facesList.add(new Face(pointsOfFace)); 
+
+		colorParser++;
 	}
 	
     /**
@@ -303,9 +300,7 @@ public class PlyReader {
 				line = br.readLine();
 
 			splittedLine = line.split(" ");
-			
-			//System.out.println(line);
-			
+
 			StringBuilder sb = new StringBuilder();
 
 			int nbColorInfo = 0;
@@ -316,8 +311,6 @@ public class PlyReader {
 			
 			
 			boolean testIfVertex = splittedLine.length == 3+nbColorInfo;
-
-			//System.out.printf("nbColorInfo == %d && splittedLine.length == %d && testIfVertex == %s\n", nbColorInfo, splittedLine.length, testIfVertex);
 
 			int i = 1;
 			while(testIfVertex) {
@@ -331,18 +324,14 @@ public class PlyReader {
 				
 				br.mark(vertexLength);
 				line = br.readLine();
-				//System.out.println(line);
 				splittedLine = line.split(" ");
-				
-				//System.out.println(splittedLine.length);
+
 				if(splittedLine.length != 3+nbColorInfo)
 					testIfVertex = false;
-				//System.out.println(testIfVertex);
 			}
 		
 			if (nbVertexLines != nbVertex)
 				throw new Exception("element Vertex = " + nbVertex + " && nombre de Lignes de Vertex = " + (i-1) + "");
-//			System.out.printf("contenu Vertex :\n\n%s________________________________________________________\n", sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -388,8 +377,7 @@ public class PlyReader {
 				
 			 }
 			
-			 if (nbFaceLines != nbFaces) throw new Exception("element Face = " + nbFaces + " && nombre de Lignes de Face = " + nbFaceLines + ""); 
-//			 System.out.printf("contenu Faces :\n\n%s\nNombre d'itérations : %d\n________________________________________________________\n\n", sb.toString(), i-1);
+			 if (nbFaceLines != nbFaces) throw new Exception("element Face = " + nbFaces + " && nombre de Lignes de Face = " + nbFaceLines + "");
 		 } catch(Exception e){
 			 e.printStackTrace();
 		 }
@@ -410,17 +398,20 @@ public class PlyReader {
 	 * @param file New file to read
 	 * @throws FileNotFoundException 
 	 */
-	public void setFile(File file) throws FileNotFoundException {
+	public void setFile(File file) throws Exception {
 		if(file.exists()) {
-			this.nbFaces = -1;
-			this.nbVertex = -1;
-			this.vertexLength = -1;
-			this.authorName = "";
-			this.facesList = new ArrayList<>();
-			this.verticesList = new ArrayList<>();
-			this.fileName = file.getName();
-			this.file = file;
-		} else 
+			if(file.getName().endsWith(".ply")) {
+				this.nbFaces = -1;
+				this.nbVertex = -1;
+				this.vertexLength = -1;
+				this.authorName = "";
+				this.facesList = new ArrayList<>();
+				this.verticesList = new ArrayList<>();
+				this.fileName = file.getName();
+				this.file = file;
+			} else
+				throw new Exception("Format incorrect");
+		} else
 			throw new FileNotFoundException("File not found");
 	}
 	
@@ -471,14 +462,3 @@ public class PlyReader {
 		return fileName;
 	}
 }
-//	public static void main(String args[]) throws FileNotFoundException{
-//		File test = new File("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test.ply");
-//		Reader reader = new Reader(test);
-//		reader.readPly();
-//		System.out.println(reader.getAuthorName());
-//		reader.setFile("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test3.ply");
-//		reader.readPly();
-//		System.out.println(reader.getAuthorName());
-//		reader.setFile("D:\\eclipse-workspace\\projetmodeg5\\src\\main\\resources\\test3.ply");
-//		reader.readPly();
-//	}

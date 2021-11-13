@@ -90,9 +90,8 @@ public class CanvasModel extends Canvas {
 
     // use different method to draw
     public void draw() {
-        GraphicsContext gc = getGraphicsContext2D();
 
-        System.out.println("Id  == " + getId() + " + drawFaces == " + drawFaces + " + drawLight == " + drawLight + " + drawStrokes == " + drawStrokes);
+        GraphicsContext gc = getGraphicsContext2D();
         setupDrawStuff(gc);
 
         if(this.drawFaces & !this.drawStrokes & !this.drawLight) {
@@ -126,7 +125,11 @@ public class CanvasModel extends Canvas {
     }
     
     public void drawFacesStrokes(GraphicsContext gc) {
-        Collections.sort(this.model.getFaces());
+        try {
+            Collections.sort(this.model.getFaces());
+        } catch (NullPointerException e) {
+            return;
+        }
 
         double[] tmpX, tmpY, tmpZ;
         int pt1, pt2;
