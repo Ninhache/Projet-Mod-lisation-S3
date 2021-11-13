@@ -35,8 +35,6 @@ public class OnlineLibraryStage extends ExtendedStage {
         tp = tabPane;
         loadData();
 
-
-
         root.getChildren().addAll(label, tilePane);
         scene = new Scene(root, 670,500);
         setScene(scene);
