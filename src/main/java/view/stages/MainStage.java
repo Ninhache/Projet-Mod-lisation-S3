@@ -64,7 +64,7 @@ public class MainStage extends ExtendedStage {
         root.setRight(rightMenu);
         root.setBottom(movementButton);
 
-        setTitle("test");
+        setTitle("Projet Modélisation");
 
 
         setupListeners();

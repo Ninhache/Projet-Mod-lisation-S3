@@ -381,10 +381,6 @@ public class SuperToolBar extends MenuBar {
     private void onSaveImg(ActionEvent e) {
         Canvas canvas = (Canvas)((TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter()).getSelectionModel().getSelectedItem().getContent();
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.LIGHTBLUE);
-        gc.fillRect(0,0,canvas.getHeight(), canvas.getWidth());
-        gc.fill();
-
 
         fileChooser = new FileChooser();
 

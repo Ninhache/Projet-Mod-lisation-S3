@@ -29,7 +29,7 @@ public class ControlStage extends ExtendedStage {
 
         closeButton.setOnAction(this::onCloseBtnClicked);
 
-        Scene scene = new Scene(root, 400,300);
+        Scene scene = new Scene(root, 400,150);
         setScene(scene);
         setResizable(false);
 
