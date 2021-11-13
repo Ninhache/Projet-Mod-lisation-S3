@@ -1,1 +1,11 @@
+controller
 model
+model_tests
+view
+view.components
+view.components.misc
+view.components.tabpane
+view.components.tiltedPane
+view.dialogs
+view.nodes
+view.stages
