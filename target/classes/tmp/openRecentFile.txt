@@ -1,5 +1,1 @@
-apple.ply#C:\Users\Neo\projetmodeg5\apple.ply
-sandal.ply#C:\Users\Neo\projetmodeg5\.\exemples\sandal.ply
-skull.ply#C:\Users\Neo\projetmodeg5\.\exemples\skull.ply
-airplane.ply#C:\Users\Neo\projetmodeg5\.\exemples\airplane.ply
-ant.ply#C:\Users\Neo\projetmodeg5\.\exemples\ant.ply
+cow.ply#/home/infoetu/matteo.macieira.etu/git/projetmodeg5/./exemples/cow.ply

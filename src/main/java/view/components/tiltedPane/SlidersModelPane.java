@@ -1,8 +1,11 @@
 package view.components.tiltedPane;
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Model;
 import model.Rotation;
@@ -23,7 +26,9 @@ public class SlidersModelPane extends TitledPane {
 
 	private SliderBox sliderBoxX, sliderBoxY, sliderBoxZ;
 	private SpinnerBox scale;
+	private Button reset;
 	private Label title, labelVertices, labelFaces, labelAuteur, labelComment;
+	private HBox scaleReset;
 
 	public SlidersModelPane() {
 		super();
@@ -45,9 +50,31 @@ public class SlidersModelPane extends TitledPane {
 		sliderBoxY = new SliderBox(Rotation.Y);
 		sliderBoxZ = new SliderBox(Rotation.Z);
 		scale = new SpinnerBox();
+		reset = new Button("Reset");
+		scaleReset = new HBox();
+		scaleReset.getChildren().addAll(scale,reset);
 
-		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ,scale);
+		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ, scaleReset);
 		setContent(root);
+		
+		reset.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				sliderBoxX.getSlider().setValue(180);
+				sliderBoxY.getSlider().setValue(180);
+				sliderBoxZ.getSlider().setValue(180);
+				scale.getSpinner().getValueFactory().setValue(1.0);
+				BorderPane bp = (BorderPane) getParent().getScene().getRoot();
+				TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
+
+				TabCanvas tb = (TabCanvas) tp.getTabs();
+				Model model = tb.getCanvas().getModel();
+				
+				model.getMatrix().resetToDefaultValues();
+			}
+		
+		});
 
 	}
 

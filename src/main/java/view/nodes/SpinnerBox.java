@@ -39,6 +39,12 @@ public class SpinnerBox extends HBox {
         getChildren().addAll(label, spinner);
 
     }
+	public Spinner<Double> getSpinner() {
+		return spinner;
+	}
+	public void setSpinner(Spinner<Double> spinner) {
+		this.spinner = spinner;
+	}
 
 
 }

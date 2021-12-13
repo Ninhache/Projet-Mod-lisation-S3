@@ -59,4 +59,28 @@ public class SliderBox extends HBox {
         this.slider.setBlockIncrement(10);
     }
 
+	public Label getLabel() {
+		return label;
+	}
+
+	public void setLabel(Label label) {
+		this.label = label;
+	}
+
+	public Slider getSlider() {
+		return slider;
+	}
+
+	public void setSlider(Slider slider) {
+		this.slider = slider;
+	}
+
+	public Spinner<Integer> getSpinner() {
+		return spinner;
+	}
+
+	public void setSpinner(Spinner<Integer> spinner) {
+		this.spinner = spinner;
+	}
+
 }
