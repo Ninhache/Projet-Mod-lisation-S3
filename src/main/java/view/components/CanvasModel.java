@@ -95,10 +95,13 @@ public class CanvasModel extends Canvas {
         setupDrawStuff(gc);
 
         if(this.drawFaces & !this.drawStrokes & !this.drawLight) {
+            System.out.println("faces coché");
             drawFaces(gc);
         } else if(!this.drawFaces & this.drawStrokes & !this.drawLight) {
+            System.out.println("lignes coché");
             drawStrokes(gc);
         } else if (this.drawFaces & this.drawStrokes & !this.drawLight){
+            System.out.println("faces coché | lignes coché");
             drawFacesStrokes(gc);
         } else if (this.drawFaces & this.drawLight & !this.drawStrokes) {
             System.out.println("faces coché | light coché | lignes non coché");
@@ -126,7 +129,13 @@ public class CanvasModel extends Canvas {
     
     public void drawFacesStrokes(GraphicsContext gc) {
         try {
+            System.out.println("START");
+            System.out.println("-------------");
+            System.out.println(this.model.getFaces());
             Collections.sort(this.model.getFaces());
+            System.out.println("-------------");
+            System.out.println(this.model.getFaces());
+            System.out.println("STOP");
         } catch (NullPointerException e) {
             return;
         }
@@ -142,28 +151,25 @@ public class CanvasModel extends Canvas {
             tmpX = new double[face.getVertices().size()];
             tmpY = new double[face.getVertices().size()];
             tmpZ = new double[face.getVertices().size()];
-
             for(int i = 0 ; i < face.getVertices().size() ; i++) {
                 tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
                 tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
                 tmpZ[i] = this.model.getMatrix().getValues()[2][face.getVertices().get(i).getId()];
-
                 pt1 = face.getVertices().get(i).getId();
-                if( i < face.getVertices().size() -1 ) {
+                /*if( i < face.getVertices().size() -1 ) {
                     pt2 = face.getVertices().get(i+1).getId();
                 } else {
                     pt2 = face.getVertices().get(0).getId();
-                }
-                gc.strokeLine(this.model.getMatrix().getValues()[0][pt1], this.model.getMatrix().getValues()[1][pt1], this.model.getMatrix().getValues()[0][pt2], this.model.getMatrix().getValues()[1][pt2]);
+                }*/
+                //gc.strokeLine(this.model.getMatrix().getValues()[0][pt1], this.model.getMatrix().getValues()[1][pt1], this.model.getMatrix().getValues()[0][pt2], this.model.getMatrix().getValues()[1][pt2]);
             }
-
+            gc.strokePolygon(tmpX,tmpY,tmpX.length);
             gc.fillPolygon(tmpX, tmpY, tmpX.length);
-
         }
     }
 
     public void drawFaces(GraphicsContext gc) {
-        Collections.sort(this.model.getFaces());
+        //Collections.sort(this.model.getFaces());
 
         double[] tmpX, tmpY, tmpZ;
 

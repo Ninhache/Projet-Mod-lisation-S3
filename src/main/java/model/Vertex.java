@@ -44,12 +44,24 @@ public class Vertex {
 		return id;
 	}
 
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
     public static void resetAuto() {
     	Vertex.idAuto = 0;
     }
 
     @Override
     public String toString() {
-        return String.format("[X:%s; Y:%s;Z:%s]",this.x, this.y, this.z);
+        return String.format("ID:%s[X:%s; Y:%s;Z:%s]",this.id,this.x, this.y, this.z);
     }
 }

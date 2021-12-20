@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.stream.DoubleStream;
 
 /**
  * A model contains faces
@@ -25,7 +26,6 @@ public class Face implements Comparable<Face> {
 	 * A face is build with 3 points (or more), and a color, LAVENDER by default
 	 *
 	 * @param vertices list of vertices
-	 * @param color color of faces
 	 */
 	public Face(ArrayList<Vertex> vertices){
 		this.vertices = vertices;
@@ -49,19 +49,28 @@ public class Face implements Comparable<Face> {
 	@Override
 	public int compareTo(Face other) {
 
-		double thisMoyZ = this.getVertices().stream().mapToDouble(Vertex::getZ).sum() / this.getVertices().size();
-		double otherMoyZ = other.getVertices().stream().mapToDouble(Vertex::getZ).sum() / this.getVertices().size();
+		double thisMoy = this.getAverage();
+		double otherMoy = other.getAverage();
+		System.out.println("================= ");
+		System.out.println("1: "+this + "2: "+other);
+		System.out.println("this: "+thisMoy + " other: "+otherMoy);
+		System.out.println(Double.compare(thisMoy, otherMoy));
+		if(thisMoy>otherMoy) return 1;
+		else if(thisMoy<otherMoy) return -1;
 
-		if(thisMoyZ > otherMoyZ)
-			return -1;
-		else if(thisMoyZ < otherMoyZ)
-			return 1;
-		else
-			return 0;
+		return 0;
 	}
 
 	public int[] getColor() {
 		return color;
+	}
+	public double getAverage(){
+		double res = 0;
+		for (Vertex v:
+			 getVertices()) {
+			res+= v.getX()+v.getY()+v.getZ();
+		}
+		return res/this.getVertices().size();
 	}
 	
 	public int getColorR() {
