@@ -24,7 +24,7 @@ public class CanvasModel extends Canvas {
 
     private Model model;
     
-    private boolean drawFaces = true, drawStrokes = true, drawLight;
+    private boolean drawFaces = false, drawStrokes = true, drawLight;
 
     public CanvasModel(Model model, double width, double height) {
         super(width, height);

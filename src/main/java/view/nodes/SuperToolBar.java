@@ -91,7 +91,7 @@ public class SuperToolBar extends MenuBar {
         exportAs.getItems().addAll(saveAsImg, saveAsPly);
 
         afficherFaces = new CustomCheckBox("Afficher faces");
-            afficherFaces.getSelectedProperty().set(true);
+            afficherFaces.getSelectedProperty().set(false);
         afficherLignes = new CustomCheckBox("Afficher lignes");
             afficherLignes.getSelectedProperty().set(true);
         afficherLumieres = new CustomCheckBox("Afficher lumières");
