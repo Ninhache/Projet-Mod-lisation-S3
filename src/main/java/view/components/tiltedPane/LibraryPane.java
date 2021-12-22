@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 public class LibraryPane extends TitledPane {
 
-    private Button buttonOnline;
+    private Button buttonOnLine;
     private TableView<FilePly> tableView;
     private TableColumn<FilePly, String> fileNameCol, filePathCol;
     private ObservableList<FilePly> list;
@@ -44,15 +44,15 @@ public class LibraryPane extends TitledPane {
 
         setProperty();
 
-        buttonOnline = new Button("Librairie en ligne");
-        buttonOnline.setOnAction(this::openLibraryClick);
+        buttonOnLine = new Button("Librairie en ligne");
+        buttonOnLine.setOnAction(this::openLibraryClick);
 
         list = getFilePly();
         tableView.setItems(list);
 
         tableView.getColumns().addAll(fileNameCol,filePathCol);
 
-        root.getChildren().addAll(buttonOnline, tableView);
+        root.getChildren().addAll(buttonOnLine, tableView);
 
         setContent(root);
 
