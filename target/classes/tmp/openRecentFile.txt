@@ -1,1 +1,0 @@
-cow.ply#/home/infoetu/matteo.macieira.etu/git/projetmodeg5/./exemples/cow.ply
