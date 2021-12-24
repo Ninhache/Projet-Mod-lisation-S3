@@ -94,10 +94,10 @@ public class PlyReader {
 	 */
 	public PlyReader() {
 		this.fileName = "none";
-		verticesList = new ArrayList<Vertex>();
-		facesList = new ArrayList<Face>();
-		rgbList = new ArrayList<int[]>();
-		alphaList = new ArrayList<Double>();
+		verticesList = new ArrayList<>();
+		facesList = new ArrayList<>();
+		rgbList = new ArrayList<>();
+		alphaList = new ArrayList<>();
 	}
     
 	
@@ -332,11 +332,9 @@ public class PlyReader {
 		
 			if (nbVertexLines != nbVertex)
 				throw new Exception("element Vertex = " + nbVertex + " && nombre de Lignes de Vertex = " + (i-1) + "");
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
     /**

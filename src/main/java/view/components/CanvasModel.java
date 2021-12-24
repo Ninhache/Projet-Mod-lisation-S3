@@ -95,18 +95,13 @@ public class CanvasModel extends Canvas {
         setupDrawStuff(gc);
 
         if(this.drawFaces & !this.drawStrokes & !this.drawLight) {
-            System.out.println("faces coché");
             drawFaces(gc);
         } else if(!this.drawFaces & this.drawStrokes & !this.drawLight) {
-            System.out.println("lignes coché");
             drawStrokes(gc);
         } else if (this.drawFaces & this.drawStrokes & !this.drawLight){
-            System.out.println("faces coché | lignes coché");
             drawFacesStrokes(gc);
         } else if (this.drawFaces & this.drawLight & !this.drawStrokes) {
-            System.out.println("faces coché | light coché | lignes non coché");
         } else if (this.drawFaces & this.drawLight & this.drawStrokes) {
-            System.out.println("faces coché | light coché | lignes coché");
         } else if (!this.drawFaces & this.drawLight & !this.drawStrokes) {
             MessageBox.showWarning("Impossible d'afficher !", "Il est impossible d'afficher les effet de la lumière sur notre modèle, si les faces ne sont pas dessinées !");
         } else if (!this.drawFaces & this.drawLight & this.drawStrokes) {
@@ -129,13 +124,7 @@ public class CanvasModel extends Canvas {
     
     public void drawFacesStrokes(GraphicsContext gc) {
         try {
-            System.out.println("START");
-            System.out.println("-------------");
-            System.out.println(this.model.getFaces());
             Collections.sort(this.model.getFaces());
-            System.out.println("-------------");
-            System.out.println(this.model.getFaces());
-            System.out.println("STOP");
         } catch (NullPointerException e) {
             return;
         }

@@ -1,5 +1,6 @@
 package model;
 
+import model.ObservableThings.ModelObservable;
 import view.components.CanvasModel;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @version %I%, %G%
  * @see CanvasModel
  */
-public class Model{
+public class Model extends ModelObservable {
 
     private Matrix matrix;
     private final ArrayList<Vertex> vertices;
@@ -21,7 +22,7 @@ public class Model{
 
     private double barycenterX;
     private double barycenterY;
-    private double barycenterZ; // < probably useless
+    private double barycenterZ;
 
     /**
      * <b>Constructor of a Model</b>

@@ -51,10 +51,7 @@ public class Face implements Comparable<Face> {
 
 		double thisMoy = this.getAverage();
 		double otherMoy = other.getAverage();
-		System.out.println("================= ");
-		System.out.println("1: "+this + "2: "+other);
-		System.out.println("this: "+thisMoy + " other: "+otherMoy);
-		System.out.println(Double.compare(thisMoy, otherMoy));
+
 		if(thisMoy>otherMoy) return 1;
 		else if(thisMoy<otherMoy) return -1;
 
