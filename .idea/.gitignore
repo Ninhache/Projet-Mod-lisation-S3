@@ -8,3 +8,6 @@
 /dataSources.local.xml
 
 /compiler.xml
+
+# Compiled class file
+*.class
