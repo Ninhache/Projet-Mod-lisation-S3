@@ -6,12 +6,9 @@ import javafx.scene.layout.BorderPane;
 import model.Model;
 import model.PlyReader;
 import model.Rotation;
-import view.components.CanvasModel;
 import view.components.tabpane.TabCanvas;
-import view.dialogs.MessageBox;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class TabCanvasPane extends TabPane {
 
@@ -27,7 +24,6 @@ public class TabCanvasPane extends TabPane {
             	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getModelAccordion().getSlidersModel().updateInformations(numberSelected);
 //            	Model model=((TabCanvas) getSelectionModel().)).getCanvas().getModel();
             	Model model = ((TabCanvas)getTabs().get(numberSelected.intValue())).getCanvas().getModel();
-            	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getCanvasBox().setModel(model);
             } catch (Exception e) {
             	//e.printStackTrace();
             }

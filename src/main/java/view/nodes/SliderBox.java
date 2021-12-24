@@ -24,7 +24,7 @@ public class SliderBox extends HBox {
 
         this.slider = new Slider(0,360,180);
         this.label = new Label(rotation.getRotation() + " : ");
-        this.spinner = new Spinner<Integer>(0,360,180);
+        this.spinner = new Spinner<>(0, 360, 180);
         this.spinner.setMaxWidth(80);
 
         setupSliders();
@@ -35,7 +35,6 @@ public class SliderBox extends HBox {
             BorderPane bp = (BorderPane) getParent().getScene().getRoot();
             TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
             tp.rotateModel(rotation,newValue.intValue()-oldValue.intValue());
-            ((RightMenu)bp.getRight()).updateSideDraws();
         });
 
         this.spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
