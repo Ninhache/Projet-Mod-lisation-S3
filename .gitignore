@@ -2,3 +2,6 @@
 /.idea/
 /src/main/resources/tmp/*
 /target/
+
+# Compiled class file
+*.class
