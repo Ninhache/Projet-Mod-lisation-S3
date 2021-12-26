@@ -64,8 +64,7 @@ public class MainStage extends ExtendedStage {
         root.setRight(rightMenu);
         root.setBottom(movementButton);
 
-        setTitle("Projet Modelisation");
-
+        setTitle("Modeling project");
 
         setupListeners();
         setupRunnable();
@@ -73,11 +72,20 @@ public class MainStage extends ExtendedStage {
         setWidth(Screen.getPrimary().getBounds().getWidth());
         setHeight(Screen.getPrimary().getBounds().getHeight()-50);
 
+
+        //Déplacement souris
+        tabPane.setOnMouseDragged(event -> {
+            mousePosX = event.getSceneX();
+            mousePosY = event.getSceneY();
+            movingModel(event);
+        });
+        tabPane.setOnMousePressed(this::movingModel);
+
     }
 
     // FONCTION QUI SERT A CE QUE LE SKIN SOIT PRIS EN COMPTE, OUI C'EST DÉBILE !!
     private void loadingUpdate() {
-        TabCanvas tab = new TabCanvas(null);
+        Tab tab = new Tab();
         tabPane.getTabs().add(tab);
         tabPane.getTabs().clear();
     }
@@ -116,14 +124,6 @@ public class MainStage extends ExtendedStage {
         };
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCodeCombination.CONTROL_DOWN), kcImport);
 
-
-        //Déplacement souris
-        tabPane.setOnMouseDragged(event -> {
-            mousePosX = event.getSceneX();
-            mousePosY = event.getSceneY();
-            movingModel(event);
-        });
-        tabPane.setOnMousePressed(this::movingModel);
 
         // Ctrl + W
         Runnable kcCloseRequest = () -> {

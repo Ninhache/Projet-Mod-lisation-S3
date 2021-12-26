@@ -48,10 +48,6 @@ public class CustomTabPaneSkin extends TabPaneSkin {
         placeHolderText.minWidthProperty().bind(getSkinnable().widthProperty());
         placeHolderText.minHeightProperty().bind(getSkinnable().heightProperty());
 
-        Button button = new Button("BOUTTON");
-        button.setFont( Font.font( null, FontWeight.BOLD, 20 ) );
-        button.setAlignment( Pos.CENTER );
-
         placeHolder = new VBox();
 
         if (widgets != null && widgets.size() > 0) {
