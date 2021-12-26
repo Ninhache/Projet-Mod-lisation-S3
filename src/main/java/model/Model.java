@@ -1,8 +1,9 @@
 package model;
 
-import model.ObservableThings.ModelObservable;
+import model.ObservableThings.Observable;
 import view.components.CanvasModel;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * @version %I%, %G%
  * @see CanvasModel
  */
-public class Model extends ModelObservable {
+public class Model extends Observable {
 
     private Matrix matrix;
     private final ArrayList<Vertex> vertices;
@@ -159,6 +160,53 @@ public class Model extends ModelObservable {
         return res;
     }
 
+    public void rotate(Rotation r, double degree) {
+        this.getMatrix().rotation(r, degree);
+        System.out.println("MODEL: Rotate");
+        this.notifyObservers();
+    }
+
+    public void xRotate(double degree) {
+        this.getMatrix().xRotationMatrix(degree);
+        System.out.println("MODEL: xRotate");
+        this.notifyObservers();
+    }
+
+    public void yRotate(double degree) {
+        this.getMatrix().yRotationMatrix(degree);
+        System.out.println("MODEL: yRotate");
+        this.notifyObservers();
+    }
+
+    public void zRotate(double degree) {
+        this.getMatrix().zRotationMatrix(degree);
+        System.out.println("MODEL: zRotate");
+        this.notifyObservers();
+    }
+
+    public void translate(Vector v) {
+        this.getMatrix().translation(v);
+        System.out.println("MODEL: Homothety Vector");
+        this.notifyObservers();
+    }
+
+    public void translate(double x, double y, double z) {
+        this.getMatrix().translation(x,y,z);
+        System.out.println("MODEL: Translate XYZ");
+        this.notifyObservers();
+    }
+
+    public void homothety(double ratio) {
+        this.getMatrix().homothety(ratio);
+        System.out.println("MODEL: Homothety");
+        this.notifyObservers();
+    }
+
+    public void resetToDefaultValues() {
+        this.getMatrix().resetToDefaultValues();
+        System.out.println("MODEL: resetDefault");
+        this.notifyObservers();
+    }
 
     public Matrix getMatrix() {
 		return matrix;
@@ -219,6 +267,8 @@ public class Model extends ModelObservable {
     public String getDescription() {
         return description;
     }
+
+
 
     public void setDescription(String description) {
         this.description = description;

@@ -10,6 +10,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Face;
 import model.Model;
+import model.ObservableThings.Observable;
+import model.ObservableThings.Observer;
 import model.Rotation;
 import view.dialogs.MessageBox;
 import view.stages.MainStage;
@@ -20,15 +22,27 @@ import view.stages.MainStage;
  * @author Néo ALMEIDA
  * @version %I%, %G%
  */
-public class CanvasModel extends Canvas {
+public class CanvasModel extends Canvas implements Observer {
+
+    @Override
+    public void update(Observable o) {
+        this.draw();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.draw();
+    }
 
     private Model model;
     
-    private boolean drawFaces = false, drawStrokes = true, drawLight;
+    private boolean drawFaces = true, drawStrokes = true, drawLight;
 
     public CanvasModel(Model model, double width, double height) {
         super(width, height);
         this.model = model;
+
+        if(model != null) this.model.addObserver(this);
 
         widthProperty().addListener(e -> {
             this.draw();
@@ -45,14 +59,17 @@ public class CanvasModel extends Canvas {
     public CanvasModel(Model model, double width, double height, Rotation rota, int degree) {
     	this(model,width,height);
     	initDraw();
-    	this.model.getMatrix().rotation(rota, degree);
+    	this.model.rotate(rota, degree);
+        // this.model.rotate(rota, degree)
     }
 
     public EventHandler<MouseEvent> mouseDraggedEvent() {
         EventHandler<MouseEvent> res = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseDragged) {
-
+                if(mouseDragged.isPrimaryButtonDown()) {
+                    model.rotate(Rotation.X, mouseDragged.getScreenX());
+                }
             }
         };
         return res;
@@ -65,9 +82,10 @@ public class CanvasModel extends Canvas {
     public CanvasModel() {
     	this(null);
     }
+
     public void initDraw() {
 
-        this.model.getMatrix().resetToDefaultValues();
+        this.model.resetToDefaultValues();
 
         double ratio = 1;
 
@@ -81,8 +99,8 @@ public class CanvasModel extends Canvas {
             ratio = (getHeight() / distanceY) ;
         }
 
-        this.model.getMatrix().homothety(ratio);
-        this.model.getMatrix().translation(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0);
+        this.model.homothety(ratio);
+        this.model.translate(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0);
 
         initListeners();
         draw();
@@ -241,4 +259,5 @@ public class CanvasModel extends Canvas {
     public void setModel(Model model) {
     	this.model=model;
     }
+
 }

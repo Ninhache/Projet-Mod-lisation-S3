@@ -23,7 +23,7 @@ public class TabCanvasPane extends TabPane {
             try {
             	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getModelAccordion().getSlidersModel().updateInformations(numberSelected);
 //            	Model model=((TabCanvas) getSelectionModel().)).getCanvas().getModel();
-            	Model model = ((TabCanvas)getTabs().get(numberSelected.intValue())).getCanvas().getModel();
+//            	Model model = ((TabCanvas)getTabs().get(numberSelected.intValue())).getCanvas().getModel();
             } catch (Exception e) {
             	//e.printStackTrace();
             }
@@ -34,17 +34,13 @@ public class TabCanvasPane extends TabPane {
     public void addModel(File file) throws Exception {
 
         PlyReader read = new PlyReader();
-        TabCanvas tab = new TabCanvas();
-
         read.setFile(file);
-        tab = new TabCanvas(read.readPly(), getWidth(), getHeight());
-
+        TabCanvas tab = new TabCanvas(read.readPly(), getWidth(), getHeight());
 
         getTabs().add(tab);
         tab.updateDraw();
         getSelectionModel().select(tab);
 
-        // add manage recent
         ((SuperToolBar)((BorderPane) getParent().getScene().getRoot()).getTop()).addToOpenRecent(file);
     }
 
@@ -58,31 +54,28 @@ public class TabCanvasPane extends TabPane {
     public void rotateModel(Rotation r,double angle) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
-        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().rotation(r, angle); //15
-        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().translate(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().rotate(r, angle); //15
+        tab.getCanvas().getModel().translate(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
 
-        tab.getCanvas().draw();
     }
 
     public void translateModel(double distanceX, double distanceY, double distanceZ) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
-        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().translation(distanceX,distanceY,distanceZ);
-        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().translate(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().translate(distanceX,distanceY,distanceZ);
+        tab.getCanvas().getModel().translate(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
 
-        tab.getCanvas().draw();
     }
 
     public void scaleModel(double scale){
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
-        tab.getCanvas().getModel().getMatrix().translation(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().getMatrix().homothety(scale);
-        tab.getCanvas().getModel().getMatrix().translation(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().translate(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvas().getModel().homothety(scale);
+        tab.getCanvas().getModel().translate(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
 
-        tab.getCanvas().draw();
     }
 
 }

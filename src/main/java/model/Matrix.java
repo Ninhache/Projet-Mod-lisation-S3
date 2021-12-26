@@ -192,8 +192,7 @@ public class Matrix {
 
         this.values = matrixVal.values;
     }
-    
-    // TODO : Check if this is correct later
+
     public void translation(Vector v) {
         this.translation(v.getX(), v.getY(), v.getZ());
     }
@@ -236,7 +235,7 @@ public class Matrix {
     	};
     }
 
-    private double[][] zRotationMatrix(double degre) {
+    public double[][] zRotationMatrix(double degre) {
     	return new double[][] {
     		{Math.cos(Math.toRadians(degre)), -Math.sin(Math.toRadians(degre)), 0, 0},
     		{Math.sin(Math.toRadians(degre)), Math.cos(Math.toRadians(degre)), 0, 0},
