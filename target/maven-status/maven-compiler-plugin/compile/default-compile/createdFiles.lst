@@ -2,11 +2,12 @@ model\Rotation.class
 view\components\tabpane\DraggableTab$2.class
 view\components\ThemeRadioButton.class
 view\components\misc\CustomTabPaneSkin.class
+model\ObservableThings\Observable.class
+model\ObservableThings\Observer.class
 view\nodes\SuperToolBar.class
 model\PlyReader.class
 model\Vector.class
 model\Face.class
-model\ObservableThings\ModelObservable.class
 view\dialogs\MessageBox.class
 view\components\tabpane\DraggableTab$2$1.class
 view\components\tabpane\TabCanvas.class
@@ -21,7 +22,6 @@ model\Matrix.class
 view\components\tabpane\DraggableTab$2$2.class
 view\components\tabpane\DraggableTab$InsertData.class
 view\components\CanvasModel.class
-model\ObservableThings\ModelObserver.class
 view\nodes\RightMenu.class
 view\Window.class
 model\Vertex.class

@@ -1,5 +1,7 @@
 C:\Users\Neo\projetmodeg5\src\main\java\view\dialogs\MessageBox.java
+C:\Users\Neo\projetmodeg5\src\main\java\model\ObservableThings\Observable.java
 C:\Users\Neo\projetmodeg5\src\main\java\model\Model.java
+C:\Users\Neo\projetmodeg5\src\main\java\model\ObservableThings\Observer.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\components\ThemeRadioButton.java
 C:\Users\Neo\projetmodeg5\src\main\java\model\Vertex.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\stages\OnlineLibraryStage.java
@@ -7,10 +9,8 @@ C:\Users\Neo\projetmodeg5\src\main\java\view\components\tabpane\DraggableTab.jav
 C:\Users\Neo\projetmodeg5\src\main\java\view\nodes\RightMenu.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\components\ModelAccordion.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\nodes\SpinnerBox.java
-C:\Users\Neo\projetmodeg5\src\main\java\model\ObservableThings\ModelObservable.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\components\HboxSingle.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\dialogs\ActionLink.java
-C:\Users\Neo\projetmodeg5\src\main\java\model\ObservableThings\ModelObserver.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\stages\ControlStage.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\nodes\SuperToolBar.java
 C:\Users\Neo\projetmodeg5\src\main\java\view\stages\ExtendedStage.java
