@@ -52,7 +52,7 @@ public class CanvasModel extends Canvas implements Observer {
             this.draw();
         });
 
-        //addEventHandler(MouseEvent.ANY, mouseDraggedEvent());
+        addEventHandler(MouseEvent.ANY, mouseDraggedEvent());
 
     }
     
@@ -65,11 +65,46 @@ public class CanvasModel extends Canvas implements Observer {
 
     public EventHandler<MouseEvent> mouseDraggedEvent() {
         EventHandler<MouseEvent> res = new EventHandler<MouseEvent>() {
+
+            double dX, dY, rotationX, rotationY;
+            boolean isDragged, dansFenetre;
+
+
             @Override
             public void handle(MouseEvent mouseDragged) {
-                if(mouseDragged.isPrimaryButtonDown()) {
-                    model.rotate(Rotation.X, mouseDragged.getScreenX());
+
+                if(!isDragged && mouseDragged.isDragDetect()) {
+                    isDragged = true;
+                    dX = mouseDragged.getSceneX();
+                    dY = mouseDragged.getSceneY();
                 }
+                if(isDragged && !mouseDragged.isDragDetect()) {
+                    isDragged = false;
+                }
+
+                rotationX = (mouseDragged.getSceneX() - dX);
+                rotationY = (mouseDragged.getSceneY() - dY);
+
+
+                // Click gauche
+                if(mouseDragged.isPrimaryButtonDown() && !mouseDragged.isSecondaryButtonDown()) {
+                    model.translate(-getWidth() / 2, -getHeight()/2, 0);
+                    model.rotate(Rotation.X, rotationY);
+                    model.rotate(Rotation.Y, rotationX);
+                    model.translate(getWidth() / 2, getHeight()/2, 0);
+                }
+                // click droit
+                if(!mouseDragged.isPrimaryButtonDown() && mouseDragged.isSecondaryButtonDown()) {
+                    model.translate(-getWidth() / 2, -getHeight()/2, 0);
+                    model.rotate(Rotation.Z, rotationX);
+                    model.translate(getWidth() / 2, getHeight()/2, 0);
+                }
+                // les deux clicks
+                else if(mouseDragged.isPrimaryButtonDown() && mouseDragged.isSecondaryButtonDown()) {
+                    model.translate(mouseDragged.getSceneX() - dX, mouseDragged.getSceneY() - dY, 0);
+                }
+                dX = mouseDragged.getSceneX();
+                dY = mouseDragged.getSceneY();
             }
         };
         return res;
@@ -139,7 +174,7 @@ public class CanvasModel extends Canvas implements Observer {
     	else
     		return Color.LAVENDER;
     }
-    
+
     public void drawFacesStrokes(GraphicsContext gc) {
         try {
             Collections.sort(this.model.getFaces());
@@ -151,9 +186,9 @@ public class CanvasModel extends Canvas implements Observer {
         int pt1, pt2;
 
 
-        for(Face face : this.model.getFaces()) 
+        for(Face face : this.model.getFaces())
         {
-        	gc.setFill(getFacesColor(face));
+            gc.setFill(getFacesColor(face));
 
             tmpX = new double[face.getVertices().size()];
             tmpY = new double[face.getVertices().size()];
@@ -174,6 +209,7 @@ public class CanvasModel extends Canvas implements Observer {
             gc.fillPolygon(tmpX, tmpY, tmpX.length);
         }
     }
+
 
     public void drawFaces(GraphicsContext gc) {
         //Collections.sort(this.model.getFaces());
