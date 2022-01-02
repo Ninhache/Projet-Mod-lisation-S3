@@ -1,8 +1,13 @@
 package view.components.misc;
 
 import javafx.geometry.Insets;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
@@ -36,43 +41,79 @@ public class ModelVBox extends VBox {
         getChildren().addAll(imageView, new Label(model.getName()));
 
         setOnMouseClicked(event -> {
-            if(event.getClickCount() == 1) {
-
-                OnlineLibraryStage ols = (OnlineLibraryStage) getScene().getWindow();
-
-                ols.clearSelection();
-                setSelectionnedBackground();
+            if(event.getButton() == MouseButton.SECONDARY) {
+                openContextualMenu(event);
+                setSelectioned();
+            } else if(event.getClickCount() == 1) {
+                setSelectioned();
             } else if(event.getClickCount() == 2) {
-                try {
-                    JSONObject data = (JSONObject) new JSONParser().parse(Internet.sendHttpGETRequest("http://40.113.148.168:3000/Model?name=" + model.getName()));
-
-                    JSONObject dataK = (JSONObject) data.get("data");
-
-                    OnlineLibraryStage ols = (OnlineLibraryStage) getScene().getWindow();
-
-                    File f = new File(model.getName() + ".ply");
-                    try {
-                        if(f.exists()){
-                            f.delete();
-                        }
-                        if(f.createNewFile()){
-                            try (FileWriter fw = new FileWriter(f)) {
-                                fw.append((String)dataK.get("contents"));
-                            }
-                        }
-                        TabCanvasPane tp = ols.getTp();
-                        tp.addModel(f);
-                        f.delete();
-                        ((OnlineLibraryStage) getScene().getWindow()).close();
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                openDataFromModel(model);
+                ((OnlineLibraryStage) getScene().getWindow()).close();
             }
         });
 
+    }
+
+    private void openDataFromModel(ModelGet model) {
+        try {
+            JSONObject data = (JSONObject) new JSONParser().parse(Internet.sendHttpGETRequest("http://40.113.148.168:3000/Model?name=" + model.getName()));
+
+            JSONObject dataK = (JSONObject) data.get("data");
+
+            OnlineLibraryStage ols = (OnlineLibraryStage) getScene().getWindow();
+
+            File f = new File(model.getName() + ".ply");
+            try {
+                if(f.exists()){
+                    f.delete();
+                }
+                if(f.createNewFile()){
+                    try (FileWriter fw = new FileWriter(f)) {
+                        fw.append((String)dataK.get("contents"));
+                    }
+                }
+                TabCanvasPane tp = ols.getTp();
+                tp.addModel(f);
+                f.delete();
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openContextualMenu(MouseEvent event) {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem menuItem1 = new MenuItem("Ouvrir");
+        MenuItem menuItem2 = new MenuItem("Ouvrir sans fermer");
+        MenuItem menuItem3 = new MenuItem("Fermer");
+        contextMenu.getItems().addAll(menuItem1, menuItem2, new SeparatorMenuItem(), menuItem3);
+
+        contextMenu.show(this, event.getScreenX(), event.getScreenY());
+
+        menuItem1.setOnAction(event1 -> {
+            openDataFromModel(model);
+            ((OnlineLibraryStage) getScene().getWindow()).close();
+        });
+
+        menuItem2.setOnAction(event1 -> {
+            openDataFromModel(model);
+        });
+
+        menuItem3.setOnAction(event1 -> {
+            contextMenu.hide();
+        });
+
+
+
+    }
+
+    public void setSelectioned() {
+        OnlineLibraryStage ols = (OnlineLibraryStage) getScene().getWindow();
+        ols.clearSelection();
+        setSelectionnedBackground();
     }
 
     public void setDefaultBackground() {
