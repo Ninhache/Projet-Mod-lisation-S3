@@ -1,26 +1,21 @@
 package view.components.misc;
 
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Internet;
 import model.ModelGet;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import view.components.tiltedPane.LibraryPane;
 import view.nodes.TabCanvasPane;
 import view.stages.OnlineLibraryStage;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Arrays;
 
 public class ModelVBox extends VBox {
 
@@ -41,13 +36,18 @@ public class ModelVBox extends VBox {
         getChildren().addAll(imageView, new Label(model.getName()));
 
         setOnMouseClicked(event -> {
-            if(event.getClickCount() == 2) {
+            if(event.getClickCount() == 1) {
+
+                OnlineLibraryStage ols = (OnlineLibraryStage) getScene().getWindow();
+
+                ols.clearSelection();
+                setSelectionnedBackground();
+            } else if(event.getClickCount() == 2) {
                 try {
                     JSONObject data = (JSONObject) new JSONParser().parse(Internet.sendHttpGETRequest("http://40.113.148.168:3000/Model?name=" + model.getName()));
 
                     JSONObject dataK = (JSONObject) data.get("data");
 
-                    //System.out.println(dataK.get("contents"));
                     OnlineLibraryStage ols = (OnlineLibraryStage) getScene().getWindow();
 
                     File f = new File(model.getName() + ".ply");
@@ -56,28 +56,31 @@ public class ModelVBox extends VBox {
                             f.delete();
                         }
                         if(f.createNewFile()){
-                            try (FileWriter fw
-                                         = new FileWriter(f)) {
+                            try (FileWriter fw = new FileWriter(f)) {
                                 fw.append((String)dataK.get("contents"));
                             }
                         }
                         TabCanvasPane tp = ols.getTp();
                         tp.addModel(f);
                         f.delete();
+                        ((OnlineLibraryStage) getScene().getWindow()).close();
                     } catch (Exception e){
                         e.printStackTrace();
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
+    }
 
+    public void setDefaultBackground() {
+        setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+    }
 
+    public void setSelectionnedBackground() {
+        setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
     }
 
 }
