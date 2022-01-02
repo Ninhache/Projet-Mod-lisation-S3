@@ -3,8 +3,11 @@ package view.stages;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import model.Internet;
 import model.ModelGet;
 import org.json.simple.JSONArray;
@@ -39,6 +42,8 @@ public class OnlineLibraryStage extends ExtendedStage {
         scene = new Scene(root, 670,500);
         setScene(scene);
 
+        root.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+
     }
 
     private void loadData() {
@@ -71,6 +76,14 @@ public class OnlineLibraryStage extends ExtendedStage {
             tilePane.getChildren().add(new ModelVBox(x));
         });
 
+    }
+
+    public void clearSelection() {
+        tilePane.getChildren().forEach(x -> {
+            ModelVBox tmp = (ModelVBox) x;
+
+            tmp.setDefaultBackground();
+        });
     }
 
     public TabCanvasPane getTp() {
