@@ -1,12 +1,19 @@
 package view.components.tiltedPane;
 
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.Model;
 import model.Rotation;
 import view.components.tabpane.TabCanvas;
@@ -29,6 +36,8 @@ public class SlidersModelPane extends TitledPane {
 	private Button reset;
 	private Label title, labelVertices, labelFaces, labelAuteur, labelComment;
 	private HBox scaleReset;
+	private Button timerButton;
+	private AtomicBoolean started;
 
 	public SlidersModelPane() {
 		super();
@@ -54,29 +63,52 @@ public class SlidersModelPane extends TitledPane {
 		scaleReset = new HBox();
 		scaleReset.getChildren().addAll(scale,reset);
 
-		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ, scaleReset);
+		timerButton = new Button("Timer");
+	    started = new AtomicBoolean(false);
+
+	    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), event -> {
+	        BorderPane bp = (BorderPane) getParent().getScene().getRoot();
+	        TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
+	        tp.rotateModel(Rotation.Y, 1);
+	    }));
+	    
+	    timeline.setCycleCount(Animation.INDEFINITE);
+
+	    timerButton.setOnAction(event -> {
+	        started.set(!started.get());
+	        if(started.get()) {
+	            //tmp.start();
+	            timeline.play();
+	        } else {
+	            timeline.pause();
+	            //tmp.stop();
+	        }}
+	    );
+	    
+		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ, scaleReset, timerButton);
 		setContent(root);
 		
 		reset.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
+//				BorderPane bp = (BorderPane) getParent().getScene().getRoot();
+//				TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
+//				TabCanvas tb = (TabCanvas) tp.getTabs();
+//				Model model = tb.getCanvas().getModel();
+//				model.getMatrix().resetToDefaultValues();
 				sliderBoxX.getSlider().setValue(180);
 				sliderBoxY.getSlider().setValue(180);
 				sliderBoxZ.getSlider().setValue(180);
 				scale.getSpinner().getValueFactory().setValue(1.0);
-				BorderPane bp = (BorderPane) getParent().getScene().getRoot();
-				TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
-
-				TabCanvas tb = (TabCanvas) tp.getTabs();
-				Model model = tb.getCanvas().getModel();
-				
-				model.getMatrix().resetToDefaultValues();
 			}
 		
 		});
 
 	}
+	
+	
+
 
 	public void updateInformations(Number number) {
 		if(number.intValue() == -1) {
