@@ -10,6 +10,8 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -62,10 +64,18 @@ public class SlidersModelPane extends TitledPane {
 		reset = new Button("Reset");
 		scaleReset = new HBox();
 		scaleReset.getChildren().addAll(scale,reset);
-
-		timerButton = new Button("Timer");
+		
+		ImageView playImg=new ImageView("/img/play.png");
+		ImageView stopImg=new ImageView("/img/pause.png");
+		playImg.setFitHeight(32);
+		playImg.setFitWidth(32);
+		stopImg.setFitHeight(32);
+		stopImg.setFitWidth(32);
+		
+		timerButton = new Button();
+		
 	    started = new AtomicBoolean(false);
-
+	    timerButton.setGraphic(playImg);
 	    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), event -> {
 	        BorderPane bp = (BorderPane) getParent().getScene().getRoot();
 	        TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
@@ -77,11 +87,11 @@ public class SlidersModelPane extends TitledPane {
 	    timerButton.setOnAction(event -> {
 	        started.set(!started.get());
 	        if(started.get()) {
-	            //tmp.start();
 	            timeline.play();
+	            timerButton.setGraphic(stopImg);
 	        } else {
 	            timeline.pause();
-	            //tmp.stop();
+	            timerButton.setGraphic(playImg);
 	        }}
 	    );
 	    
