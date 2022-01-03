@@ -1,10 +1,14 @@
 model\Rotation.class
+view\stages\OnlineLibraryStage$1$1.class
 view\components\tabpane\DraggableTab$2.class
 view\components\ThemeRadioButton.class
 view\components\misc\CustomTabPaneSkin.class
 model\ObservableThings\Observable.class
+view\stages\OnlineConfigStage.class
+view\stages\OnlineLibraryStage$1.class
 model\ObservableThings\Observer.class
 view\nodes\SuperToolBar.class
+view\nodes\SearchBar.class
 model\PlyReader.class
 model\Vector.class
 model\Face.class
