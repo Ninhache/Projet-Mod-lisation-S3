@@ -29,7 +29,7 @@ public class LibraryPane extends TitledPane {
     private Button buttonOnLine;
     private Button buttonOnlineConfig;
     private TableView<FilePly> tableView;
-    private TableColumn<FilePly, String> fileNameCol, infosCol, filePathCol;
+    private TableColumn<FilePly, String> fileNameCol, infosCol;
     private ObservableList<FilePly> list;
     private OnlineLibraryStage onlineLibraryStage;
     private OnlineConfigStage onlineConfigStage;
@@ -45,20 +45,21 @@ public class LibraryPane extends TitledPane {
         
         fileNameCol = new TableColumn<>("Fichiers");
         infosCol = new TableColumn<>("Infos");
-        filePathCol = new TableColumn<>("Chemin des fichiers.ply");
+        
 
         setProperty();
         
         HBox onlineLibrary = new HBox();
         buttonOnLine = new Button("Librairie en ligne");
         buttonOnLine.setOnAction(this::openLibraryClick);
-        buttonOnlineConfig = new Button("⚙️");
+        buttonOnlineConfig = new Button("âš™ï¸�");
         buttonOnlineConfig.setOnAction(this::openConfigOnlineClick);
         
         list = getFilePly();
+        
         tableView.setItems(list);
 
-        tableView.getColumns().addAll(fileNameCol,filePathCol);
+        tableView.getColumns().addAll(fileNameCol,infosCol);
         onlineLibrary.getChildren().addAll(buttonOnLine,buttonOnlineConfig);
         root.getChildren().addAll(onlineLibrary, tableView);
 
@@ -78,7 +79,7 @@ public class LibraryPane extends TitledPane {
                     } catch (FileNotFoundException e) {
                         MessageBox.showError("Fichier introuvable", "Fichier introuvable");
                     } catch (Exception e) {
-                        MessageBox.showError("Format Incorrect", "Le format du fichier chargé n'est pas compatible, merci de réassayer avec un format correct");
+                        MessageBox.showError("Format Incorrect", "Le format du fichier chargÃ© n'est pas compatible, merci de rÃ©assayer avec un format correct");
                     }
 
                 } catch (NullPointerException e) {
@@ -126,14 +127,13 @@ public class LibraryPane extends TitledPane {
         fileNameCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.30));
         fileNameCol.minWidthProperty().bind(fileNameCol.maxWidthProperty());
         fileNameCol.setResizable(false);
+  
         
+        infosCol.setMinWidth(tableView.getWidth()/2);
+        infosCol.setCellValueFactory(new PropertyValueFactory<>("faces"));
+        infosCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.60));
+        infosCol.minWidthProperty().bind(infosCol.maxWidthProperty());
         infosCol.setResizable(false);
-        
-        filePathCol.setMinWidth(tableView.getWidth()/2);
-        filePathCol.setCellValueFactory(new PropertyValueFactory<>("path"));
-        filePathCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.60));
-        filePathCol.minWidthProperty().bind(filePathCol.maxWidthProperty());
-        filePathCol.setResizable(false);
     }
 
     private ObservableList<FilePly> getFilePly() {

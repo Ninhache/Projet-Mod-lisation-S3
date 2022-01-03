@@ -65,8 +65,8 @@ public class PlyReader {
 	 * @param fileName the name of the file to read
 	 * @throws Exception
 	 */
-	public PlyReader(String fileName) throws Exception {
-		this(new File("src/main/resources/"+fileName+".ply"));
+	public PlyReader(String filePath) throws Exception {
+		this(new File(filePath));
 	}
 	
 	/**
@@ -148,7 +148,7 @@ public class PlyReader {
      * 
      * @param br BufferedReader to be able to parse and read the file
      */
-	private void readHeader(BufferedReader br) {
+	public void readHeader(BufferedReader br) {
 		
 		try {
 			
@@ -458,5 +458,21 @@ public class PlyReader {
 
 	public String getFileName() {
 		return fileName;
+	}
+	
+	public ArrayList<Vertex> getVerticesList() {
+		return verticesList;
+	}
+
+	public void setVerticesList(ArrayList<Vertex> verticesList) {
+		this.verticesList = verticesList;
+	}
+
+	public ArrayList<Face> getFacesList() {
+		return facesList;
+	}
+
+	public void setFacesList(ArrayList<Face> facesList) {
+		this.facesList = facesList;
 	}
 }
