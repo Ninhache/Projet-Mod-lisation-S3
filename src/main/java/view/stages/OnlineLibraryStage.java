@@ -21,6 +21,8 @@ import view.nodes.TabCanvasPane;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 
 public class OnlineLibraryStage extends ExtendedStage {
 
@@ -35,13 +37,27 @@ public class OnlineLibraryStage extends ExtendedStage {
         root = new VBox();
         tilePane = new TilePane();
         tp = tabPane;
-        loadData();
+
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        loadData();
+                    }
+                });
+                return null;
+            }
+        };
 
         root.getChildren().addAll(tilePane);
         scene = new Scene(root, 670,500);
         setScene(scene);
 
         root.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+        task.run();
+        new Thread(task).start();
 
     }
 
