@@ -1,26 +1,15 @@
 package view.stages;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import model.Internet;
-import model.ModelGet;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import view.ApiConnection;
 import view.components.misc.ModelVBox;
-import view.components.tabpane.TabCanvas;
 import view.nodes.TabCanvasPane;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 
@@ -44,7 +33,7 @@ public class OnlineLibraryStage extends ExtendedStage {
 
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        loadData();
+                        ApiConnection.loadData(tilePane);
                     }
                 });
                 return null;
@@ -61,6 +50,7 @@ public class OnlineLibraryStage extends ExtendedStage {
 
     }
 
+    /*
     private void loadData() {
 
         String data = null;
@@ -92,6 +82,7 @@ public class OnlineLibraryStage extends ExtendedStage {
         });
 
     }
+    */
 
     public void clearSelection() {
         tilePane.getChildren().forEach(x -> {

@@ -13,6 +13,7 @@ model\PlyReader.class
 model\Vector.class
 model\Face.class
 view\components\tiltedPane\SlidersModelPane$1.class
+view\ApiConnection.class
 view\dialogs\MessageBox.class
 view\components\tabpane\DraggableTab$2$1.class
 view\components\tabpane\TabCanvas.class
