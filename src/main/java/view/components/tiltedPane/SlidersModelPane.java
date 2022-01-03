@@ -67,6 +67,7 @@ public class SlidersModelPane extends TitledPane {
 		
 		ImageView playImg=new ImageView("/img/play.png");
 		ImageView stopImg=new ImageView("/img/pause.png");
+		
 		playImg.setFitHeight(32);
 		playImg.setFitWidth(32);
 		stopImg.setFitHeight(32);
