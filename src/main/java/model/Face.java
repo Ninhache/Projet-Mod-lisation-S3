@@ -65,7 +65,7 @@ public class Face implements Comparable<Face> {
 		double res = 0;
 		for (Vertex v:
 			 getVertices()) {
-			res+= v.getX()+v.getY()+v.getZ();
+			res+= v.getZ();
 		}
 		return res/this.getVertices().size();
 	}

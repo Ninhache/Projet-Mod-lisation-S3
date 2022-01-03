@@ -163,24 +163,28 @@ public class Model extends Observable {
     public void rotate(Rotation r, double degree) {
         this.getMatrix().rotation(r, degree);
         System.out.println("MODEL: Rotate");
+        updateFaces();
         this.notifyObservers();
     }
 
     public void xRotate(double degree) {
         this.getMatrix().xRotationMatrix(degree);
         System.out.println("MODEL: xRotate");
+        updateFaces();
         this.notifyObservers();
     }
 
     public void yRotate(double degree) {
         this.getMatrix().yRotationMatrix(degree);
         System.out.println("MODEL: yRotate");
+        updateFaces();
         this.notifyObservers();
     }
 
     public void zRotate(double degree) {
         this.getMatrix().zRotationMatrix(degree);
         System.out.println("MODEL: zRotate");
+        updateFaces();
         this.notifyObservers();
     }
 
@@ -208,6 +212,17 @@ public class Model extends Observable {
         this.notifyObservers();
     }
 
+    public void updateFaces(){
+        for (Face f:
+                this.getFaces()) {
+            for (Vertex v:
+                    f.getVertices()) {
+                v.setX(this.getMatrix().getValues()[0][v.getId()]);
+                v.setY(this.getMatrix().getValues()[1][v.getId()]);
+                v.setZ(this.getMatrix().getValues()[2][v.getId()]);
+            }
+        }
+    }
     public Matrix getMatrix() {
 		return matrix;
 	}

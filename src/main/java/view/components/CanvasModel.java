@@ -13,6 +13,7 @@ import model.Model;
 import model.ObservableThings.Observable;
 import model.ObservableThings.Observer;
 import model.Rotation;
+import model.Vertex;
 import view.dialogs.MessageBox;
 import view.stages.MainStage;
 
@@ -176,6 +177,8 @@ public class CanvasModel extends Canvas implements Observer {
     }
 
     public void drawFacesStrokes(GraphicsContext gc) {
+
+
         try {
             Collections.sort(this.model.getFaces());
         } catch (NullPointerException e) {
