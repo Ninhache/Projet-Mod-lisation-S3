@@ -26,7 +26,7 @@ public class LibraryPane extends TitledPane {
 
     private Button buttonOnLine;
     private TableView<FilePly> tableView;
-    private TableColumn<FilePly, String> fileNameCol, filePathCol;
+    private TableColumn<FilePly, String> fileNameCol, infosCol, filePathCol;
     private ObservableList<FilePly> list;
     private OnlineLibraryStage onlineLibraryStage;
 
@@ -38,8 +38,9 @@ public class LibraryPane extends TitledPane {
         setText("Bibliothèque PLY");
 
         tableView = new TableView<>();
-
+        
         fileNameCol = new TableColumn<>("Fichiers");
+        infosCol = new TableColumn<>("Infos");
         filePathCol = new TableColumn<>("Chemin des fichiers.ply");
 
         setProperty();
@@ -50,7 +51,7 @@ public class LibraryPane extends TitledPane {
         list = getFilePly();
         tableView.setItems(list);
 
-        tableView.getColumns().addAll(fileNameCol,filePathCol);
+        tableView.getColumns().addAll(fileNameCol,infosCol,filePathCol);
 
         root.getChildren().addAll(buttonOnLine, tableView);
 
@@ -101,7 +102,9 @@ public class LibraryPane extends TitledPane {
         fileNameCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.30));
         fileNameCol.minWidthProperty().bind(fileNameCol.maxWidthProperty());
         fileNameCol.setResizable(false);
-
+        
+        infosCol.setResizable(false);
+        
         filePathCol.setMinWidth(tableView.getWidth()/2);
         filePathCol.setCellValueFactory(new PropertyValueFactory<>("path"));
         filePathCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.60));
