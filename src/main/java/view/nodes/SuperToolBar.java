@@ -174,7 +174,7 @@ public class SuperToolBar extends MenuBar {
 
         if(file == null) {
 
-            MessageBox.showWarning("Fichier introuvable", "Gros problème la");
+            MessageBox.showWarning("Fichier introuvable", "Erreur 667");
             return;
         }
         TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();

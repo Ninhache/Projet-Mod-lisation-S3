@@ -25,20 +25,19 @@ import java.util.Iterator;
 public class OnlineLibraryStage extends ExtendedStage {
 
     private Scene scene;
-    private Label label;
     private VBox root;
     public static TilePane tilePane;
     public TabCanvasPane tp;
 
     public OnlineLibraryStage(TabCanvasPane tabPane) {
 
+    	setTitle("Bibliothèque en ligne");
         root = new VBox();
-        label = new Label("Bibliothèque en ligne PLY");
         tilePane = new TilePane();
         tp = tabPane;
         loadData();
 
-        root.getChildren().addAll(label, tilePane);
+        root.getChildren().addAll(tilePane);
         scene = new Scene(root, 670,500);
         setScene(scene);
 

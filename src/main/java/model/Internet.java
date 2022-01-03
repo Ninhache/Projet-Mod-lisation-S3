@@ -4,16 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
 import java.net.URL;
+
 
 public class Internet {
 
     private static final String USER_AGENT = "Mozilla/5.0";
     private static boolean setupProxy = false;
-
+    
     public static String sendHttpGETRequest(String url) throws IOException {
-    	setupProxy();
         URL obj = new URL(url);
         HttpURLConnection httpURLConnection = (HttpURLConnection) obj.openConnection();
         httpURLConnection.setRequestMethod("GET");
@@ -35,14 +34,5 @@ public class Internet {
             System.out.println("GET request not worked");
         }
         return null;
-    }
-    
-    public static void setupProxy() {
-
-    	if(!Internet.setupProxy) return;
-    	System.setProperty("http.proxyHost", "http://cache.univ-lille.fr");
-    	System.setProperty("http.proxyPort", "3128");
-    	System.setProperty("java.net.useSystemProxies", "true");
-    	Internet.setupProxy = true;
     }
 }

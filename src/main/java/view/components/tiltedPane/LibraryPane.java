@@ -9,12 +9,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.FilePly;
 import model.PlyReader;
 import view.components.tabpane.TabCanvas;
 import view.dialogs.MessageBox;
 import view.nodes.TabCanvasPane;
+import view.stages.OnlineConfigStage;
 import view.stages.OnlineLibraryStage;
 
 import java.io.File;
@@ -25,10 +27,12 @@ import java.util.Arrays;
 public class LibraryPane extends TitledPane {
 
     private Button buttonOnLine;
+    private Button buttonOnlineConfig;
     private TableView<FilePly> tableView;
     private TableColumn<FilePly, String> fileNameCol, infosCol, filePathCol;
     private ObservableList<FilePly> list;
     private OnlineLibraryStage onlineLibraryStage;
+    private OnlineConfigStage onlineConfigStage;
 
     public LibraryPane() {
         super();
@@ -44,16 +48,19 @@ public class LibraryPane extends TitledPane {
         filePathCol = new TableColumn<>("Chemin des fichiers.ply");
 
         setProperty();
-
+        
+        HBox onlineLibrary = new HBox();
         buttonOnLine = new Button("Librairie en ligne");
         buttonOnLine.setOnAction(this::openLibraryClick);
-
+        buttonOnlineConfig = new Button("⚙️");
+        buttonOnlineConfig.setOnAction(this::openConfigOnlineClick);
+        
         list = getFilePly();
         tableView.setItems(list);
 
-        tableView.getColumns().addAll(fileNameCol,infosCol,filePathCol);
-
-        root.getChildren().addAll(buttonOnLine, tableView);
+        tableView.getColumns().addAll(fileNameCol,filePathCol);
+        onlineLibrary.getChildren().addAll(buttonOnLine,buttonOnlineConfig);
+        root.getChildren().addAll(onlineLibrary, tableView);
 
         setContent(root);
 
@@ -95,6 +102,23 @@ public class LibraryPane extends TitledPane {
         }
 
     }
+    
+    private void openConfigOnlineClick(ActionEvent actionEvent) {
+
+        if (onlineConfigStage == null || !onlineConfigStage.isShowing()) {
+            BorderPane borderPane = (BorderPane) getParent().getScene().getRoot();
+            TabCanvasPane tabPane = (TabCanvasPane) borderPane.getCenter();
+            onlineConfigStage = new OnlineConfigStage(tabPane);
+            onlineConfigStage.initOwner(this.getParent().getScene().getWindow());
+            onlineConfigStage.show();
+        } else {
+            onlineLibraryStage.close();
+            onlineLibraryStage = null;
+        }
+
+    }
+    
+    
 
     private void setProperty() {
         fileNameCol.setMinWidth(tableView.getWidth()/2);
