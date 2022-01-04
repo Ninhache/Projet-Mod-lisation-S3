@@ -19,7 +19,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 /**
  * A draggable tab that can optionally be detached from its tab pane and shown
@@ -67,7 +66,7 @@ public class DraggableTab extends Tab {
         StackPane.setAlignment(dragText, Pos.CENTER);
         dragStagePane.getChildren().add(dragText);
         dragStage.setScene(new Scene(dragStagePane));
-        nameLabel.setOnMouseDragged(new EventHandler<MouseEvent>() {
+        nameLabel.setOnMouseDragged(new EventHandler<>() {
 
             @Override
             public void handle(MouseEvent t) {
@@ -79,21 +78,19 @@ public class DraggableTab extends Tab {
                 Point2D screenPoint = new Point2D(t.getScreenX(), t.getScreenY());
                 tabPanes.add(getTabPane());
                 InsertData data = getInsertData(screenPoint);
-                if(data == null || data.getInsertPane().getTabs().isEmpty()) {
+                if (data == null || data.getInsertPane().getTabs().isEmpty()) {
                     markerStage.hide();
-                }
-                else {
+                } else {
                     int index = data.getIndex();
                     boolean end = false;
-                    if(index == data.getInsertPane().getTabs().size()) {
+                    if (index == data.getInsertPane().getTabs().size()) {
                         end = true;
                         index--;
                     }
                     Rectangle2D rect = getAbsoluteRect(data.getInsertPane().getTabs().get(index));
-                    if(end) {
+                    if (end) {
                         markerStage.setX(rect.getMaxX() + 13);
-                    }
-                    else {
+                    } else {
                         markerStage.setX(rect.getMinX());
                     }
                     markerStage.setY(rect.getMaxY() + 10);
@@ -101,56 +98,46 @@ public class DraggableTab extends Tab {
                 }
             }
         });
-        nameLabel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+        nameLabel.setOnMouseReleased(new EventHandler<>() {
 
             @Override
             public void handle(MouseEvent t) {
                 markerStage.hide();
                 dragStage.hide();
-                if(!t.isStillSincePress()) {
+                if (!t.isStillSincePress()) {
                     Point2D screenPoint = new Point2D(t.getScreenX(), t.getScreenY());
                     TabPane oldTabPane = getTabPane();
                     int oldIndex = oldTabPane.getTabs().indexOf(DraggableTab.this);
                     tabPanes.add(oldTabPane);
                     InsertData insertData = getInsertData(screenPoint);
-                    if(insertData != null) {
+                    if (insertData != null) {
                         int addIndex = insertData.getIndex();
-                        if(oldTabPane == insertData.getInsertPane() && oldTabPane.getTabs().size() == 1) {
+                        if (oldTabPane == insertData.getInsertPane() && oldTabPane.getTabs().size() == 1) {
                             return;
                         }
                         oldTabPane.getTabs().remove(DraggableTab.this);
-                        if(oldIndex < addIndex && oldTabPane == insertData.getInsertPane()) {
+                        if (oldIndex < addIndex && oldTabPane == insertData.getInsertPane()) {
                             addIndex--;
                         }
-                        if(addIndex > insertData.getInsertPane().getTabs().size()) {
+                        if (addIndex > insertData.getInsertPane().getTabs().size()) {
                             addIndex = insertData.getInsertPane().getTabs().size();
                         }
                         insertData.getInsertPane().getTabs().add(addIndex, DraggableTab.this);
                         insertData.getInsertPane().selectionModelProperty().get().select(addIndex);
                         return;
                     }
-                    if(!detachable) {
+                    if (!detachable) {
                         return;
                     }
                     final Stage newStage = new Stage();
                     final TabPane pane = new TabPane();
                     tabPanes.add(pane);
-                    newStage.setOnHiding(new EventHandler<WindowEvent>() {
-
-                        @Override
-                        public void handle(WindowEvent t) {
-                            tabPanes.remove(pane);
-                        }
-                    });
+                    newStage.setOnHiding(t1 -> tabPanes.remove(pane));
                     getTabPane().getTabs().remove(DraggableTab.this);
                     pane.getTabs().add(DraggableTab.this);
-                    pane.getTabs().addListener(new ListChangeListener<Tab>() {
-
-                        @Override
-                        public void onChanged(ListChangeListener.Change<? extends Tab> change) {
-                            if(pane.getTabs().isEmpty()) {
-                                newStage.hide();
-                            }
+                    pane.getTabs().addListener((ListChangeListener<Tab>) change -> {
+                        if (pane.getTabs().isEmpty()) {
+                            newStage.hide();
                         }
                     });
                     newStage.setScene(new Scene(pane));
