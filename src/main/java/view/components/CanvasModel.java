@@ -13,7 +13,6 @@ import model.Model;
 import model.ObservableThings.Observable;
 import model.ObservableThings.Observer;
 import model.Rotation;
-import model.Vertex;
 import view.dialogs.MessageBox;
 import view.stages.MainStage;
 
@@ -45,13 +44,9 @@ public class CanvasModel extends Canvas implements Observer {
 
         if(model != null) this.model.addObserver(this);
 
-        widthProperty().addListener(e -> {
-            this.draw();
-        });
+        widthProperty().addListener(e -> this.draw());
 
-        heightProperty().addListener(e -> {
-            this.draw();
-        });
+        heightProperty().addListener(e -> this.draw());
 
         addEventHandler(MouseEvent.ANY, mouseDraggedEvent());
 
@@ -65,21 +60,21 @@ public class CanvasModel extends Canvas implements Observer {
     }
 
     public EventHandler<MouseEvent> mouseDraggedEvent() {
-        EventHandler<MouseEvent> res = new EventHandler<MouseEvent>() {
+        return new EventHandler<>() {
 
             double dX, dY, rotationX, rotationY;
-            boolean isDragged, dansFenetre;
+            boolean isDragged;
 
 
             @Override
             public void handle(MouseEvent mouseDragged) {
 
-                if(!isDragged && mouseDragged.isDragDetect()) {
+                if (!isDragged && mouseDragged.isDragDetect()) {
                     isDragged = true;
                     dX = mouseDragged.getSceneX();
                     dY = mouseDragged.getSceneY();
                 }
-                if(isDragged && !mouseDragged.isDragDetect()) {
+                if (isDragged && !mouseDragged.isDragDetect()) {
                     isDragged = false;
                 }
 
@@ -88,27 +83,26 @@ public class CanvasModel extends Canvas implements Observer {
 
 
                 // Click gauche
-                if(mouseDragged.isPrimaryButtonDown() && !mouseDragged.isSecondaryButtonDown()) {
-                    model.translate(-getWidth() / 2, -getHeight()/2, 0);
+                if (mouseDragged.isPrimaryButtonDown() && !mouseDragged.isSecondaryButtonDown()) {
+                    model.translate(-getWidth() / 2, -getHeight() / 2, 0);
                     model.rotate(Rotation.X, rotationY);
                     model.rotate(Rotation.Y, rotationX);
-                    model.translate(getWidth() / 2, getHeight()/2, 0);
+                    model.translate(getWidth() / 2, getHeight() / 2, 0);
                 }
                 // click droit
-                if(!mouseDragged.isPrimaryButtonDown() && mouseDragged.isSecondaryButtonDown()) {
-                    model.translate(-getWidth() / 2, -getHeight()/2, 0);
+                if (!mouseDragged.isPrimaryButtonDown() && mouseDragged.isSecondaryButtonDown()) {
+                    model.translate(-getWidth() / 2, -getHeight() / 2, 0);
                     model.rotate(Rotation.Z, rotationX);
-                    model.translate(getWidth() / 2, getHeight()/2, 0);
+                    model.translate(getWidth() / 2, getHeight() / 2, 0);
                 }
                 // les deux clicks
-                else if(mouseDragged.isPrimaryButtonDown() && mouseDragged.isSecondaryButtonDown()) {
+                else if (mouseDragged.isPrimaryButtonDown() && mouseDragged.isSecondaryButtonDown()) {
                     model.translate(mouseDragged.getSceneX() - dX, mouseDragged.getSceneY() - dY, 0);
                 }
                 dX = mouseDragged.getSceneX();
                 dY = mouseDragged.getSceneY();
             }
         };
-        return res;
     }
 
     public CanvasModel(Model model) {
@@ -123,7 +117,7 @@ public class CanvasModel extends Canvas implements Observer {
 
         this.model.resetToDefaultValues();
 
-        double ratio = 1;
+        double ratio;
 
         double distanceX = this.model.getMaxX() - this.model.getMinX();
         double distanceY = this.model.getMaxY() - this.model.getMinY();
@@ -178,16 +172,13 @@ public class CanvasModel extends Canvas implements Observer {
 
     public void drawFacesStrokes(GraphicsContext gc) {
 
-
         try {
             Collections.sort(this.model.getFaces());
         } catch (NullPointerException e) {
             return;
         }
 
-        double[] tmpX, tmpY, tmpZ;
-        int pt1, pt2;
-
+        double[] tmpX, tmpY;
 
         for(Face face : this.model.getFaces())
         {
@@ -195,18 +186,9 @@ public class CanvasModel extends Canvas implements Observer {
 
             tmpX = new double[face.getVertices().size()];
             tmpY = new double[face.getVertices().size()];
-            tmpZ = new double[face.getVertices().size()];
             for(int i = 0 ; i < face.getVertices().size() ; i++) {
                 tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
                 tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
-                tmpZ[i] = this.model.getMatrix().getValues()[2][face.getVertices().get(i).getId()];
-                pt1 = face.getVertices().get(i).getId();
-                /*if( i < face.getVertices().size() -1 ) {
-                    pt2 = face.getVertices().get(i+1).getId();
-                } else {
-                    pt2 = face.getVertices().get(0).getId();
-                }*/
-                //gc.strokeLine(this.model.getMatrix().getValues()[0][pt1], this.model.getMatrix().getValues()[1][pt1], this.model.getMatrix().getValues()[0][pt2], this.model.getMatrix().getValues()[1][pt2]);
             }
             gc.strokePolygon(tmpX,tmpY,tmpX.length);
             gc.fillPolygon(tmpX, tmpY, tmpX.length);
@@ -215,21 +197,23 @@ public class CanvasModel extends Canvas implements Observer {
 
 
     public void drawFaces(GraphicsContext gc) {
-        //Collections.sort(this.model.getFaces());
 
-        double[] tmpX, tmpY, tmpZ;
+        try {
+            Collections.sort(this.model.getFaces());
+        } catch (NullPointerException e) {
+            return;
+        }
+
+        double[] tmpX, tmpY;
 
         for(Face face : this.model.getFaces()) {
         	gc.setFill(getFacesColor(face));
 
             tmpX = new double[face.getVertices().size()];
             tmpY = new double[face.getVertices().size()];
-            tmpZ = new double[face.getVertices().size()];
-
             for(int i = 0 ; i < face.getVertices().size() ; i++) {
                 tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
                 tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
-                tmpZ[i] = this.model.getMatrix().getValues()[2][face.getVertices().get(i).getId()];
             }
 
             gc.fillPolygon(tmpX, tmpY, tmpX.length);
