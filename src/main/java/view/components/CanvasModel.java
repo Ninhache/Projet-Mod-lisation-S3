@@ -13,6 +13,7 @@ import model.Model;
 import model.ObservableThings.Observable;
 import model.ObservableThings.Observer;
 import model.Rotation;
+import model.Vector;
 import view.dialogs.MessageBox;
 import view.stages.MainStage;
 
@@ -149,13 +150,93 @@ public class CanvasModel extends Canvas implements Observer {
         } else if (this.drawFaces & this.drawStrokes & !this.drawLight){
             drawFacesStrokes(gc);
         } else if (this.drawFaces & this.drawLight & !this.drawStrokes) {
+            drawFacesLight(gc);
         } else if (this.drawFaces & this.drawLight & this.drawStrokes) {
+            drawFacesLightStrokes(gc);
         } else if (!this.drawFaces & this.drawLight & !this.drawStrokes) {
             MessageBox.showWarning("Impossible d'afficher !", "Il est impossible d'afficher les effet de la lumière sur notre modèle, si les faces ne sont pas dessinées !");
         } else if (!this.drawFaces & this.drawLight & this.drawStrokes) {
             MessageBox.showWarning("Impossible d'afficher !", "Il est impossible d'afficher les effet de la lumière sur notre modèle, si les faces ne sont pas dessinées !");
         }
 
+    }
+
+    private void drawFacesLightStrokes(GraphicsContext gc) {
+        try {
+            Collections.sort(this.model.getFaces());
+        } catch (NullPointerException e) {
+            return;
+        }
+
+        double[] tmpX, tmpY, tmpZ;
+        int pt1, pt2;
+
+        for(Face face : this.model.getFaces()) {
+
+
+            tmpX = new double[face.getVertices().size()];
+            tmpY = new double[face.getVertices().size()];
+            tmpZ = new double[face.getVertices().size()];
+
+
+            for(int i = 0 ; i < face.getVertices().size() ; i++) {
+                tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
+                tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
+                tmpZ[i] = this.model.getMatrix().getValues()[2][face.getVertices().get(i).getId()];
+
+                pt1 = face.getVertices().get(i).getId();
+                if( i < face.getVertices().size() -1 ) {
+                    pt2 = face.getVertices().get(i+1).getId();
+                } else {
+                    pt2 = face.getVertices().get(0).getId();
+                }
+                gc.strokeLine(this.model.getMatrix().getValues()[0][pt1], this.model.getMatrix().getValues()[1][pt1], this.model.getMatrix().getValues()[0][pt2], this.model.getMatrix().getValues()[1][pt2]);
+            }
+
+            Vector vectorLumos = new Vector(0,0,-1);
+            Vector vecteurFace1 = new Vector(tmpX[1] - tmpX[0],tmpY[1] - tmpY[0],tmpZ[1] - tmpZ[0]);
+            Vector vecteurFace2 = new Vector(tmpX[tmpX.length-1]-tmpX[0], tmpY[tmpY.length-1]-tmpY[0],tmpZ[tmpZ.length-1]-tmpZ[0]);
+            Vector vectorNorm = vecteurFace1.produitVectoriel(vecteurFace2);
+            double coeffLumos = (Math.cos((vectorLumos.Normalisation()).produitScalaire(vectorNorm.Normalisation())));
+
+            gc.setFill(Color.rgb((int)(face.getColorR()*coeffLumos), (int)(face.getColorG()*coeffLumos), (int)(face.getColorB()*coeffLumos)));
+            gc.fillPolygon(tmpX, tmpY, tmpX.length);
+        }
+    }
+
+    private void drawFacesLight(GraphicsContext gc) {
+
+        try {
+            Collections.sort(this.model.getFaces());
+        } catch (NullPointerException e) {
+            return;
+        }
+
+        double[] tmpX, tmpY, tmpZ;
+
+        for(Face face : this.model.getFaces()) {
+
+
+            tmpX = new double[face.getVertices().size()];
+            tmpY = new double[face.getVertices().size()];
+            tmpZ = new double[face.getVertices().size()];
+
+
+            for(int i = 0 ; i < face.getVertices().size() ; i++) {
+                tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
+                tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
+                tmpZ[i] = this.model.getMatrix().getValues()[2][face.getVertices().get(i).getId()];
+            }
+
+            Vector vectorLumos = new Vector(0,0,-1);
+            Vector vecteurFace1 = new Vector(tmpX[1] - tmpX[0],tmpY[1] - tmpY[0],tmpZ[1] - tmpZ[0]);
+            Vector vecteurFace2 = new Vector(tmpX[tmpX.length-1]-tmpX[0], tmpY[tmpY.length-1]-tmpY[0],tmpZ[tmpZ.length-1]-tmpZ[0]);
+            Vector vectorNorm = vecteurFace1.produitVectoriel(vecteurFace2);
+            double coeffLumos = (Math.cos((vectorLumos.Normalisation()).produitScalaire(vectorNorm.Normalisation())));
+
+            gc.setFill(Color.rgb((int)(face.getColorR()*coeffLumos), (int)(face.getColorG()*coeffLumos), (int)(face.getColorB()*coeffLumos)));
+            gc.fillPolygon(tmpX, tmpY, tmpX.length);
+        }
     }
 
     public Color getFacesColor(Face face) {
