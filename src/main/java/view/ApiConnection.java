@@ -11,11 +11,10 @@ import view.components.misc.ModelVBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ApiConnection {
 
-    public ArrayList<ModelGet> modelList = new ArrayList<>();
+    public final ArrayList<ModelGet> modelList = new ArrayList<>();
 
     private ApiConnection(TilePane tilePane) {
 
@@ -37,29 +36,26 @@ public class ApiConnection {
             e.printStackTrace();
         }
 
-        JSONArray dataJs = (JSONArray) jsObject.get("data");
-        Iterator<JSONObject> it = dataJs.iterator();
-        while (it.hasNext()) {
-            JSONObject key = it.next();
+        JSONArray dataJs = null;
+        if (jsObject != null) {
+            dataJs = (JSONArray) jsObject.get("data");
+        }
+        for (JSONObject key : (Iterable<JSONObject>) dataJs) {
             this.modelList.add(new ModelGet((int) Long.parseLong(key.get("id").toString()), (String) key.get("name"), (String) key.get("imglink")));
         }
 
     }
 
-    private static int i = 0;
     private static ApiConnection data = null;
 
-    public static ApiConnection loadData(TilePane tilePane) {
+    public static void loadData(TilePane tilePane) {
 
         if(data == null) {
             data = new ApiConnection(tilePane);
         }
 
-        data.modelList.forEach(x -> {
-            tilePane.getChildren().add(new ModelVBox(x));
-        });
+        data.modelList.forEach(x -> tilePane.getChildren().add(new ModelVBox(x)));
 
-        return data;
     }
 
 }
