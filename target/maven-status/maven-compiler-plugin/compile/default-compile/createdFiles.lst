@@ -1,5 +1,4 @@
 model\Rotation.class
-view\stages\OnlineLibraryStage$1$1.class
 view\components\tabpane\DraggableTab$2.class
 view\components\ThemeRadioButton.class
 view\components\misc\CustomTabPaneSkin.class
@@ -12,10 +11,8 @@ view\nodes\SearchBar.class
 model\PlyReader.class
 model\Vector.class
 model\Face.class
-view\components\tiltedPane\SlidersModelPane$1.class
 view\ApiConnection.class
 view\dialogs\MessageBox.class
-view\components\tabpane\DraggableTab$2$1.class
 view\components\tabpane\TabCanvas.class
 view\dialogs\ActionLink.class
 view\nodes\TabCanvasPane.class
@@ -25,7 +22,6 @@ view\stages\ExtendedStage.class
 view\components\ModelAccordion.class
 model\Model.class
 model\Matrix.class
-view\components\tabpane\DraggableTab$2$2.class
 view\components\tabpane\DraggableTab$InsertData.class
 view\components\CanvasModel.class
 view\nodes\RightMenu.class

@@ -1,3 +1,1 @@
-cow.ply#C:\Users\Neo\projetmodeg5\cow.ply
-sandal.ply#C:\Users\Neo\projetmodeg5\sandal.ply
-octahedron.ply#C:\Users\Neo\projetmodeg5\octahedron.ply
+ant.ply#C:\Users\Neo\projetmodeg5\.\exemples\ant.ply
