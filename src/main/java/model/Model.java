@@ -3,7 +3,6 @@ package model;
 import model.ObservableThings.Observable;
 import view.components.CanvasModel;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 
@@ -32,7 +31,7 @@ public class Model extends Observable {
      *
      * @param vertices list of points of the model
      * @param faces list of faces of the model
-     * @param rotation
+     * @param rotation direction's rotation
      * @param degree of the rotation
      */
     
@@ -56,7 +55,7 @@ public class Model extends Observable {
     }
     
     public Model(){
-        this(new ArrayList<Vertex>(), new ArrayList<Face>());
+        this(new ArrayList<>(), new ArrayList<>());
     }
     
     /**
@@ -289,7 +288,7 @@ public class Model extends Observable {
         this.description = description;
     }
     
-    public Model clone() throws CloneNotSupportedException {
+    public Model clone() {
     	return new Model((ArrayList<Vertex>) this.vertices.clone(), (ArrayList<Face>) this.faces.clone());
     }
 }

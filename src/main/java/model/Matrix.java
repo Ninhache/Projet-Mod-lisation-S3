@@ -54,7 +54,6 @@ public class Matrix {
      * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
      *
      * @param other the other matrix
-     * @return the result of the multiplication of both matrices, in a new one
      */
     public void multiplyMatrix(Matrix other) {
         // TODO : Create errors to check the validity of both matrices
@@ -117,7 +116,6 @@ public class Matrix {
      * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
      *
      * @param other the other matrix
-     * @return the result of the sum of both matrices, in a new one
      */
     public void sumMatrix(Matrix other) {
         if(canSum(other)) {
@@ -150,7 +148,6 @@ public class Matrix {
      * { 0 , 0 }         { 3 , 2 }              { 0 , 0 }
      *
      * @param other the other matrix
-     * @return the result of the subtraction of both matrices, in a new one
      */
     public void subMatrix(Matrix other) {
         if(canSum(other)) {
@@ -199,7 +196,7 @@ public class Matrix {
 
     // TODO : Test will be hard to make...
     public void rotation(Rotation r, double degre) {
-        double[][] vals = new double[this.getRowCount()][this.getColumnCount()];
+        double[][] vals;
         if(r.equals(Rotation.X)) {
             vals = xRotationMatrix(degre);
         } else if(r.equals(Rotation.Y)) {
@@ -329,22 +326,22 @@ public class Matrix {
 
     @Override
     public String toString() {
-    	String res = "";
+    	StringBuilder res = new StringBuilder();
         for(int i = 0 ; i < this.getRowCount() ; i ++ ) {
             for(int j = 0 ; j < this.getColumnCount() ; j ++ ) {
 
-                String simpliestFormat = String.format("%.2f", this.getValues()[i][j]).replace(",",".");
+                StringBuilder simpliestFormat = new StringBuilder(String.format("%.2f", this.getValues()[i][j]).replace(",", "."));
 
                 while(simpliestFormat.length() != this.getMaxDecimalPart()) {
-                    simpliestFormat = " " + simpliestFormat;
+                    simpliestFormat.insert(0, " ");
                 }
 
-            	res+= "[" + simpliestFormat + "]";
+            	res.append("[").append(simpliestFormat).append("]");
             
             }
-            res+="\n";
+            res.append("\n");
             }
-        return res;
+        return res.toString();
     }
 
 }

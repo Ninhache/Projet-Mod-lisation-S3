@@ -11,6 +11,8 @@ public class RightMenu extends VBox {
     public RightMenu() {
         super();
 
+
+        setMinWidth(500);
         modelAccordion = new ModelAccordion();
 
         getChildren().add( modelAccordion);

@@ -1,9 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.stream.DoubleStream;
 
 /**
  * A model contains faces
@@ -16,7 +13,7 @@ import java.util.stream.DoubleStream;
  */
 public class Face implements Comparable<Face> {
 
-	private ArrayList<Vertex> vertices;
+	private final ArrayList<Vertex> vertices;
 	private int[] color;
 	private double alpha = -1.0;
 
@@ -88,12 +85,12 @@ public class Face implements Comparable<Face> {
 
 	@Override
 	public String toString() {
-		String res = "";
+		StringBuilder res = new StringBuilder();
 
 		for (Vertex v : this.getVertices()) {
-			res += v.toString() ;
+			res.append(v.toString());
 		}
-		res+="\n";
-		return res;
+		res.append("\n");
+		return res.toString();
 	}
 }

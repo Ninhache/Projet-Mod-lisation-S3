@@ -1,7 +1,6 @@
 package view.components;
 
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import model.Model;
 
 public class HboxSingle extends HBox {
