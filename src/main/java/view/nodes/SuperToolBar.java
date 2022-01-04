@@ -7,7 +7,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import model.Model;
 import model.PlyReader;
@@ -21,7 +20,6 @@ import java.util.*;
 
 import javafx.embed.swing.SwingFXUtils;
 import view.dialogs.ActionLink;
-import view.components.CanvasModel;
 import view.dialogs.MessageBox;
 import view.components.CustomCheckBox;
 import view.components.ThemeRadioButton;
@@ -141,14 +139,12 @@ public class SuperToolBar extends MenuBar {
         sortRevert.setOnAction(this::onSortAlphaReverseClick);
         sortRandom.setOnAction(this::onShuffleClick);
 
-        theme.getItems().forEach(button -> {
-            button.setOnAction(this::onRadioClick);
-        });
+        theme.getItems().forEach(button -> button.setOnAction(this::onRadioClick));
     }
 
     private void manageRecents() {
 
-        if(openRecents.getItems().get(0).getText() != "Pas de fichiers récents") {
+        if(!Objects.equals(openRecents.getItems().get(0).getText(), "Pas de fichiers récents")) {
             openRecents.getItems().addAll(new SeparatorMenuItem(), clearRecent);
         }
 
@@ -175,7 +171,7 @@ public class SuperToolBar extends MenuBar {
         if(file == null) {
 
             MessageBox.showWarning("Fichier introuvable", "Erreur 667");
-            return;
+            throw new FileNotFoundException();
         }
         TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
@@ -184,7 +180,7 @@ public class SuperToolBar extends MenuBar {
             addToOpenRecent(file);
         } catch (Exception ex) {
             MessageBox.showError("Format Incorrect", "Le format du fichier chargé n'est pas compatible, merci de réassayer avec un format correct");
-            return;
+            throw new FileNotFoundException();
         }
     }
 
@@ -195,28 +191,21 @@ public class SuperToolBar extends MenuBar {
         try {
 
             if(!fileAlreadyInRecent(fileToAdd)) {
+                File mFile = path.toFile();
+                FileInputStream fis = new FileInputStream(mFile);
+                BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while( (line = br.readLine()) != null){
+                    result.append(line).append("\n");
+                }
 
-            File mFile = path.toFile();
-            FileInputStream fis = new FileInputStream(mFile);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-            String result = "";
-            String line = "";
-            while( (line = br.readLine()) != null){
-                result = result + line + "\n";
-            }
+                result.insert(0, fileToAdd.getName() + "#" + fileToAdd.getAbsolutePath() + "\n");
 
-            result = fileToAdd.getName() + "#" + fileToAdd.getAbsolutePath() + "\n" + result;
-
-            mFile.delete();
-            FileOutputStream fos = new FileOutputStream(mFile);
-            fos.write(result.getBytes());
-            fos.flush();
-
-              /*  Files.write(path, (fileToAdd.getName() + "#" + fileToAdd.getAbsolutePath() + "\n").getBytes(StandardCharsets.UTF_8),
-                        StandardOpenOption.CREATE,
-                        StandardOpenOption.APPEND);
-               */
-
+                mFile.delete();
+                FileOutputStream fos = new FileOutputStream(mFile);
+                fos.write(result.toString().getBytes());
+                fos.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,11 +229,7 @@ public class SuperToolBar extends MenuBar {
 
             int nbLine = 0;
             while (sc.hasNext()) {
-                if (sc.hasNext()) {
-                    sb.append(sc.nextLine()).append("-");
-                } else {
-                    sb.append(sc.nextLine());
-                }
+                sb.append(sc.nextLine()).append("-");
                 nbLine++;
             }
         } catch (FileNotFoundException e) {
@@ -277,12 +262,10 @@ public class SuperToolBar extends MenuBar {
 
         try {
             model = new PlyReader(path).readPly();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-			e.printStackTrace();
-		}
-        
+            e.printStackTrace();
+        }
+
         TabCanvas tab = new TabCanvas( model , list.get(0), tabCanvas.getWidth(), tabCanvas.getHeight());
 
         tabCanvas.getTabs().add(tab);
@@ -336,9 +319,7 @@ public class SuperToolBar extends MenuBar {
         TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
         if(tabPane.getTabs().size() > 0) {
-            tabPane.getTabs().sort(((o1, o2) -> {
-                return new Random().nextInt(3) - 1;
-            }));
+            tabPane.getTabs().sort(((o1, o2) -> new Random().nextInt(3) - 1));
         }
 
     }
@@ -419,7 +400,7 @@ public class SuperToolBar extends MenuBar {
 
         Scanner sc;
         StringBuilder sb;
-        MenuItem[] itemList = new MenuItem[0]; // < Degeu mais sinn c'est relou
+        MenuItem[] itemList;
 
         try {
             sc = new Scanner(file);
@@ -427,11 +408,7 @@ public class SuperToolBar extends MenuBar {
 
             int nbLine = 0;
             while (sc.hasNext()) {
-                if(sc.hasNext()) {
-                    sb.append(sc.nextLine()+"-");
-                } else {
-                    sb.append(sc.nextLine());
-                }
+                sb.append(sc.nextLine()).append("-");
                 nbLine++;
             }
             if(nbLine == 0) {
@@ -447,9 +424,7 @@ public class SuperToolBar extends MenuBar {
                     if(x >= 10) break;
                     itemList[x] = tmp;
 
-                    tmp.setOnAction(event -> {
-                        openFiles(list);
-                    });
+                    tmp.setOnAction(event -> openFiles(list));
 
                     x++;
                 }
@@ -469,9 +444,6 @@ public class SuperToolBar extends MenuBar {
     }
 
     public ActionLink getOpenActionsLink() {
-       /* ArrayList<ActionLink> array = new ArrayList<>();
-        array.add(new ActionLink("Ouvrir un modèle", this::onOpenClicked));
-        return array;*/
         return new ActionLink("Ouvrir un modèle", event -> {
 			try { onOpenClicked(event); } catch (FileNotFoundException e) { e.printStackTrace(); }
 		});

@@ -1,6 +1,7 @@
 package view.stages;
 
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -18,11 +19,9 @@ import javafx.stage.Screen;
 import model.Rotation;
 import view.components.CanvasModel;
 import view.components.misc.CustomTabPaneSkin;
-import view.components.tabpane.TabCanvas;
 import view.nodes.RightMenu;
 import view.nodes.SuperToolBar;
 import view.nodes.TabCanvasPane;
-import view.components.tiltedPane.SlidersModelPane;
 
 public class MainStage extends ExtendedStage {
 
@@ -39,6 +38,8 @@ public class MainStage extends ExtendedStage {
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 1920,1080);
             setScene(scene);
+
+        setMinWidth(1000);
 
         toolBar = new SuperToolBar();
         tabPane = new TabCanvasPane();
@@ -57,7 +58,7 @@ public class MainStage extends ExtendedStage {
         HBox movementButton = new HBox(translate,rotate);
 
 
-        scene.getStylesheets().add(getClass().getResource("/css/theme/ThemeBlanc.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/theme/ThemeBlanc.css")).toExternalForm());
 
         root.setTop(toolBar);
         root.setCenter(tabPane);
@@ -91,19 +92,15 @@ public class MainStage extends ExtendedStage {
     }
 
     private void setupListeners() {
-        widthProperty().addListener((observable, oldValue, newValue) -> {
-            tabPane.getTabs().forEach(tabs -> {
-                CanvasModel c = (CanvasModel) tabs.getContent();
-                c.setWidth(newValue.doubleValue());
-            });
-        });
+        widthProperty().addListener((observable, oldValue, newValue) -> tabPane.getTabs().forEach(tabs -> {
+            CanvasModel c = (CanvasModel) tabs.getContent();
+            c.setWidth(newValue.doubleValue());
+        }));
 
-        heightProperty().addListener((observable, oldValue, newValue) -> {
-            tabPane.getTabs().forEach(tabs -> {
-                CanvasModel c = (CanvasModel) tabs.getContent();
-                c.setHeight(newValue.doubleValue());
-            });
-        });
+        heightProperty().addListener((observable, oldValue, newValue) -> tabPane.getTabs().forEach(tabs -> {
+            CanvasModel c = (CanvasModel) tabs.getContent();
+            c.setHeight(newValue.doubleValue());
+        }));
     }
 
     private void setupDisabledComponents() {
@@ -126,33 +123,23 @@ public class MainStage extends ExtendedStage {
 
 
         // Ctrl + W
-        Runnable kcCloseRequest = () -> {
-            tabPane.onCloseRequest(new ActionEvent());
-        };
+        Runnable kcCloseRequest = () -> tabPane.onCloseRequest(new ActionEvent());
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
         // Ctrl + R
-        Runnable kcRotateModel = () -> {
-            tabPane.rotateModel(Rotation.X,15);
-        };
+        Runnable kcRotateModel = () -> tabPane.rotateModel(Rotation.X,15);
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN), kcRotateModel);
 
         // Ctrl + shift + r
-        Runnable kcRotateInverseModel = () -> {
-            tabPane.rotateModel(Rotation.X,-15);
-        };
+        Runnable kcRotateInverseModel = () -> tabPane.rotateModel(Rotation.X,-15);
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcRotateInverseModel);
 
         // Ctrl + T
-        Runnable kcTranslateModel = () -> {
-            tabPane.translateModel(0,10,0);
-        };
+        Runnable kcTranslateModel = () -> tabPane.translateModel(0,10,0);
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN), kcTranslateModel);
 
         // Ctrl + Shift + T
-        Runnable kcTranslateInverseModel = () -> {
-            tabPane.translateModel(0,-10,0);
-        };
+        Runnable kcTranslateInverseModel = () -> tabPane.translateModel(0,-10,0);
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTranslateInverseModel);
 
     }

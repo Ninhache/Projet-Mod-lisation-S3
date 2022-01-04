@@ -98,13 +98,9 @@ public class ModelVBox extends VBox {
             ((OnlineLibraryStage) getScene().getWindow()).close();
         });
 
-        menuItem2.setOnAction(event1 -> {
-            openDataFromModel(model);
-        });
+        menuItem2.setOnAction(event1 -> openDataFromModel(model));
 
-        menuItem3.setOnAction(event1 -> {
-            contextMenu.hide();
-        });
+        menuItem3.setOnAction(event1 -> contextMenu.hide());
 
 
 

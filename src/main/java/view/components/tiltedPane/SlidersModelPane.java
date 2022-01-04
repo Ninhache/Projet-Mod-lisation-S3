@@ -4,13 +4,9 @@ package view.components.tiltedPane;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -99,21 +95,16 @@ public class SlidersModelPane extends TitledPane {
 		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ, scaleReset, timerButton);
 		setContent(root);
 		
-		reset.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
+		reset.setOnAction(event -> {
 //				BorderPane bp = (BorderPane) getParent().getScene().getRoot();
 //				TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
 //				TabCanvas tb = (TabCanvas) tp.getTabs();
 //				Model model = tb.getCanvas().getModel();
 //				model.getMatrix().resetToDefaultValues();
-				sliderBoxX.getSlider().setValue(180);
-				sliderBoxY.getSlider().setValue(180);
-				sliderBoxZ.getSlider().setValue(180);
-				scale.getSpinner().getValueFactory().setValue(1.0);
-			}
-		
+			sliderBoxX.getSlider().setValue(180);
+			sliderBoxY.getSlider().setValue(180);
+			sliderBoxZ.getSlider().setValue(180);
+			scale.getSpinner().getValueFactory().setValue(1.0);
 		});
 
 	}

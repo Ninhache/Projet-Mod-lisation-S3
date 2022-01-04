@@ -4,27 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import model.Internet;
-import model.ModelGet;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import view.components.misc.ModelVBox;
-import view.components.tabpane.TabCanvas;
 import view.nodes.TabCanvasPane;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class OnlineConfigStage extends ExtendedStage {
 

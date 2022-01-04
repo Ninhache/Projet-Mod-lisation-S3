@@ -37,7 +37,6 @@ public class PlyReader {
 	 * </p>
 	 *
 	 * @param file the file to read
-	 * @throws Exception
 	 */
 	public PlyReader(File file) throws Exception{
 		if(file.exists()) {
@@ -51,8 +50,8 @@ public class PlyReader {
 			this.fileName = "none";
 			throw new FileNotFoundException();
 		}
-		verticesList = new ArrayList<Vertex>();
-		facesList = new ArrayList<Face>();
+		verticesList = new ArrayList<>();
+		facesList = new ArrayList<>();
 	}
 
 	/**
@@ -62,8 +61,7 @@ public class PlyReader {
 	 * Constructor using only the name of the file to read: that file must be in the resources folder otherwise it will be null
 	 * </p>
 	 *
-	 * @param fileName the name of the file to read
-	 * @throws Exception
+	 * @param filePath the name of the file to read
 	 */
 	public PlyReader(String filePath) throws Exception {
 		this(new File(filePath));
@@ -77,7 +75,6 @@ public class PlyReader {
 	 * </p>
 	 * 
 	 * @param path the path towards the file to read
-	 * @throws Exception
 	 */
 	public PlyReader(Path path) throws Exception {
 			this(path.toFile());
@@ -116,7 +113,6 @@ public class PlyReader {
 	 * </p>
 	 * 
 	 * @return a Model constructed with the vertices and faces list of the Reader
-	 * @throws FileNotFoundException
 	 */
 	public Model readPly() throws FileNotFoundException {
 		
@@ -157,32 +153,30 @@ public class PlyReader {
 			String line;
 
 			while((line=br.readLine())!=null && !line.equals(END_HEADER)) {
-				
+
 				if(line.contains("element face "))
-					nbFaces= Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
+					this.nbFaces= Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
 				else if (line.contains("element vertex "))
-					nbVertex = Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
+					this.nbVertex = Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
 				else if (line.contains("comment created by "))
-					authorName = line.substring(line.lastIndexOf(" ")+1);
+					this.authorName = line.substring(line.lastIndexOf(" ")+1);
 				else if(line.contains("comment")) {
-					sbComments.append(line.substring(7) + "\n");
-				}else if(!isColored) {
+					sbComments.append(line.substring(7)).append("\n");
+				}else if(!this.isColored) {
 					
 					if(line.contains("property uchar red"))
-						isColored = true;
+						this.isColored = true;
 					else if(line.contains("property uchar green"))
-						isColored = true;
+						this.isColored = true;
 					else if(line.contains("property uchar blue"))
-						isColored = true;
+						this.isColored = true;
 
 				} else if(line.contains("property uchar alpha"))
-						alpha = true;
+					this.alpha = true;
 				
 				sb.append(line);
 				sb.append("\n");
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -270,7 +264,7 @@ public class PlyReader {
 		}
 		if(isColored) {
 			if(alpha)
-				facesList.add(new Face(pointsOfFace, new int[]{r/3, g/3, b/3}, a/3));
+				facesList.add(new Face(pointsOfFace, new int[] {r/3, g/3, b/3}, a/3.0));
 			else 
 				facesList.add(new Face(pointsOfFace, new int[]{r/3, g/3, b/3}));
 		} else 
@@ -294,7 +288,7 @@ public class PlyReader {
 
 		try {
 			String line = br.readLine();
-			String[] splittedLine = line.split(" ");
+			String[] splittedLine;
 			
 			if(line.length()<=1)
 				line = br.readLine();
@@ -350,7 +344,7 @@ public class PlyReader {
 		 int nbFaceLines = 0;
 		 
 		 try {
-			 String line = null;
+			 String line;
 			 String[] splittedLine;
 			 
 			 StringBuilder sb = new StringBuilder();
@@ -394,7 +388,6 @@ public class PlyReader {
 	 * 
 	 * 
 	 * @param file New file to read
-	 * @throws FileNotFoundException 
 	 */
 	public void setFile(File file) throws Exception {
 		if(file.exists()) {
@@ -425,7 +418,6 @@ public class PlyReader {
 	 * </p>	
 	 *  
 	 * @param fileName name of the new file to read
-	 * @throws FileNotFoundException 
 	 */
 	public void setFile(String fileName) throws FileNotFoundException {
 		File file = new File("./exemples/"+fileName+".ply");
@@ -474,5 +466,13 @@ public class PlyReader {
 
 	public void setFacesList(ArrayList<Face> facesList) {
 		this.facesList = facesList;
+	}
+
+	public int getNbFaces() {
+		return nbFaces;
+	}
+
+	public int getNbVertex() {
+		return nbVertex;
 	}
 }

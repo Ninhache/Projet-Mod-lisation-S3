@@ -3,7 +3,6 @@ package view.nodes;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import model.Model;
 import model.PlyReader;
 import model.Rotation;
 import view.components.tabpane.TabCanvas;

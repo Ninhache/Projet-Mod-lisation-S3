@@ -12,8 +12,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.FilePly;
-import model.PlyReader;
-import view.components.tabpane.TabCanvas;
 import view.dialogs.MessageBox;
 import view.nodes.TabCanvasPane;
 import view.stages.OnlineConfigStage;
@@ -137,15 +135,13 @@ public class LibraryPane extends TitledPane {
     }
 
     private ObservableList<FilePly> getFilePly() {
-        String contents[] = new File("exemples").list();
+        String[] contents = new File("exemples").list();
 
         ArrayList<FilePly> tmp = new ArrayList<>();
 
         Arrays.stream(contents)
                 .filter(o -> o.endsWith(".ply"))
-                .forEach(x -> {
-                    tmp.add(new FilePly(new File(x)));
-                });
+                .forEach(x -> tmp.add(new FilePly(new File(x))));
 
         return FXCollections.observableList(tmp);
     }

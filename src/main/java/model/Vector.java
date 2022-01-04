@@ -17,9 +17,9 @@ public class Vector {
      *
      * A vector is like a point but it's not a point ...
      *
-     * @param anX
-     * @param anY
-     * @param anZ
+     * @param anX X coords of the vector
+     * @param anY Y coords of the vector
+     * @param anZ Z coords of the vector
      */
     public Vector(double anX, double anY, double anZ) {
         this.x = anX;
