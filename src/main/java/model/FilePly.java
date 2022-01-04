@@ -2,16 +2,38 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class FilePly {
 
-    private File file;
+    private final File file;
+	private final PlyReader plyReader;
     
     public FilePly(File file) {
-    	this.file=file;
+        PlyReader plyReaderTemp;
+        this.file=file;
+
+        try {
+            plyReaderTemp = new PlyReader("./exemples/"+this.file.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+            plyReaderTemp = null;
+        }
+
+        this.plyReader = plyReaderTemp;
+        new Thread(this::loadData).start();
     }
+
+	public void loadData() {
+		try {
+			FileReader fr = new FileReader(this.plyReader.getFile());
+			BufferedReader br = new BufferedReader(fr);
+
+			this.plyReader.readHeader(br);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
     public File getFile() {
         return file;
@@ -26,33 +48,11 @@ public class FilePly {
     }
     
     public String getFaces() {
-    	PlyReader plyR=null;
-    	int res=0;
-    	try {
-			plyR=new PlyReader("./exemples/"+this.file.getName());
-			plyR.readPly();
-			res=plyR.getFacesList().size();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	return ""+res;
+		return "" + plyReader.getNbFaces();
     }
     
     public String getVertices() {
-    	PlyReader plyR=null;
-    	int res=0;
-    	try {
-			plyR=new PlyReader("./exemples/"+this.file.getName());
-			plyR.readPly();
-			res=plyR.getVerticesList().size();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	return ""+res;
+		return "" + plyReader.getNbFaces();
     }
 	
 
