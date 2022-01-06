@@ -27,7 +27,7 @@ public class LibraryPane extends TitledPane {
     private Button buttonOnLine;
     private Button buttonOnlineConfig;
     private TableView<FilePly> tableView;
-    private TableColumn<FilePly, String> fileNameCol, infosCol;
+    private TableColumn<FilePly, String> fileNameCol, nbFacesCol, nbVerticesCol;
     private ObservableList<FilePly> list;
     private OnlineLibraryStage onlineLibraryStage;
     private OnlineConfigStage onlineConfigStage;
@@ -42,7 +42,8 @@ public class LibraryPane extends TitledPane {
         tableView = new TableView<>();
         
         fileNameCol = new TableColumn<>("Fichiers");
-        infosCol = new TableColumn<>("Infos");
+        nbFacesCol = new TableColumn<>("Faces");
+        nbVerticesCol = new TableColumn<>("Lignes");
         
 
         setProperty();
@@ -57,7 +58,7 @@ public class LibraryPane extends TitledPane {
         
         tableView.setItems(list);
 
-        tableView.getColumns().addAll(fileNameCol,infosCol);
+        tableView.getColumns().addAll(fileNameCol,nbFacesCol,nbVerticesCol);
         onlineLibrary.getChildren().addAll(buttonOnLine,buttonOnlineConfig);
         root.getChildren().addAll(onlineLibrary, tableView);
 
@@ -120,6 +121,8 @@ public class LibraryPane extends TitledPane {
     
 
     private void setProperty() {
+    	
+    	
         fileNameCol.setMinWidth(tableView.getWidth()/2);
         fileNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         fileNameCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.30));
@@ -127,12 +130,19 @@ public class LibraryPane extends TitledPane {
         fileNameCol.setResizable(false);
   
         
-        infosCol.setMinWidth(tableView.getWidth()/2);
-        infosCol.setCellValueFactory(new PropertyValueFactory<>("faces"));
-        infosCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.60));
-        infosCol.minWidthProperty().bind(infosCol.maxWidthProperty());
-        infosCol.setResizable(false);
+        nbFacesCol.setMinWidth(tableView.getWidth()/2);
+        nbFacesCol.setCellValueFactory(new PropertyValueFactory<>("faces"));
+        nbFacesCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.30));
+        nbFacesCol.minWidthProperty().bind(nbFacesCol.maxWidthProperty());
+        nbFacesCol.setResizable(false);
+        
+        nbVerticesCol.setMinWidth(tableView.getWidth()/2);
+        nbVerticesCol.setCellValueFactory(new PropertyValueFactory<>("vertices"));
+        nbVerticesCol.maxWidthProperty().bind(tableView.widthProperty().multiply(.30));
+        nbVerticesCol.minWidthProperty().bind(nbVerticesCol.maxWidthProperty());
+        nbVerticesCol.setResizable(false);
     }
+    
 
     private ObservableList<FilePly> getFilePly() {
         String[] contents = new File("exemples").list();

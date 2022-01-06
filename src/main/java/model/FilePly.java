@@ -52,7 +52,7 @@ public class FilePly {
     }
     
     public String getVertices() {
-		return "" + plyReader.getNbFaces();
+		return "" + plyReader.getNbVertex();
     }
 	
 
