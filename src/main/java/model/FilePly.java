@@ -47,6 +47,10 @@ public class FilePly {
         return "./exemples/" + this.getName();
     }
     
+    public String getAuthor() {
+    	return plyReader.getAuthorName();
+    }
+    
     public String getFaces() {
 		return "" + plyReader.getNbFaces();
     }
