@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -13,9 +14,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.FilePly;
 import view.dialogs.MessageBox;
+import view.nodes.SearchBar;
 import view.nodes.TabCanvasPane;
 import view.stages.OnlineConfigStage;
 import view.stages.OnlineLibraryStage;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,6 +34,7 @@ public class LibraryPane extends TitledPane {
     private ObservableList<FilePly> list;
     private OnlineLibraryStage onlineLibraryStage;
     private OnlineConfigStage onlineConfigStage;
+    private TextField searchBar;
 
     public LibraryPane() {
         super();
@@ -38,7 +42,9 @@ public class LibraryPane extends TitledPane {
         VBox root = new VBox();
 
         setText("Bibliothèque PLY");
-
+        
+        searchBar = new TextField();
+        
         tableView = new TableView<>();
         
         fileNameCol = new TableColumn<>("Fichiers");
@@ -61,7 +67,7 @@ public class LibraryPane extends TitledPane {
 
         tableView.getColumns().addAll(fileNameCol,auteur,nbFacesCol,nbVerticesCol);
         onlineLibrary.getChildren().addAll(buttonOnLine,buttonOnlineConfig);
-        root.getChildren().addAll(onlineLibrary, tableView);
+        root.getChildren().addAll(onlineLibrary, searchBar, tableView);
 
         setContent(root);
 
