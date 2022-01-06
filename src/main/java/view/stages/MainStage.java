@@ -55,15 +55,12 @@ public class MainStage extends ExtendedStage {
             rotate = new ToggleButton("Rotate");
             rotate.setToggleGroup(tg);
 
-        HBox movementButton = new HBox(translate,rotate);
-
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/theme/ThemeBlanc.css")).toExternalForm());
 
         root.setTop(toolBar);
         root.setCenter(tabPane);
         root.setRight(rightMenu);
-        root.setBottom(movementButton);
 
         setTitle("Modeling project");
 
