@@ -86,6 +86,7 @@ public class LibraryPane extends TitledPane {
                         MessageBox.showError("Fichier introuvable", "Fichier introuvable");
                     } catch (Exception e) {
                         MessageBox.showError("Format Incorrect", "Le format du fichier chargÃ© n'est pas compatible, merci de rÃ©assayer avec un format correct");
+                        e.printStackTrace();
                     }
 
                 } catch (NullPointerException e) {
