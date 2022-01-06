@@ -4,6 +4,7 @@ import model.ObservableThings.Observable;
 import view.components.CanvasModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -161,67 +162,64 @@ public class Model extends Observable {
 
     public void rotate(Rotation r, double degree) {
         this.getMatrix().rotation(r, degree);
-        System.out.println("MODEL: Rotate");
         updateFaces();
+        Collections.sort(this.faces);
         this.notifyObservers();
     }
 
     public void xRotate(double degree) {
         this.getMatrix().xRotationMatrix(degree);
-        System.out.println("MODEL: xRotate");
         updateFaces();
         this.notifyObservers();
     }
 
     public void yRotate(double degree) {
         this.getMatrix().yRotationMatrix(degree);
-        System.out.println("MODEL: yRotate");
         updateFaces();
         this.notifyObservers();
     }
 
     public void zRotate(double degree) {
         this.getMatrix().zRotationMatrix(degree);
-        System.out.println("MODEL: zRotate");
         updateFaces();
         this.notifyObservers();
     }
 
     public void translate(Vector v) {
         this.getMatrix().translation(v);
-        System.out.println("MODEL: Homothety Vector");
+        updateFaces();
         this.notifyObservers();
     }
 
     public void translate(double x, double y, double z) {
         this.getMatrix().translation(x,y,z);
-        System.out.println("MODEL: Translate XYZ");
+        updateFaces();
         this.notifyObservers();
     }
 
     public void homothety(double ratio) {
         this.getMatrix().homothety(ratio);
-        System.out.println("MODEL: Homothety");
+        updateFaces();
         this.notifyObservers();
     }
 
     public void resetToDefaultValues() {
         this.getMatrix().resetToDefaultValues();
-        System.out.println("MODEL: resetDefault");
+        updateFaces();
+        Collections.sort(this.faces);
         this.notifyObservers();
     }
 
     public void updateFaces(){
-        for (Face f:
-                this.getFaces()) {
-            for (Vertex v:
-                    f.getVertices()) {
+        for (Face f : this.getFaces()) {
+            for (Vertex v : f.getVertices()) {
                 v.setX(this.getMatrix().getValues()[0][v.getId()]);
                 v.setY(this.getMatrix().getValues()[1][v.getId()]);
                 v.setZ(this.getMatrix().getValues()[2][v.getId()]);
             }
         }
     }
+
     public Matrix getMatrix() {
 		return matrix;
 	}

@@ -58,6 +58,7 @@ public class Face implements Comparable<Face> {
 	public int[] getColor() {
 		return color;
 	}
+
 	public double getAverage(){
 		double res = 0;
 		for (Vertex v:
@@ -65,6 +66,21 @@ public class Face implements Comparable<Face> {
 			res+= v.getZ();
 		}
 		return res/this.getVertices().size();
+	}
+
+	/**
+	 * Normal vector of a face
+	 * @return a vector
+	 */
+	public Vector vecteurFace() {
+		Vertex vOrigin = this.vertices.get(0);
+		Vertex pointA =  this.vertices.get(1);
+		Vertex pointB = this.vertices.get(2);
+
+		Vector pointOA = new Vector(pointA).substract(vOrigin);
+		Vector pointOB = new Vector(pointB).substract(vOrigin);
+
+		return pointOA.produitVectoriel(pointOB.normalisation()).normalisation();
 	}
 	
 	public int getColorR() {
