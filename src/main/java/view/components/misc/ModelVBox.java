@@ -56,7 +56,7 @@ public class ModelVBox extends VBox {
 
     private void openDataFromModel(ModelGet model) {
         try {
-            JSONObject data = (JSONObject) new JSONParser().parse(Internet.sendHttpGETRequest("http://40.113.148.168:3000/Model?name=" + model.getName()));
+            JSONObject data = (JSONObject) new JSONParser().parse(Internet.sendHttpGETRequest("http://178.170.9.238:3000/Model?name=" + model.getName()));
 
             JSONObject dataK = (JSONObject) data.get("data");
 

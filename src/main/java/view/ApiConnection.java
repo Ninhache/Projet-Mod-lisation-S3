@@ -25,7 +25,7 @@ public class ApiConnection {
         JSONObject jsObject = null;
 
         try {
-            data = Internet.sendHttpGETRequest("http://40.113.148.168:3000/3dModel");
+            data = Internet.sendHttpGETRequest("http://178.170.9.238:3000/3dModel");
         } catch (IOException e) {
             e.printStackTrace();
         }
