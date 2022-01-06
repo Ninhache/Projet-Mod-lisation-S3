@@ -1,6 +1,7 @@
 package view.components;
 
 import java.util.Collections;
+import java.util.List;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
@@ -8,12 +9,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import model.Face;
-import model.Model;
+import model.*;
 import model.ObservableThings.Observable;
 import model.ObservableThings.Observer;
-import model.Rotation;
-import model.Vector;
+import model.utils.Maths;
 import view.dialogs.MessageBox;
 import view.stages.MainStage;
 
@@ -36,11 +35,15 @@ public class CanvasModel extends Canvas implements Observer {
     }
 
     private Model model;
+    private GraphicsContext gc;
     
-    private boolean drawFaces = true, drawStrokes = true, drawLight;
+    private boolean drawFaces = true, drawStrokes = true, drawLight, drawVertices = false;
+
+    private final static Vertex CAMERA = new Vertex(0,0,1);
 
     public CanvasModel(Model model, double width, double height) {
         super(width, height);
+        this.gc = getGraphicsContext2D();
         this.model = model;
 
         if(model != null) this.model.addObserver(this);
@@ -140,71 +143,19 @@ public class CanvasModel extends Canvas implements Observer {
     // use different method to draw
     public void draw() {
 
-        GraphicsContext gc = getGraphicsContext2D();
-        setupDrawStuff(gc);
+        setupDrawStuff();
 
-        if(this.drawFaces & !this.drawStrokes & !this.drawLight) {
-            drawFaces(gc);
-        } else if(!this.drawFaces & this.drawStrokes & !this.drawLight) {
-            drawStrokes(gc);
-        } else if (this.drawFaces & this.drawStrokes & !this.drawLight){
-            drawFacesStrokes(gc);
-        } else if (this.drawFaces & this.drawLight & !this.drawStrokes) {
-            drawFacesLight(gc);
-        } else if (this.drawFaces & this.drawLight & this.drawStrokes) {
-            drawFacesLightStrokes(gc);
-        } else if (!this.drawFaces & this.drawLight & !this.drawStrokes) {
-            MessageBox.showWarning("Impossible d'afficher !", "Il est impossible d'afficher les effet de la lumière sur notre modèle, si les faces ne sont pas dessinées !");
-        } else if (!this.drawFaces & this.drawLight & this.drawStrokes) {
-            MessageBox.showWarning("Impossible d'afficher !", "Il est impossible d'afficher les effet de la lumière sur notre modèle, si les faces ne sont pas dessinées !");
-        }
-
-    }
-
-    private void drawFacesLightStrokes(GraphicsContext gc) {
-        try {
-            Collections.sort(this.model.getFaces());
-        } catch (NullPointerException e) {
-            return;
-        }
-
-        double[] tmpX, tmpY, tmpZ;
-        int pt1, pt2;
-
-        for(Face face : this.model.getFaces()) {
-
-
-            tmpX = new double[face.getVertices().size()];
-            tmpY = new double[face.getVertices().size()];
-            tmpZ = new double[face.getVertices().size()];
-
-
-            for(int i = 0 ; i < face.getVertices().size() ; i++) {
-                tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
-                tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
-                tmpZ[i] = this.model.getMatrix().getValues()[2][face.getVertices().get(i).getId()];
-
-                pt1 = face.getVertices().get(i).getId();
-                if( i < face.getVertices().size() -1 ) {
-                    pt2 = face.getVertices().get(i+1).getId();
-                } else {
-                    pt2 = face.getVertices().get(0).getId();
-                }
-                gc.strokeLine(this.model.getMatrix().getValues()[0][pt1], this.model.getMatrix().getValues()[1][pt1], this.model.getMatrix().getValues()[0][pt2], this.model.getMatrix().getValues()[1][pt2]);
+        for(Face face : this.model.getFaces() ) {
+            if(!drawFaces || face.vecteurFace().dot(CAMERA) > 0) {
+                drawFace(face);
             }
-
-            Vector vectorLumos = new Vector(0,0,-1);
-            Vector vecteurFace1 = new Vector(tmpX[1] - tmpX[0],tmpY[1] - tmpY[0],tmpZ[1] - tmpZ[0]);
-            Vector vecteurFace2 = new Vector(tmpX[tmpX.length-1]-tmpX[0], tmpY[tmpY.length-1]-tmpY[0],tmpZ[tmpZ.length-1]-tmpZ[0]);
-            Vector vectorNorm = vecteurFace1.produitVectoriel(vecteurFace2);
-            double coeffLumos = (Math.cos((vectorLumos.Normalisation()).produitScalaire(vectorNorm.Normalisation())));
-
-            gc.setFill(Color.rgb((int)(face.getColorR()*coeffLumos), (int)(face.getColorG()*coeffLumos), (int)(face.getColorB()*coeffLumos)));
-            gc.fillPolygon(tmpX, tmpY, tmpX.length);
         }
+
     }
 
-    private void drawFacesLight(GraphicsContext gc) {
+
+/*
+    private void drawFacesLight() {
 
         try {
             Collections.sort(this.model.getFaces());
@@ -215,7 +166,6 @@ public class CanvasModel extends Canvas implements Observer {
         double[] tmpX, tmpY, tmpZ;
 
         for(Face face : this.model.getFaces()) {
-
 
             tmpX = new double[face.getVertices().size()];
             tmpY = new double[face.getVertices().size()];
@@ -232,15 +182,16 @@ public class CanvasModel extends Canvas implements Observer {
             Vector vecteurFace1 = new Vector(tmpX[1] - tmpX[0],tmpY[1] - tmpY[0],tmpZ[1] - tmpZ[0]);
             Vector vecteurFace2 = new Vector(tmpX[tmpX.length-1]-tmpX[0], tmpY[tmpY.length-1]-tmpY[0],tmpZ[tmpZ.length-1]-tmpZ[0]);
             Vector vectorNorm = vecteurFace1.produitVectoriel(vecteurFace2);
-            double coeffLumos = (Math.cos((vectorLumos.Normalisation()).produitScalaire(vectorNorm.Normalisation())));
+            double coeffLumos = (Math.cos((vectorLumos.normalisation()).produitScalaire(vectorNorm.normalisation())));
 
             gc.setFill(Color.rgb((int)(face.getColorR()*coeffLumos), (int)(face.getColorG()*coeffLumos), (int)(face.getColorB()*coeffLumos)));
             gc.fillPolygon(tmpX, tmpY, tmpX.length);
         }
-    }
+    }*/
 
-    public Color getFacesColor(Face face) {
+    public Color getFaceColor(Face face) {
     	int[] rgbArray = face.getColor();
+
     	
     	if(rgbArray.length == 3)
     		if(face.getAlpha()>=0)
@@ -251,78 +202,44 @@ public class CanvasModel extends Canvas implements Observer {
     		return Color.LAVENDER;
     }
 
-    public void drawFacesStrokes(GraphicsContext gc) {
+    public void drawFace(Face face) {
+        List<Vertex> points = face.getVertices();
 
-        try {
-            Collections.sort(this.model.getFaces());
-        } catch (NullPointerException e) {
-            return;
+        double[] x = points.stream().mapToDouble(Vertex::getX).toArray();
+        double[] y = points.stream().mapToDouble(Vertex::getY).toArray();
+        double[] z = points.stream().mapToDouble(Vertex::getZ).toArray();
+
+        if(drawLight) {
+            Vector vectorLumos = new Vector(0,0,-1);
+            Vector vecteurFace1 = new Vector(x[1] - x[0],y[1] - y[0],z[1] - z[0]);
+            Vector vecteurFace2 = new Vector(x[x.length-1]-x[0], y[y.length-1]-y[0],z[z.length-1]-z[0]);
+            Vector vectorNorm = vecteurFace1.produitVectoriel(vecteurFace2);
+
+            double coeffLumos = (Math.cos((vectorLumos.normalisation()).produitScalaire(vectorNorm.normalisation())));
+
+            gc.setFill(Color.rgb((int)(face.getColorR()*coeffLumos), (int)(face.getColorG()*coeffLumos), (int)(face.getColorB()*coeffLumos)));
+        } else {
+            gc.setFill(getFaceColor(face));
         }
 
-        double[] tmpX, tmpY;
-
-        for(Face face : this.model.getFaces())
-        {
-            gc.setFill(getFacesColor(face));
-
-            tmpX = new double[face.getVertices().size()];
-            tmpY = new double[face.getVertices().size()];
-            for(int i = 0 ; i < face.getVertices().size() ; i++) {
-                tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
-                tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
+        if(drawVertices) {
+            for(Vertex vertex : points) {
+                gc.fillOval(vertex.getX(), vertex.getY(), 3, 3);
             }
-            gc.strokePolygon(tmpX,tmpY,tmpX.length);
-            gc.fillPolygon(tmpX, tmpY, tmpX.length);
+        }
+
+        if(drawStrokes) {
+            gc.strokePolygon(x,y, points.size());
+        }
+
+        if(drawFaces) {
+            gc.fillPolygon(x,y, points.size());
         }
     }
 
 
-    public void drawFaces(GraphicsContext gc) {
 
-        try {
-            Collections.sort(this.model.getFaces());
-        } catch (NullPointerException e) {
-            return;
-        }
-
-        double[] tmpX, tmpY;
-
-        for(Face face : this.model.getFaces()) {
-        	gc.setFill(getFacesColor(face));
-
-            tmpX = new double[face.getVertices().size()];
-            tmpY = new double[face.getVertices().size()];
-            for(int i = 0 ; i < face.getVertices().size() ; i++) {
-                tmpX[i] = this.model.getMatrix().getValues()[0][face.getVertices().get(i).getId()];
-                tmpY[i] = this.model.getMatrix().getValues()[1][face.getVertices().get(i).getId()];
-            }
-
-            gc.fillPolygon(tmpX, tmpY, tmpX.length);
-
-        }
-
-    }
-
-    public void drawStrokes(GraphicsContext gc) {
-
-        int pt1, pt2;
-
-        for(Face face : this.model.getFaces()) {
-            for(int i = 0 ; i < face.getVertices().size() ; i ++ ) {
-                pt1 = face.getVertices().get(i).getId();
-                if( i < face.getVertices().size() -1 ) {
-                    pt2 = face.getVertices().get(i+1).getId();
-                } else {
-                    pt2 = face.getVertices().get(0).getId();
-                }
-                gc.strokeLine(this.model.getMatrix().getValues()[0][pt1], this.model.getMatrix().getValues()[1][pt1], this.model.getMatrix().getValues()[0][pt2], this.model.getMatrix().getValues()[1][pt2]);
-            }
-        }
-
-    }
-
-    private void setupDrawStuff(GraphicsContext gc) {
-        gc.clearRect(0, 0, getWidth(), getHeight());
+    private void setupDrawStuff() {
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0, 0, getWidth(), getHeight());
 
