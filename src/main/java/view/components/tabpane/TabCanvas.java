@@ -36,8 +36,13 @@ public class TabCanvas extends DraggableTab {
     public TabCanvas() {
         super("null");
     }
-
+    
+    public void initDraw() {
+        this.canvas.initDraw();
+    }
+    
     public void updateDraw() {
+    	System.out.println("UPDATE DRAW ?");
         this.canvas.initDraw();
     }
 

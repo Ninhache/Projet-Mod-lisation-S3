@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Model;
 import model.Rotation;
+import view.components.CanvasModel;
 import view.components.tabpane.TabCanvas;
 import view.nodes.SliderBox;
 import view.nodes.SpinnerBox;
@@ -96,15 +97,11 @@ public class SlidersModelPane extends TitledPane {
 		setContent(root);
 		
 		reset.setOnAction(event -> {
-//				BorderPane bp = (BorderPane) getParent().getScene().getRoot();
-//				TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
-//				TabCanvas tb = (TabCanvas) tp.getTabs();
-//				Model model = tb.getCanvas().getModel();
-//				model.getMatrix().resetToDefaultValues();
-			sliderBoxX.getSlider().setValue(180);
-			sliderBoxY.getSlider().setValue(180);
-			sliderBoxZ.getSlider().setValue(180);
-			scale.getSpinner().getValueFactory().setValue(1.0);
+				
+				BorderPane bp = (BorderPane) getParent().getScene().getRoot();
+				TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
+				TabCanvas tb = (TabCanvas) tp.getSelectionModel().getSelectedItem();
+				tb.initDraw();
 		});
 
 	}
