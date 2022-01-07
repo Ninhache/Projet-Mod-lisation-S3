@@ -16,6 +16,7 @@ import model.Model;
 import model.Rotation;
 import view.components.CanvasModel;
 import view.components.tabpane.TabCanvas;
+import view.nodes.AutoRotaBox;
 import view.nodes.SliderBox;
 import view.nodes.SpinnerBox;
 import view.nodes.TabCanvasPane;
@@ -35,8 +36,9 @@ public class SlidersModelPane extends TitledPane {
 	private Button reset;
 	private Label title, labelVertices, labelFaces, labelAuteur, labelComment;
 	private HBox scaleReset;
-	private Button timerButton;
+	private Button autoRota;
 	private AtomicBoolean started;
+	private AutoRotaBox autoRotation;
 
 	public SlidersModelPane() {
 		super();
@@ -62,38 +64,40 @@ public class SlidersModelPane extends TitledPane {
 		scaleReset = new HBox();
 		scaleReset.getChildren().addAll(scale,reset);
 		
-		ImageView playImg=new ImageView("/img/play.png");
-		ImageView stopImg=new ImageView("/img/pause.png");
+		autoRotation=new AutoRotaBox();
 		
-		playImg.setFitHeight(32);
-		playImg.setFitWidth(32);
-		stopImg.setFitHeight(32);
-		stopImg.setFitWidth(32);
-		
-		timerButton = new Button();
-		
-	    started = new AtomicBoolean(false);
-	    timerButton.setGraphic(playImg);
-	    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), event -> {
-	        BorderPane bp = (BorderPane) getParent().getScene().getRoot();
-	        TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
-	        tp.rotateModel(Rotation.Y, 1);
-	    }));
+//		ImageView playImg=new ImageView("/img/play.png");
+//		ImageView stopImg=new ImageView("/img/pause.png");
+//		
+//		playImg.setFitHeight(32);
+//		playImg.setFitWidth(32);
+//		stopImg.setFitHeight(32);
+//		stopImg.setFitWidth(32);
+//		
+//		autoRota = new Button();
+//		
+//	    started = new AtomicBoolean(false);
+//	    autoRota.setGraphic(playImg);
+//	    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), event -> {
+//	        BorderPane bp = (BorderPane) getParent().getScene().getRoot();
+//	        TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
+//	        tp.rotateModel(Rotation.Y, 1);
+//	    }));
+//	    
+//	    timeline.setCycleCount(Animation.INDEFINITE);
+//
+//	    autoRota.setOnAction(event -> {
+//	        started.set(!started.get());
+//	        if(started.get()) {
+//	            timeline.play();
+//	            autoRota.setGraphic(stopImg);
+//	        } else {
+//	            timeline.pause();
+//	            autoRota.setGraphic(playImg);
+//	        }}
+//	    );
 	    
-	    timeline.setCycleCount(Animation.INDEFINITE);
-
-	    timerButton.setOnAction(event -> {
-	        started.set(!started.get());
-	        if(started.get()) {
-	            timeline.play();
-	            timerButton.setGraphic(stopImg);
-	        } else {
-	            timeline.pause();
-	            timerButton.setGraphic(playImg);
-	        }}
-	    );
-	    
-		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ, scaleReset, timerButton);
+		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ, scaleReset, autoRotation);
 		setContent(root);
 		
 		reset.setOnAction(event -> {
