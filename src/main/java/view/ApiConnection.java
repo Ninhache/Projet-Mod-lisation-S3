@@ -22,13 +22,9 @@ public class ApiConnection {
     public final ArrayList<OnlineModel> modelList = new ArrayList<>();
 
     private ApiConnection(TilePane tilePane) {
-
-        System.out.println("APPEL API");
-
         String data = null;
         JSONParser jsonParser = new JSONParser();
         JSONObject jsObject = null;
-
         try {
             data = InternetUtil.sendHttpGETRequest("http://178.170.9.238:3000/3dModel");
         } catch (IOException e) {

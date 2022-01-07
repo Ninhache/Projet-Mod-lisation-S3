@@ -6,8 +6,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
-public class Internet {
+/**
+ * Util class to simplify http request
+ *
+ * @author Néo ALMEIDA
+ */
+public class InternetUtil {
 
     private static final String USER_AGENT = "Mozilla/5.0";
     
