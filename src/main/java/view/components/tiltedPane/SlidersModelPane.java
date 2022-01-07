@@ -65,38 +65,7 @@ public class SlidersModelPane extends TitledPane {
 		scaleReset.getChildren().addAll(scale,reset);
 		
 		autoRotation=new AutoRotaBox();
-		
-//		ImageView playImg=new ImageView("/img/play.png");
-//		ImageView stopImg=new ImageView("/img/pause.png");
-//		
-//		playImg.setFitHeight(32);
-//		playImg.setFitWidth(32);
-//		stopImg.setFitHeight(32);
-//		stopImg.setFitWidth(32);
-//		
-//		autoRota = new Button();
-//		
-//	    started = new AtomicBoolean(false);
-//	    autoRota.setGraphic(playImg);
-//	    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), event -> {
-//	        BorderPane bp = (BorderPane) getParent().getScene().getRoot();
-//	        TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
-//	        tp.rotateModel(Rotation.Y, 1);
-//	    }));
-//	    
-//	    timeline.setCycleCount(Animation.INDEFINITE);
-//
-//	    autoRota.setOnAction(event -> {
-//	        started.set(!started.get());
-//	        if(started.get()) {
-//	            timeline.play();
-//	            autoRota.setGraphic(stopImg);
-//	        } else {
-//	            timeline.pause();
-//	            autoRota.setGraphic(playImg);
-//	        }}
-//	    );
-	    
+			    
 		root.getChildren().addAll(informations,new Separator(), sliderBoxX, sliderBoxY, sliderBoxZ, scaleReset, autoRotation);
 		setContent(root);
 		
