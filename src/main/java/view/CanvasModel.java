@@ -18,7 +18,7 @@ import model.models.Vertex;
 import view.stages.MainStage;
 
 /**
- * The CanvasModel handle a model
+ * The CanvasModel handles a model
  *
  * @author Néo ALMEIDA
  * @version %I%, %G%
@@ -190,14 +190,14 @@ public class CanvasModel extends Canvas implements Observer {
     public void drawFace(Face face) {
         List<Vertex> points = face.getVertices();
 
-        double[] x = points.stream().mapToDouble(Vertex::getX).toArray();
-        double[] y = points.stream().mapToDouble(Vertex::getY).toArray();
-        double[] z = points.stream().mapToDouble(Vertex::getZ).toArray();
+        double[] xArray = points.stream().mapToDouble(Vertex::getX).toArray();
+        double[] yArray = points.stream().mapToDouble(Vertex::getY).toArray();
+        double[] zArray = points.stream().mapToDouble(Vertex::getZ).toArray();
 
         if(canvasDrawHandler.isDrawLight()) {
             Vector vectorLumos = new Vector(0,0,-1);
-            Vector vecteurFace1 = new Vector(x[1] - x[0],y[1] - y[0],z[1] - z[0]);
-            Vector vecteurFace2 = new Vector(x[x.length-1]-x[0], y[y.length-1]-y[0],z[z.length-1]-z[0]);
+            Vector vecteurFace1 = new Vector(xArray[1] - xArray[0],yArray[1] - yArray[0],zArray[1] - zArray[0]);
+            Vector vecteurFace2 = new Vector(xArray[xArray.length-1]-xArray[0], yArray[yArray.length-1]-yArray[0],zArray[zArray.length-1]-zArray[0]);
             Vector vectorNorm = vecteurFace1.produitVectoriel(vecteurFace2);
 
             double coeffLumos = (Math.cos((vectorLumos.normalisation()).produitScalaire(vectorNorm.normalisation())));
@@ -237,7 +237,6 @@ public class CanvasModel extends Canvas implements Observer {
     private void setupDrawStuff() {
         gc.setFill(this.backgroundColor);
         gc.fillRect(0, 0, getWidth(), getHeight());
-
         gc.beginPath();
         gc.setLineWidth(1);
         gc.setStroke(this.strokesColor);

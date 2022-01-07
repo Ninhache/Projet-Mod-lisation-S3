@@ -28,9 +28,4 @@ public class ActionLink extends Hyperlink {
         super(text, graphic);
         setOnAction(onClick);
     }
-
-    public void setAction(EventHandler<ActionEvent> onClick){
-        setOnAction(onClick);
-    }
-
 }

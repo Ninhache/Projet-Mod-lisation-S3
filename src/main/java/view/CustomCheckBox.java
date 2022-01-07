@@ -5,7 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
 
 /**
- * A custom CustomCheckBox is a checkBox which does not close when you click on it
+ * A CustomCheckBox is a checkBox which does not close when you click on it
  *
  * @author Néo ALMEIDA
  * @version %I%, %G%
@@ -20,7 +20,6 @@ public class CustomCheckBox extends CustomMenuItem {
 
         setContent(checkBox);
         setHideOnClick(hideOnClick);
-
     }
 
     public CustomCheckBox(String label) {
@@ -38,8 +37,5 @@ public class CustomCheckBox extends CustomMenuItem {
     public BooleanProperty getSelectedProperty() {
         return this.checkBox.selectedProperty();
     }
-
-
-
 
 }

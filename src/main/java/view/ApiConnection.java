@@ -44,7 +44,6 @@ public class ApiConnection {
         for (JSONObject key : (Iterable<JSONObject>) dataJs) {
             this.modelList.add(new OnlineModel((int) Long.parseLong(key.get("id").toString()), (String) key.get("name"), (String) key.get("imglink")));
         }
-
     }
 
     private static ApiConnection data = null;
@@ -56,7 +55,5 @@ public class ApiConnection {
         }
 
         data.modelList.forEach(x -> tilePane.getChildren().add(new ModelVBox(x)));
-
     }
-
 }

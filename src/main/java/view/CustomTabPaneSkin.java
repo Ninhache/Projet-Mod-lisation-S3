@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * The CustomTabPaneSkin add a placeholder when the TabPane's parent has no child
+ * The CustomTabPaneSkin adds a placeholder when the TabPane's parent has no child
  *
  * @author Néo ALMEIDA
  * @version %I%, %G%
@@ -41,11 +41,8 @@ public class CustomTabPaneSkin extends TabPaneSkin {
         placeHolderText = new Label("test");
         placeHolderText.fontProperty().setValue(Font.font( null, FontWeight.BOLD, 20 ));
         placeHolderText.setAlignment( Pos.CENTER );
-
-
         placeHolderText.minWidthProperty().bind(getSkinnable().widthProperty());
         placeHolderText.minHeightProperty().bind(getSkinnable().heightProperty());
-
         placeHolder = new VBox();
 
         if (widgets != null && widgets.size() > 0) {
@@ -62,7 +59,6 @@ public class CustomTabPaneSkin extends TabPaneSkin {
             container.setAlignment(Pos.CENTER);
             container.setVgap(2);
             container.setHgap(4);
-
 
             HBox.setHgrow(container, Priority.ALWAYS);
 

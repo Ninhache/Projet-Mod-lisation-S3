@@ -37,7 +37,6 @@ public class ScaleSpinnerBox extends HBox {
         });
 
         getChildren().addAll(label, spinner);
-
     }
 
 	public Spinner<Double> getSpinner() {

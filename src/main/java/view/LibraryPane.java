@@ -57,7 +57,6 @@ public class LibraryPane extends TitledPane {
         auteur = new TableColumn<>("Auteur");
         nbFacesCol = new TableColumn<>("Faces");
         nbVerticesCol = new TableColumn<>("Lignes");
-        
 
         setProperty();
         
@@ -81,7 +80,6 @@ public class LibraryPane extends TitledPane {
             if(mouseEvent.getClickCount() == 2 ) {
                 try {
                     File file = new File(tableView.getSelectionModel().getSelectedItem().getPath());
-
 
                     BorderPane borderPane = (BorderPane) getParent().getScene().getRoot();
                     TabCanvasPane tabPane = (TabCanvasPane) borderPane.getCenter();
@@ -114,7 +112,6 @@ public class LibraryPane extends TitledPane {
             onlineLibraryStage.close();
             onlineLibraryStage = null;
         }
-
     }
     
     private void openConfigOnlineClick(ActionEvent actionEvent) {
@@ -129,10 +126,7 @@ public class LibraryPane extends TitledPane {
             onlineLibraryStage.close();
             onlineLibraryStage = null;
         }
-
     }
-    
-    
 
     private void setProperty() {
         setColumnProperty(fileNameCol, "name", .20);

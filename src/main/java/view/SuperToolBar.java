@@ -28,7 +28,7 @@ import view.stages.ControlStage;
 import javax.imageio.ImageIO;
 
 /**
- * The SuperToolBar is a toolbar, which contains much menus
+ * The SuperToolBar is a toolbar, which contains many menus
  *
  * @author Néo ALMEIDA
  * @version %I%, %G%
@@ -302,7 +302,6 @@ public class SuperToolBar extends MenuBar {
 
         getParent().getScene().getStylesheets().clear();
         getParent().getScene().getStylesheets().add(getClass().getResource("/css/theme/"+newCss+".css").toExternalForm());
-
     }
 
     private void onControlClick(ActionEvent e) {

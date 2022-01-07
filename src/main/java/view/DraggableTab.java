@@ -24,7 +24,7 @@ import javafx.stage.StageStyle;
  * A draggable tab that can optionally be detached from its tab pane and shown
  * in a separate window. This can be added to any normal TabPane, however a
  * TabPane with draggable tabs must *only* have DraggableTabs, normal tabs and
- * DrragableTabs mixed will cause issues!
+ * DragableTabs put together will cause issues!
  * <p>
  * See <a href="https://berry120.blogspot.com/2014/01/draggable-and-detachable-tabs-in-javafx.html">this link</a>
  * @author Michael Berry
@@ -48,7 +48,7 @@ public class DraggableTab extends Tab {
     }
 
     /**
-     * Create a new draggable tab. This can be added to any normal TabPane,
+     * Creates a new draggable tab. This can be added to any normal TabPane,
      * however a TabPane with draggable tabs must *only* have DraggableTabs,
      * normal tabs and DraggableTabs put together will cause issues!
      * <p>
@@ -154,7 +154,7 @@ public class DraggableTab extends Tab {
     }
 
     /**
-     * Set whether it's possible to detach the tab from its pane and move it to
+     * Sets whether it's possible or not to detach the tab from its pane and move it to
      * another pane or another window. Defaults to true.
      * <p>
      * @param detachable true if the tab should be detachable, false otherwise.
@@ -164,7 +164,7 @@ public class DraggableTab extends Tab {
     }
 
     /**
-     * Set the label text on this draggable tab. This must be used instead of
+     * Sets the label text on this draggable tab. This must be used instead of
      * setText() to set the label, otherwise weird side effects will result!
      * <p>
      * @param text the label text for this tab.
@@ -251,6 +251,5 @@ public class DraggableTab extends Tab {
         public TabPane getInsertPane() {
             return insertPane;
         }
-
     }
 }

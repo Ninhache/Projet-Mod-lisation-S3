@@ -87,5 +87,4 @@ public class SliderBox extends HBox {
 	public void setSpinner(Spinner<Integer> spinner) {
 		this.spinner = spinner;
 	}
-
 }

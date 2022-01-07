@@ -24,5 +24,4 @@ public class RightMenu extends VBox {
     public ModelAccordion getModelAccordion() {
         return modelAccordion;
     }
-
 }
