@@ -40,11 +40,6 @@ public class TabCanvas extends DraggableTab {
     public void initDraw() {
         this.canvas.initDraw();
     }
-    
-    public void updateDraw() {
-    	System.out.println("UPDATE DRAW ?");
-        this.canvas.initDraw();
-    }
 
     public void draw() {
         this.canvas.draw();
