@@ -116,9 +116,13 @@ public class MatrixTest {
     public void test_translation_matrix() {
 
         m1.translation(-1,1,1);
-        Matrix m2 = new Matrix(new double[][] {{0,7,2},{0,5,1}});
+        Matrix m2 = new Matrix(new double[][] {{1,0,0,-1},
+                                                {0,1,0,1},
+                                                {0,0,1,1},
+                                                {0,0,0,1}});
+
         System.out.println(m1);
-        //Assertions.assertArrayEquals(.getValues(), m1.getValues());
+        Assertions.assertArrayEquals(m1.getValues(), m2.getValues());
         setUp();
         m2.subMatrix(m1);
         //Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.getValues());
