@@ -24,7 +24,7 @@ async function readF(filepath){
     const readFileContent = util.promisify(fs.readFile);
     const fetchFile = async (name) => {
 
-        const buff = await readFileContent("C:\\Users\\FiercePC\\Desktop\\POOPROj\\projetmodeg5\\src\\main\\resources\\cow.ply")
+        const buff = await readFileContent(filepath)
 
         return buff.toString()
     }
