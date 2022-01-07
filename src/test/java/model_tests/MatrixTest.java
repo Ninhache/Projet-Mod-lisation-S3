@@ -1,6 +1,7 @@
 package model_tests;
 import model.maths.Matrix;
 
+import model.maths.Vector;
 import org.junit.jupiter.api.*;
 
 public class MatrixTest {
@@ -108,6 +109,19 @@ public class MatrixTest {
         setUp();
         m2.subMatrix(m1);
         Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.getValues());
+    }
+
+
+    @Test
+    public void test_translation_matrix() {
+
+        m1.translation(-1,1,1);
+        Matrix m2 = new Matrix(new double[][] {{0,7,2},{0,5,1}});
+        System.out.println(m1);
+        //Assertions.assertArrayEquals(.getValues(), m1.getValues());
+        setUp();
+        m2.subMatrix(m1);
+        //Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.getValues());
     }
 
 
