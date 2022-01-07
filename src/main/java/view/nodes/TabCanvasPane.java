@@ -37,7 +37,7 @@ public class TabCanvasPane extends TabPane {
         TabCanvas tab = new TabCanvas(read.readPly(), getWidth(), getHeight());
 
         getTabs().add(tab);
-        tab.updateDraw();
+        tab.initDraw();
         getSelectionModel().select(tab);
 
         ((SuperToolBar)((BorderPane) getParent().getScene().getRoot()).getTop()).addToOpenRecent(file);
