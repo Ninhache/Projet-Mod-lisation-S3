@@ -17,7 +17,10 @@ public class TabCanvas extends DraggableTab {
 
     public TabCanvas(Model model, String title, double width, double height) {
         super(title);
+
         this.canvas = new CanvasModel(model,width,height);
+
+        //setText(title);
         setContent(canvas);
 
     }
@@ -37,8 +40,6 @@ public class TabCanvas extends DraggableTab {
     public void initDraw() {
         this.canvas.initDraw();
     }
-    
-    public void updateDraw() {this.canvas.initDraw();}
 
     public void draw() {
         this.canvas.draw();
@@ -47,7 +48,7 @@ public class TabCanvas extends DraggableTab {
     public CanvasModel getCanvas() {
         return canvas;
     }
-    
+
     public void setVerticesColor(Color color) {
     	this.canvas.setVerticesColor(color);
     }

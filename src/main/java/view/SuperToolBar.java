@@ -291,7 +291,7 @@ public class SuperToolBar extends MenuBar {
         SingleSelectionModel<Tab> selectionModel = tabCanvas.getSelectionModel();
 
         selectionModel.select(tab);
-        tab.updateDraw();
+        tab.initDraw();
 
 
     }
