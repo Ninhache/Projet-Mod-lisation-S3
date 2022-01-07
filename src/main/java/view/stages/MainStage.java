@@ -14,14 +14,9 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
-import model.Rotation;
-import view.components.CanvasModel;
-import view.components.misc.CustomTabPaneSkin;
-import view.nodes.RightMenu;
-import view.nodes.SuperToolBar;
-import view.nodes.TabCanvasPane;
+import model.maths.Rotation;
+import view.*;
 
 public class MainStage extends ExtendedStage {
 
@@ -62,14 +57,15 @@ public class MainStage extends ExtendedStage {
         root.setCenter(tabPane);
         root.setRight(rightMenu);
 
-        setTitle("Modeling project");
+        setTitle(AppUtil.APPLICATION_NAME);
 
         setupListeners();
         setupRunnable();
         setupDisabledComponents();
-        setWidth(Screen.getPrimary().getBounds().getWidth());
-        setHeight(Screen.getPrimary().getBounds().getHeight()-50);
 
+        setWidth(Screen.getPrimary().getBounds().getWidth()/2);
+        setHeight(Screen.getPrimary().getBounds().getHeight()/2);
+        setMaximized(true);
 
         //Déplacement souris
         tabPane.setOnMouseDragged(event -> {
@@ -104,6 +100,9 @@ public class MainStage extends ExtendedStage {
         IntegerBinding integerBinding = Bindings.size(tabPane.getTabs());
         BooleanBinding listGreaterThanZero = integerBinding.greaterThan(0);
         rightMenu.getModelAccordion().getSlidersModel().disableProperty().bind(listGreaterThanZero.not());
+
+        this.toolBar.setupDisabledStuff();
+
     }
 
     private void setupRunnable() {
@@ -160,4 +159,8 @@ public class MainStage extends ExtendedStage {
         return toolBar;
     }
 
+    public TabCanvas getSelectedTabCanvas() {
+    	return (TabCanvas) tabPane.getSelectionModel().getSelectedItem(); 
+    }
+    
 }

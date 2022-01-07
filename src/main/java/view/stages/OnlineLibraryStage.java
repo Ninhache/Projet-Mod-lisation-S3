@@ -7,8 +7,8 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.ApiConnection;
-import view.components.misc.ModelVBox;
-import view.nodes.TabCanvasPane;
+import view.ModelVBox;
+import view.TabCanvasPane;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
