@@ -1,4 +1,4 @@
-package view.nodes;
+package view;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -14,7 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-import model.Rotation;
+import model.maths.Rotation;
+
 
 public class AutoRotaBox extends HBox {
 	

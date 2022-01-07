@@ -1,24 +1,17 @@
-package view.components.tiltedPane;
+package view;
 
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import model.Model;
-import model.Rotation;
-import view.components.tabpane.TabCanvas;
-import view.nodes.SliderBox;
-import view.nodes.SpinnerBox;
-import view.nodes.TabCanvasPane;
+import model.maths.Rotation;
+import model.models.Model;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Sliders that allow to rotate the model on the X, Y or Z axis
@@ -30,7 +23,7 @@ import view.nodes.TabCanvasPane;
 public class SlidersModelPane extends TitledPane {
 
 	private SliderBox sliderBoxX, sliderBoxY, sliderBoxZ;
-	private SpinnerBox scale;
+	private ScaleSpinnerBox scale;
 	private Button reset;
 	private Label title, labelVertices, labelFaces, labelAuteur, labelComment;
 	private HBox scaleReset;
@@ -57,7 +50,7 @@ public class SlidersModelPane extends TitledPane {
 		sliderBoxX = new SliderBox(Rotation.X);
 		sliderBoxY = new SliderBox(Rotation.Y);
 		sliderBoxZ = new SliderBox(Rotation.Z);
-		scale = new SpinnerBox();
+		scale = new ScaleSpinnerBox();
 		reset = new Button("Reset");
 		scaleReset = new HBox();
 		scaleReset.getChildren().addAll(scale,reset);

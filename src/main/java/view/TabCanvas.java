@@ -3,6 +3,7 @@ package view;
 import javafx.scene.paint.Color;
 import model.models.Model;
 
+
 /**
  * The TabCanvas is just a Tab, handeling a canvas
  *
