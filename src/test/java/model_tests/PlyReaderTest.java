@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.PlyReader;
+import model.io.PlyReader;
 
 class PlyReaderTest {
 

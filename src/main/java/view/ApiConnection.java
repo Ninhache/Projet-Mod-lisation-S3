@@ -1,20 +1,25 @@
 package view;
 
 import javafx.scene.layout.TilePane;
-import model.Internet;
-import model.ModelGet;
+import model.InternetUtil;
+import model.io.OnlineModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import view.components.misc.ModelVBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * We decided to create our API to be able to load models even if they aren't on our computer
+ * The API is OpenSource and can be found in our files
+ *
+ * @see {@link view.stages.OnlineLibraryStage}
+ */
 public class ApiConnection {
 
-    public final ArrayList<ModelGet> modelList = new ArrayList<>();
+    public final ArrayList<OnlineModel> modelList = new ArrayList<>();
 
     private ApiConnection(TilePane tilePane) {
 
@@ -25,7 +30,7 @@ public class ApiConnection {
         JSONObject jsObject = null;
 
         try {
-            data = Internet.sendHttpGETRequest("http://178.170.9.238:3000/3dModel");
+            data = InternetUtil.sendHttpGETRequest("http://178.170.9.238:3000/3dModel");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,7 +46,7 @@ public class ApiConnection {
             dataJs = (JSONArray) jsObject.get("data");
         }
         for (JSONObject key : (Iterable<JSONObject>) dataJs) {
-            this.modelList.add(new ModelGet((int) Long.parseLong(key.get("id").toString()), (String) key.get("name"), (String) key.get("imglink")));
+            this.modelList.add(new OnlineModel((int) Long.parseLong(key.get("id").toString()), (String) key.get("name"), (String) key.get("imglink")));
         }
 
     }
