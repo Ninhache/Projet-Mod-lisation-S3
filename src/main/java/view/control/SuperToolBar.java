@@ -191,9 +191,10 @@ public class SuperToolBar extends MenuBar {
 
         if(file == null) {
 
-            MessageBoxUtil.showWarning("Fichier introuvable", "Erreur 667");
+            MessageBoxUtil.showWarning("Fichier introuvable", "Le fichier que vous avez selectionné n'as pas été trouvé, veuillez-réessayer");
             throw new FileNotFoundException();
         }
+
         TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
 
         try {
