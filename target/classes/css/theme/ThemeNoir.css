@@ -1,0 +1,13 @@
+* {
+    -fx-text-fill: white;
+    -fx-base: black;
+}
+
+.hyperlink {
+    -fx-text-fill: white;
+}
+
+.tooltip{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}

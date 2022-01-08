@@ -1,0 +1,16 @@
+tommygun.ply#C:\Users\Neo\Documents\info\projetmodeg5\.\exemples\tommygun.ply
+helix.ply#C:\Users\Neo\Documents\info\projetmodeg5\.\exemples\helix.ply
+cube.ply#C:\Users\Neo\Documents\info\projetmodeg5\.\exemples\cube.ply
+airplane.ply#C:\Users\Neo\Documents\info\projetmodeg5\.\exemples\airplane.ply
+balance.ply#C:\Users\Neo\Documents\info\projetmodeg5\.\exemples\balance.ply
+test3.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/test3.ply
+test.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/test.ply
+skull.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/skull.ply
+apple.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/apple.ply
+dragon_vrip.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/dragon_vrip.ply
+turbine.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/turbine.ply
+sandal.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/sandal.ply
+cow.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/cow.ply
+big_spider.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/big_spider.ply
+ant.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/ant.ply
+dolphin.ply#/home/infoetu/neo.almeida.etu/Documents/java/projetmodeg5/./exemples/dolphin.ply
