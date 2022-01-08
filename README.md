@@ -9,7 +9,7 @@
 - [x] Le modèle est chargé et visualisé
 - [x] Message d'erreur en cas d'erreur de format dans le fichier
 - [x] La visualisation est correcte (La visualisation centrale oui, les deux autres ont quelques erreurs)
-- [x] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
+- [x] On visualise simultanément trois vues du modèle (de face, de haut, de côté) (retiré au second rendu)
 - [x] Rotation
 - [x] Translation
 - [x] Homotétie (L'échelle)
@@ -33,7 +33,7 @@ VANHEE      Paul (Extasio15/Paul Vanhee) :  API/Zoom/Calcul Matriciel (Rotation/
 Simon : Maintenir le Reader à jour <br>
 Néo : Respecter le MCV à 100% ! <br>
 Matteo : Link les sliders sur toutes les vues <br>
-Paul : Les calculs Matriciel <br>
+Paul : Les calculs Matriciels <br>
 
 # Livrable 2
 
@@ -41,35 +41,51 @@ Paul : Les calculs Matriciel <br>
 
 
 - [x] Affichage faces seulement / segments seulement
-- [ ] Affichage avancé de la bibliothèque de modèles
-- [ ] Recherche dans la bibliothèque de modèles
+- [x] Affichage avancé de la bibliothèque de modèles :
+- [x] Recherche dans la bibliothèque de modèles
 - [ ] Éditer les informations sur un modèle
-- [ ] Modèle centré
-- [ ] Éclairage
+- [x] Modèle centré
+- [x] Éclairage
 - [ ] Lissage
 - [ ] Ombre portée
 - [ ] Vue en tranches
-- [ ] Controleur horloge ?
+- [x] Controleur horloge 
 - [x] Autres, préciser :
     - Choix du thème de l'interface
+    - API (Code source disponible), Si on souhaite l'utiliser à l'Université (ou autre), on à la possibilité de changer son proxy
+    - Affichage Sommets
+    - Couleurs des modèles modifiable (non permanent), Sommets, Arrêtes, Faces, Fonds
+    - Ouvrir plusieurs modèles, via des onglets
+    - Implémentation d'un algorithme pour optimiser le rendu (Similable à du RayCasting, mais fais sans Ray..)
+    - Gestion dynamique des fichiers
+
 
 ## Autres exigences
 
-- [ ] Tests unitaires
-- [ ] Diagramme de classes UML
+- [x] Tests unitaires
+- [x] Diagramme de classes UML
 - [x] Javadoc
-- [ ] Captures d'écran
-- [ ] Vidéo de présentation
-- [ ] Respect du format de rendu
+- [x] Captures d'écran
+- [x] Vidéo de présentation
+- [x] Respect du format de rendu
 
 ## Distribution du travail (qui a fait quoi)
 
-ALMEIDA     Néo     :   ?<br>
-LAGNEAU     Simon   :   ?<br>
-MACIEIRA    Matteo  :   ?<br>
-VANHEE      Paul    :   ?<br>
+ALMEIDA     Néo     :   Documentation, Calcul Matriciel, Observer/Observé, Affichage (Éclairage, algorithme du peintre, "RayCasting"), Interface, Librairie de fichiers avancée, Thèmes, Les fenêtres d'informations (+Gestion d'erreur), Gestion dynamique des fichiers, Clean Code, Exporter en png, Canvas "receptif" => On peut les bouger à la souris, Zoom à la souris, Raccourcis claviers <br>
+LAGNEAU     Simon   :   Documentation, Reader, La barre de Recherche, Tests, Clean Code, <br>
+MACIEIRA    Matteo  :   Documentation, Génération PMD + UML, La partie "Sliders" sur le côté (Slider de rotation + Bouton de reset), Controleur horloge, Librairie de fichiers avancée, Vidéo de présentation, Tentative d'Implémentation des 3 vues, Clean Code,  <br>
+VANHEE      Paul    :   Documentation, Calcul Matriciel, Api, Bouton de zoom, , Tests Matriciels, Tentative d'Implémentation des 3 vues, Tentative d'Implémentation de l'Affichage en tranches, Clean Code <br>
+
+## À Noter !
+
+> Paul a participé activement au developpement du projet malgré le peu de push (sur git), de plus, de plus, les push de la dernière soirées ont tous été fait depuis la même machine, mais réalisé par plusieurs personnes (en utilisant CodeWithMe, extensions proposée par IntelliJ pour travailler en groupe, sur une même machine).
+
+> Beaucoup de Push sur git ont dans leur nom ".class", c'est à cause du livrable1, qui nous à générer un nombre incalculable de .class qui venait se loger sur git (malgré le .gitignore).
 
 
 ## Difficultés rencontrées
 
-Néo : Respecter le MCV à 200% !
+Néo : Respecter le clean code était compliqué surtout que je pense que nous sommes partis sur une mauvaise base, non-utilisation d'enum ni d'interface, alors que sur la fin du projet, celle-ci semblaient nécessaires.
+Matteo et Paul : les 3 vues sans re-générer un modèle pour éviter les trop nombreux calculs.
+Simon : les "ByteArrayOutputStream".
+
