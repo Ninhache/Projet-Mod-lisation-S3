@@ -96,11 +96,11 @@ public class OnlineConfigStage extends ExtendedStage {
     }
 
 	private boolean isValidHttp() {
-		return this.httpField.getText().length() == 0 || this.portField.getText().length() == 0;
+		return this.httpField.getText().length() != 0 || this.portField.getText().length() != 0;
 	}
 
 	private boolean isValidHttps() {
-		return this.httpsField.getText().length() == 0 || this.portsField.getText().length() == 0;
+		return this.httpsField.getText().length() != 0 || this.portsField.getText().length() != 0;
 	}
 
 }
