@@ -1,13 +1,20 @@
-package view;
+package view.components;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import model.io.PlyReader;
 import model.maths.Rotation;
+import view.components.render.TabCanvas;
 
 import java.io.File;
 
+/**
+ * Permit to do some action on the model
+ *
+ * @author Paul VANHEE - Neo ALMEIDA
+ * @version %I%, %G%
+ */
 public class TabCanvasPane extends TabPane {
 
     public TabCanvasPane() {
@@ -20,8 +27,6 @@ public class TabCanvasPane extends TabPane {
 
             try {
             	((RightMenu) ((BorderPane) getParent().getScene().getRoot()).getRight()).getModelAccordion().getSlidersModel().updateInformations(numberSelected);
-//            	Model model=((TabCanvas) getSelectionModel().)).getCanvas().getModel();
-//            	Model model = ((TabCanvas)getTabs().get(numberSelected.intValue())).getCanvas().getModel();
             } catch (Exception e) {}
         });
 

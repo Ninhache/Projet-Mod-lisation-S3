@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -22,8 +22,12 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import javafx.embed.swing.SwingFXUtils;
+import view.components.render.TabCanvas;
+import view.utils.ActionLink;
 import view.stages.AboutStage;
+import view.stages.ColorHandlerStage;
 import view.stages.ControlStage;
+import view.utils.MessageBoxUtil;
 
 import javax.imageio.ImageIO;
 
@@ -50,87 +54,57 @@ public class SuperToolBar extends MenuBar {
 
         // Aide
         private Menu theme;
-        private MenuItem controlButtonStage, aboutButtonStage;
+        private MenuItem cButtonStage, aButtonStage;
         private ThemeRadioButton whiteTheme, blackTheme, orangeTheme, redTheme, pinkTheme, blueTheme, purpleTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3;
-        // TODO REMOVE SECRETTHEME !!!!????
-
-        /////
 
     private ControlStage controlWindow;
     private ColorHandlerStage colorWindow;
     private AboutStage aboutStage;
 
     private FileChooser fileChooser;
-    private PlyReader reader = new PlyReader();
     
     public SuperToolBar() {
         super();
 
-        fichier = new Menu("Fichier");
-        outils = new Menu("Outils");
-        aide = new Menu("Aide");
-        
-        
+        setupAttributes();
+        setupProperties();
 
-        open = new MenuItem("Ouvrir");
-        saveAsImg = new MenuItem("en png");
-        print3d = new MenuItem("Imprimer en 3D");
-        saveAsPly = new MenuItem("en .ply");
-        quit = new MenuItem("Quitter");
-        clearRecent = new MenuItem("Nettoyer");
-
-        openRecents = new Menu("Ouvrir récent...");
-        openRecents.getItems().addAll(getRecentFiles());
-        manageRecents();
-
-        exportAs = new Menu("Exporter...");
-        exportAs.getItems().addAll(saveAsImg, saveAsPly);
-
-        afficherSommet = new CustomCheckBox("Afficher sommet");
-        	afficherSommet.getSelectedProperty().set(false);
-        afficherFaces = new CustomCheckBox("Afficher faces");
-            afficherFaces.getSelectedProperty().set(false);
-        afficherLignes = new CustomCheckBox("Afficher lignes");
-            afficherLignes.getSelectedProperty().set(true);
-        afficherLumieres = new CustomCheckBox("Afficher lumières");
-            afficherLumieres.getSelectedProperty().set(false);
-
-        afficherLumieres.disableProperty().bind(afficherFaces.getSelectedProperty().not());
-        afficherLumieres.disableProperty().addListener((observable, oldValue, newValue) -> afficherLumieres.setSelected(false));
-
-        sortMenu = new Menu("Trier par...");
-        sortAlpha = new MenuItem("A . . . Z");
-        sortRevert = new MenuItem("Z . . . A");
-        sortRandom = new MenuItem("Aléatoire");
-
-        sortMenu.getItems().addAll(sortAlpha, sortRevert, sortRandom);
-        colorStage = new MenuItem("Changer couleurs");
-        
-        // Help
-        theme = new Menu("Thème");
-            ToggleGroup group = new ToggleGroup();
-            setThemes(group);
-        controlButtonStage = new MenuItem("Contrôles");
-        aboutButtonStage = new MenuItem("À Propos");
-
+        ToggleGroup group = new ToggleGroup();
+        setThemes(group);
         whiteTheme.setSelected(true);
 
         getMenus().addAll(fichier, outils, aide);
-
+        openRecents.getItems().addAll(getRecentFiles());
+        exportAs.getItems().addAll(saveAsImg, saveAsPly);
+        sortMenu.getItems().addAll(sortAlpha, sortRevert, sortRandom);
         fichier.getItems().addAll(open, openRecents, new SeparatorMenuItem(), exportAs, print3d,new SeparatorMenuItem(), quit);
         outils.getItems().addAll(afficherSommet, afficherLignes, afficherFaces, afficherLumieres, new SeparatorMenuItem(), sortMenu, new SeparatorMenuItem(), colorStage);
-        aide.getItems().addAll(theme, controlButtonStage,new SeparatorMenuItem(),aboutButtonStage);
+        aide.getItems().addAll(theme, cButtonStage,new SeparatorMenuItem(), aButtonStage);
         theme.getItems().addAll(whiteTheme, blackTheme, orangeTheme, redTheme, pinkTheme, purpleTheme, blueTheme, greenTheme, yellowTheme, secretTheme, secretTheme2, secretTheme3);
 
-        // FILE CHOOSER
-        fileChooser = new FileChooser();
+
         FileChooser.ExtensionFilter[] filters = new FileChooser.ExtensionFilter[]{
                 new FileChooser.ExtensionFilter("Fichier ply (*.ply)", "*.ply"),
                 new FileChooser.ExtensionFilter("Tous les fichiers (*)", "*"),
         };
         fileChooser.getExtensionFilters().addAll(filters);
 
-        // EVENT HANDLERS
+        setupSetOnActions();
+
+        manageRecents();
+    }
+
+    private void setupProperties() {
+        afficherSommet.getSelectedProperty().set(false);
+        afficherFaces.getSelectedProperty().set(false);
+        afficherLignes.getSelectedProperty().set(true);
+        afficherLumieres.getSelectedProperty().set(false);
+
+        afficherLumieres.disableProperty().bind(afficherFaces.getSelectedProperty().not());
+        afficherLumieres.disableProperty().addListener((observable, oldValue, newValue) -> afficherLumieres.setSelected(false));
+    }
+
+    private void setupSetOnActions() {
         open.setOnAction(event -> {
 			try { onOpenClicked(event); } catch (FileNotFoundException e) { e.printStackTrace(); }
 		});
@@ -140,24 +114,51 @@ public class SuperToolBar extends MenuBar {
         print3d.setOnAction(this::onPrint3dClick);
         clearRecent.setOnAction(this::onClearRecentClick);
 
-        controlButtonStage.setOnAction(this::onControlClick);
+        cButtonStage.setOnAction(this::onControlClick);
         colorStage.setOnAction(this::onColorHandlerClick);
-        aboutButtonStage.setOnAction(this::onAboutClicked);
+        aButtonStage.setOnAction(this::onAboutClicked);
 
-        
+
         sortAlpha.setOnAction(this::onSortAlphaClick);
         sortRevert.setOnAction(this::onSortAlphaReverseClick);
         sortRandom.setOnAction(this::onShuffleClick);
-        
+
 
         theme.getItems().forEach(button -> button.setOnAction(this::onRadioClick));
+    }
+
+    private void setupAttributes() {
+        afficherSommet = new CustomCheckBox("Afficher sommet");
+        afficherFaces = new CustomCheckBox("Afficher faces");
+        afficherLignes = new CustomCheckBox("Afficher lignes");
+        afficherLumieres = new CustomCheckBox("Afficher lumières");
+        fileChooser = new FileChooser();
+        openRecents = new Menu("Ouvrir récent...");
+        sortMenu = new Menu("Trier par...");
+        theme = new Menu("Thème");
+        exportAs = new Menu("Exporter...");
+        fichier = new Menu("Fichier");
+        outils = new Menu("Outils");
+        aide = new Menu("Aide");
+        open = new MenuItem("Ouvrir");
+        saveAsImg = new MenuItem("en png");
+        print3d = new MenuItem("Imprimer en 3D");
+        saveAsPly = new MenuItem("en .ply");
+        quit = new MenuItem("Quitter");
+        clearRecent = new MenuItem("Nettoyer");
+        sortAlpha = new MenuItem("A . . . Z");
+        sortRevert = new MenuItem("Z . . . A");
+        sortRandom = new MenuItem("Aléatoire");
+        colorStage = new MenuItem("Changer couleurs");
+        cButtonStage = new MenuItem("Contrôles");
+        aButtonStage = new MenuItem("À Propos");
     }
 
     public void setupDisabledStuff() {
         TabCanvasPane tabPane = (TabCanvasPane)((BorderPane) getParent().getScene().getRoot()).getCenter();
         IntegerBinding integerBinding = Bindings.size(tabPane.getTabs());
-        BooleanBinding listGreaterThanZero = integerBinding.greaterThan(0);
-        colorStage.disableProperty().bind(listGreaterThanZero.not());
+        BooleanBinding listNotNull = integerBinding.greaterThan(0);
+        colorStage.disableProperty().bind(listNotNull.not());
     }
 
     private void manageRecents() {

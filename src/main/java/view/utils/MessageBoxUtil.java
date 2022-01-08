@@ -7,6 +7,7 @@ import javafx.scene.control.ButtonType;
  * This class can create MessageBox, can be useful to display errors or information to user
  *
  * @author Néo ALMEIDA
+ * @version %I%, %G%
  */
 public final class MessageBoxUtil {
 

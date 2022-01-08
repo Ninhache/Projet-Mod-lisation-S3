@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.CheckBox;

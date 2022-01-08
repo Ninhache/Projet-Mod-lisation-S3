@@ -1,7 +1,9 @@
-package view;
+package view.components;
 
 import javafx.scene.paint.Color;
 import model.models.Model;
+import view.components.render.CanvasModel;
+import view.stages.DraggableTab;
 
 
 /**

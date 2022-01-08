@@ -10,6 +10,7 @@ import javafx.scene.control.Hyperlink;
  * You can instanciate with an event, which will be activate on click
  *
  * @author Néo ALMEIDA
+ * @version %I%, %G%
  */
 public class ActionLink extends Hyperlink {
     public ActionLink(String text) {

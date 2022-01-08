@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -9,11 +9,11 @@ import model.maths.Rotation;
 
 /**
  *  The SliderBox is an HBox which contains an HBox and a label (displaying the actual value)
- *
+ *  
+ * @author Matteo MACIEIRA
+ * @version %I%, %G%
  */
 public class SliderBox extends HBox {
-
-    private Rotation rotation;
 
     private Label label;
     private Slider slider;
@@ -25,8 +25,6 @@ public class SliderBox extends HBox {
      */
     public SliderBox(Rotation rotation) {
         super();
-
-        this.rotation = rotation;
 
         this.slider = new Slider(0,360,180);
         this.label = new Label(rotation.getRotation() + " : ");
@@ -70,18 +68,6 @@ public class SliderBox extends HBox {
 
 	public void setLabel(Label label) {
 		this.label = label;
-	}
-
-	public Slider getSlider() {
-		return slider;
-	}
-
-	public void setSlider(Slider slider) {
-		this.slider = slider;
-	}
-
-	public Spinner<Integer> getSpinner() {
-		return spinner;
 	}
 
 	public void setSpinner(Spinner<Integer> spinner) {

@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -8,6 +8,8 @@ import javafx.scene.layout.HBox;
 /**
  * The scale spinner box is linked to the currently selected canvas model
  *
+ * @author Paul VANHEE
+ * @version %I%, %G%
  */
 public class ScaleSpinnerBox extends HBox {
 

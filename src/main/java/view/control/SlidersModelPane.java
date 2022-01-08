@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 
 import javafx.scene.control.Button;
@@ -10,8 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.maths.Rotation;
 import model.models.Model;
-
-import java.util.concurrent.atomic.AtomicBoolean;
+import view.components.render.AutoRotaBox;
+import view.components.render.ScaleSpinnerBox;
+import view.components.render.SliderBox;
+import view.components.render.TabCanvas;
 
 /**
  * Sliders that allow to rotate the model on the X, Y or Z axis
@@ -27,8 +29,6 @@ public class SlidersModelPane extends TitledPane {
 	private Button reset;
 	private Label title, labelVertices, labelFaces, labelAuteur, labelComment;
 	private HBox scaleReset;
-	private Button autoRota;
-	private AtomicBoolean started;
 	private AutoRotaBox autoRotation;
 
 	public SlidersModelPane() {
@@ -61,7 +61,6 @@ public class SlidersModelPane extends TitledPane {
 		setContent(root);
 		
 		reset.setOnAction(event -> {
-
 				BorderPane bp = (BorderPane) getParent().getScene().getRoot();
 				TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
 				TabCanvas tb = (TabCanvas) tp.getSelectionModel().getSelectedItem();

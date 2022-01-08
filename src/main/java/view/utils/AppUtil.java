@@ -1,5 +1,10 @@
 package view;
 
+/**
+ * Utility class
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class AppUtil {
 
     public static final String APPLICATION_NAME = "Projet de Modélisation";

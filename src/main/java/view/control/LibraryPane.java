@@ -1,9 +1,7 @@
-package view;
+package view.components;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -11,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.io.LoadedFile;
+import view.utils.MessageBoxUtil;
 import view.stages.OnlineConfigStage;
 import view.stages.OnlineLibraryStage;
 
@@ -20,6 +19,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Containing every elements in the library
+ * @author Néo ALMEIDA - Paul VANHEE - Simon LAGNEAU - Matteo MACIEIRA
+ * @version %I%, %G%
+ */
 public class LibraryPane extends TitledPane {
 
     private Button buttonOnLine;
@@ -63,7 +67,7 @@ public class LibraryPane extends TitledPane {
         HBox onlineLibrary = new HBox();
         buttonOnLine = new Button("Librairie en ligne");
         buttonOnLine.setOnAction(this::openLibraryClick);
-        buttonOnlineConfig = new Button("âš™ï¸�");
+        buttonOnlineConfig = new Button("⚙️");
         buttonOnlineConfig.setOnAction(this::openConfigOnlineClick);
         
         fileList = getFilePly();
@@ -89,7 +93,7 @@ public class LibraryPane extends TitledPane {
                     } catch (FileNotFoundException e) {
                         MessageBoxUtil.showError("Fichier introuvable", "Fichier introuvable");
                     } catch (Exception e) {
-                        MessageBoxUtil.showError("Format Incorrect", "Le format du fichier chargÃ© n'est pas compatible, merci de rÃ©assayer avec un format correct");
+                        MessageBoxUtil.showError("Format Incorrect", "Le format du fichier chargé n'est pas compatible, merci de réessayer avec un format correct");
                         e.printStackTrace();
                     }
 

@@ -1,6 +1,5 @@
-package view;
+package view.components;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
@@ -27,8 +26,6 @@ import java.util.Scanner;
  */
 public class ThemeRadioButton extends RadioMenuItem {
 
-    private Canvas tmp;
-
     public ThemeRadioButton(String color, ToggleGroup group) {
         super(color);
 
@@ -39,8 +36,6 @@ public class ThemeRadioButton extends RadioMenuItem {
             setGraphic(new Rectangle(15,15, Color.RED));
         }
 
-        //tmp = new Canvas()
-
         /* ID IS FOR CUSTOM CSS, THEME WONT WORK WITH THIS !!
            REMEMBER TO CHANGE ID IF YOU DECIDE TO CHANGE NAME OF FILES.CSS */
         this.setId("Theme" + color);
@@ -49,7 +44,6 @@ public class ThemeRadioButton extends RadioMenuItem {
     }
 
     public Rectangle getCurrentColor(String color) throws FileNotFoundException {
-        //Rectangle tmp = new Rectangle(Color.web())
         File f = new File("src/main/resources/css/theme/Theme" + color + ".css");
         Scanner sc = new Scanner(f);
 

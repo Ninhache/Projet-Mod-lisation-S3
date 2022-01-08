@@ -15,6 +15,8 @@ import java.util.ArrayList;
  * We decided to create our API to be able to load models even if they aren't on our computer
  * The API is OpenSource and can be found in our files
  *
+ * @author Néo ALMEIDA - Paul VANHEE
+ * @version %I%, %G%
  * @see {@link view.stages.OnlineLibraryStage}
  */
 public class ApiConnection {

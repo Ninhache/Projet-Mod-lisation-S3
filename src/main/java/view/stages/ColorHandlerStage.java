@@ -11,6 +11,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import view.stages.ExtendedStage;
 
+/**
+ * Permit to select the color of every model's elements
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class ColorHandlerStage extends ExtendedStage {
 
 	private VBoxPicker verticesBox, strokesBox, facesBox, backgroundBox;
@@ -41,7 +46,7 @@ public class ColorHandlerStage extends ExtendedStage {
         setScene(scene);
         setResizable(false);
 
-        setTitle("TitreControlStage");
+        setTitle("Color Selector");
 
         TabCanvas tabCanvas = (TabCanvas) this.tabcanvas.getSelectionModel().getSelectedItem();
 

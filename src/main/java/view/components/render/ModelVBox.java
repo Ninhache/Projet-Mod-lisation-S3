@@ -24,7 +24,7 @@ import java.io.FileWriter;
 /**
  * The ModelVbox adds a JavaFX Vbox Model for the preview of Model (Online Library)
  *
- * @author Néo ALMEIDA
+ * @author Néo ALMEIDA - Paul VANHEE
  * @version %I%, %G%
  */
 public class ModelVBox extends VBox {
@@ -81,13 +81,18 @@ public class ModelVBox extends VBox {
                         fw.append((String)dataK.get("contents"));
                     }
                 }
+
                 TabCanvasPane tp = ols.getTp();
                 tp.addModel(f);
-                f.delete();
 
             } catch (Exception e){
                 e.printStackTrace();
+            } finally {
+                if(f.exists()){
+                    f.delete();
+                }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

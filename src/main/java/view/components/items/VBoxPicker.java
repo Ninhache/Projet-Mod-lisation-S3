@@ -1,10 +1,15 @@
-package view;
+package view.components;
 
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * A new Color Picker
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class VBoxPicker extends VBox {
 
     private ColorPicker colorPicker;
@@ -17,7 +22,6 @@ public class VBoxPicker extends VBox {
         this.colorPicker = new ColorPicker(color != null ? color : Color.WHITE);
 
         getChildren().addAll(this.label, this.colorPicker);
-
     }
 
     public Label getLabel() {

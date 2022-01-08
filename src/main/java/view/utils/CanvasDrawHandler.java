@@ -1,13 +1,19 @@
 package view;
 
+/**
+ * Handle Canvas Rendering Options
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class CanvasDrawHandler {
 
 	private boolean drawVertices = true;
 	private boolean drawFaces = true;
 	private boolean drawStrokes = true;
 	private boolean drawLight = false;
-	
-	public CanvasDrawHandler(){}
+
+	public CanvasDrawHandler() {
+	}
 
 	public void setDefaultValues() {
 		this.drawVertices = false;

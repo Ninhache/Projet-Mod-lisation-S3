@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -7,14 +7,20 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.io.LoadedFile;
 
+/**
+ * A Search bar for the library
+ *
+ * @author Simon Lagneau
+ * @version %I%, %G%
+ */
 public class SearchBar extends TextField {
 
     private TableView<LoadedFile> tableView;
-    private ObservableList<LoadedFile> observableFileList;
+    private ObservableList<LoadedFile> observableList;
 
-    public SearchBar(TableView<LoadedFile> tableView, ObservableList<LoadedFile> observableFileList) {
+    public SearchBar(TableView<LoadedFile> tableView, ObservableList<LoadedFile> observableList) {
         this.tableView = tableView;
-        this.observableFileList = observableFileList;
+        this.observableList = observableList;
 
         initSearchBar();
     }
@@ -23,7 +29,7 @@ public class SearchBar extends TextField {
 
         setPromptText("Search in the .ply files list...");
 
-        FilteredList<LoadedFile> filteredData = new FilteredList<>(this.observableFileList, b -> true);
+        FilteredList<LoadedFile> filteredData = new FilteredList<>(this.observableList, b -> true);
         textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredData.setPredicate( plyFile -> {
                 if(newValue == null || newValue.isEmpty())
