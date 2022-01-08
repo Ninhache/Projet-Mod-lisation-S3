@@ -52,7 +52,7 @@ public class LibraryPane extends TitledPane {
                 if (model == null) {
                     setTooltip(null);
                 } else {
-                    tooltip.setText(model.getDescription() == null ? model.getDescription() : "Pas de description");
+                    tooltip.setText(model.getDescription() == null ? "Pas de description" : model.getDescription() );
                     setTooltip(tooltip);
                 }
             }

@@ -6,3 +6,8 @@
 .hyperlink {
     -fx-text-fill: black;
 }
+
+.tooltip{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
