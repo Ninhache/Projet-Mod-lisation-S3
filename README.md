@@ -1,4 +1,12 @@
 # Membres de l'équipe
+ALMEIDA Néo, LAGNEAU Simon, MACIEIRA Matteo, VANHEE Paul.
+
+## Pour exécuter le projet :
+Dans le dossier téléchargé :
+
+Linux : `java -jar .\target\projetmode0-Livrable2.jar`
+Windows : `java -jar target/projetmode0-Livrable2.jar`
+
 
 # Livrable 1
 
