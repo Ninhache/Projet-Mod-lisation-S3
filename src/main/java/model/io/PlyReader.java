@@ -396,7 +396,7 @@ public class PlyReader {
 	 * @return the name of the author if mentioned in the .ply file
 	 */
 	public String getAuthorName() {
-		return "Created by " + authorName;
+		return this.authorName == null ? "Inconnu" : this.authorName;
 	}
 
 	/**

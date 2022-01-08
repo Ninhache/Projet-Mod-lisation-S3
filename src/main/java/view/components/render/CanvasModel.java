@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import model.observers.Observable;
 import model.observers.Observer;
@@ -66,11 +67,26 @@ public class CanvasModel extends Canvas implements Observer {
         heightProperty().addListener(e -> this.draw());
 
         addEventHandler(MouseEvent.ANY, mouseDraggedEvent());
+        addEventHandler(ScrollEvent.ANY, scrollEvent());
 
     }
 
+    private EventHandler<ScrollEvent> scrollEvent() {
+        return event -> {
+            if (event.getDeltaY() >= 0) {
+                model.translate(-getWidth() / 2, -getHeight() / 2, 0);
+                model.homothety(1.10);
+                model.translate(getWidth() / 2, getHeight() / 2, 0);
+            } else {
+                model.translate(-getWidth() / 2, -getHeight() / 2, 0);
+                model.homothety(0.90);
+                model.translate(getWidth() / 2, getHeight() / 2, 0);
+            }
+        };
+    }
 
-    public EventHandler<MouseEvent> mouseDraggedEvent() {
+
+    private EventHandler<MouseEvent> mouseDraggedEvent() {
         return new EventHandler<>() {
 
             double dX, dY, rotationX, rotationY;
@@ -79,6 +95,7 @@ public class CanvasModel extends Canvas implements Observer {
 
             @Override
             public void handle(MouseEvent mouseDragged) {
+
 
                 if (!isDragged && mouseDragged.isDragDetect()) {
                     isDragged = true;
@@ -143,6 +160,7 @@ public class CanvasModel extends Canvas implements Observer {
         }
 
         this.model.homothety(ratio);
+        System.out.println("RATIO " + ratio);
         this.model.translate(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0);
 
         initListeners();
