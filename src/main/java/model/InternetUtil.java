@@ -3,7 +3,9 @@ package model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 
 /**
@@ -16,7 +18,7 @@ public class InternetUtil {
 
     private static final String USER_AGENT = "Mozilla/5.0";
     
-    public static String sendHttpGETRequest(String url) throws IOException {
+    public static String sendHttpGETRequest(String url) throws IOException  {
         URL obj = new URL(url);
         HttpURLConnection httpURLConnection = (HttpURLConnection) obj.openConnection();
         httpURLConnection.setRequestMethod("GET");
@@ -35,9 +37,8 @@ public class InternetUtil {
             return response.toString();
 
         } else {
-            System.out.println("GET request not worked");
+            throw new ProtocolException();
         }
-        return null;
     }
 
     public static void setupProperty(String systemProperty, String value) {

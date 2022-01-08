@@ -16,11 +16,16 @@ import model.InternetUtil;
 import model.io.OnlineModel;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import view.control.TabCanvasPane;
 import view.stages.OnlineLibraryStage;
+import view.utils.MessageBoxUtil;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.ProtocolException;
 
 /**
  * The ModelVbox adds a JavaFX Vbox Model for the preview of Model (Online Library)
@@ -94,8 +99,10 @@ public class ModelVBox extends VBox {
                 }
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ProtocolException  e) {
+            MessageBoxUtil.showWarning("Serveur Inatteignable", "Le serveur ne semble pas joignable, êtes-vous bien connecté à Internet ?");
+        } catch (IOException | ParseException e) {
+            MessageBoxUtil.showError("Format Incorrect", "Le format du fichier chargé n'est pas compatible, veuillez contacter l'administrateur de la base de données");
         }
     }
 

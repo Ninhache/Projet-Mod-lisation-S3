@@ -240,8 +240,6 @@ public class SuperToolBar extends MenuBar {
 
     private boolean fileAlreadyInRecent(File fileToAdd) {
         File file = new File("src/main/resources/tmp/openRecentFile.txt");
-        
-        System.out.println("FILE EXIST :" + file.exists());
 
         Scanner sc;
         StringBuilder sb = new StringBuilder();
@@ -400,7 +398,7 @@ public class SuperToolBar extends MenuBar {
     }
 
     private void onExportAsPly(ActionEvent e) {
-        System.out.println("Export ply");
+        MessageBoxUtil.showError("Feature non implémentée !", "Par manque de temps.. (on vas dire)");
     }
 
     private void onSaveImg(ActionEvent e) {

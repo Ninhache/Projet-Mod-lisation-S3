@@ -160,7 +160,6 @@ public class CanvasModel extends Canvas implements Observer {
         }
 
         this.model.homothety(ratio);
-        System.out.println("RATIO " + ratio);
         this.model.translate(this.getWidth()/2 - (this.model.getBarycenterX() * ratio), this.getHeight()/2 - (this.model.getBarycenterY() * ratio), 0);
 
         initListeners();
