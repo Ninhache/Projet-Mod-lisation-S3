@@ -6,8 +6,8 @@ import java.io.FileReader;
 
 /**
  * Use that class to load data
- *
  * @author Néo ALMEIDA, Matteo MACIEIRA
+ * @version %I%, %G%
  */
 public class LoadedFile {
 

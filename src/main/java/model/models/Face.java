@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * A face is build with 3 points, or more !
  *
  * @author Paul VANHEE
- *
+ * @version %I%, %G%
  * @see Model
  * @see Vertex
  */

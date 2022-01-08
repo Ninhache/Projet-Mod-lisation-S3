@@ -1,4 +1,4 @@
-package view;
+package view.components.render;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
@@ -16,6 +16,7 @@ import model.InternetUtil;
 import model.io.OnlineModel;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import view.control.TabCanvasPane;
 import view.stages.OnlineLibraryStage;
 
 import java.io.File;

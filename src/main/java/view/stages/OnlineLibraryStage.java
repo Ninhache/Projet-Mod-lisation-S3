@@ -6,13 +6,20 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import view.ApiConnection;
-import view.ModelVBox;
-import view.TabCanvasPane;
+import view.utils.ApiConnection;
+import view.components.render.ModelVBox;
+import view.control.TabCanvasPane;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 
+
+/**
+ * Permit to acquire model from an API
+ *
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class OnlineLibraryStage extends ExtendedStage {
 
     private Scene scene;

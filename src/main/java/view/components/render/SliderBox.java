@@ -1,4 +1,4 @@
-package view.components;
+package view.components.render;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -6,10 +6,11 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.maths.Rotation;
+import view.control.TabCanvasPane;
 
 /**
  *  The SliderBox is an HBox which contains an HBox and a label (displaying the actual value)
- *  
+ *
  * @author Matteo MACIEIRA
  * @version %I%, %G%
  */

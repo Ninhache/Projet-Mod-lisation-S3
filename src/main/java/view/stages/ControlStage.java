@@ -12,7 +12,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
+/** Permit to inform the user about the control on the application
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class ControlStage extends ExtendedStage {
 
     private final Button closeButton;

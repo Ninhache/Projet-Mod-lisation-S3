@@ -1,13 +1,10 @@
-package view;
+package view.components.render;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
@@ -15,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import model.maths.Rotation;
+import view.control.TabCanvasPane;
 
 /**
  * Make the model spin

@@ -1,4 +1,4 @@
-package view;
+package view.components.render;
 
 import java.util.List;
 
@@ -15,6 +15,8 @@ import model.maths.Vector;
 import model.models.Face;
 import model.models.Model;
 import model.models.Vertex;
+import view.components.items.CustomCheckBox;
+import view.utils.CanvasDrawHandler;
 import view.stages.MainStage;
 
 /**
@@ -66,13 +68,7 @@ public class CanvasModel extends Canvas implements Observer {
         addEventHandler(MouseEvent.ANY, mouseDraggedEvent());
 
     }
-    
-    public CanvasModel(Model model, double width, double height, Rotation rota, int degree) {
-    	this(model,width,height);
-    	initDraw();
-    	this.model.rotate(rota, degree);
-        // this.model.rotate(rota, degree)
-    }
+
 
     public EventHandler<MouseEvent> mouseDraggedEvent() {
         return new EventHandler<>() {

@@ -1,4 +1,4 @@
-package view;
+package view.stages;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -9,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import view.stages.ExtendedStage;
+import view.components.render.TabCanvas;
+import view.control.TabCanvasPane;
+import view.components.items.VBoxPicker;
 
 /**
  * Permit to select the color of every model's elements
@@ -76,5 +78,6 @@ public class ColorHandlerStage extends ExtendedStage {
         tabCanvas.setBackgroundColor(this.backgroundBox.getColor());
 
         tabCanvas.draw();
+        this.close();
     }
 }

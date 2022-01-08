@@ -11,8 +11,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.InternetUtil;
-import view.TabCanvasPane;
+import view.control.TabCanvasPane;
 
+/** Menu to set proxy in order to get model from the online library
+ * @author Paul VANHEE - Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class OnlineConfigStage extends ExtendedStage {
 
     private Scene scene;

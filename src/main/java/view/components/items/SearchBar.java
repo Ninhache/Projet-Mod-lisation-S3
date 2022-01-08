@@ -1,4 +1,4 @@
-package view.components;
+package view.components.items;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

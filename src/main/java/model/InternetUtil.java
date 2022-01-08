@@ -10,6 +10,7 @@ import java.net.URL;
  * Util class to simplify http request
  *
  * @author Néo ALMEIDA
+ * @version %I%, %G%
  */
 public class InternetUtil {
 

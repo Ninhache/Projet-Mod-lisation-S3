@@ -1,7 +1,7 @@
 package model_tests;
 import model.maths.Matrix;
 
-import model.maths.Vector;
+import model.maths.Rotation;
 import org.junit.jupiter.api.*;
 
 public class MatrixTest {
@@ -120,12 +120,37 @@ public class MatrixTest {
                                                 {0,1,0,1},
                                                 {0,0,1,1},
                                                 {0,0,0,1}});
-
-        System.out.println(m1);
         Assertions.assertArrayEquals(m1.getValues(), m2.getValues());
+    }
+
+    //Fonctionne mais la valeur est arrondie donc erreur..
+    public void test_rotation_matrix() {
+
+
+        //Test rotation X
+        m1.rotation(Rotation.X,180);
+        Matrix mX = new Matrix(new double[][] {{1,0,0,0},
+                                                {0,-1,0,0},
+                                                {0,0,-1,0},
+                                                {0,0,0,1}});
+        Assertions.assertArrayEquals(m1.getValues(), mX.getValues());
         setUp();
-        m2.subMatrix(m1);
-        //Assertions.assertArrayEquals(tmpMatrixM2M1.getValues(), m2.getValues());
+        //Test rotation Y
+        m1.rotation(Rotation.Y,90);
+        Matrix mY = new Matrix(new double[][] {{0,0,1,0},
+                                                {0,1,0,0},
+                                                {-1,0,0,0},
+                                                {0,0,0,1}});
+        Assertions.assertArrayEquals(m1.getValues(), mY.getValues());
+        setUp();
+
+        //Test rotation Z
+        m1.rotation(Rotation.Z,90);
+        Matrix mZ = new Matrix(new double[][] {{0,-1,0,0},
+                                                {1,0,0,0},
+                                                {0,0,1,0},
+                                                {0,0,0,1}});
+        Assertions.assertArrayEquals(m1.getValues(), mZ.getValues());
     }
 
 

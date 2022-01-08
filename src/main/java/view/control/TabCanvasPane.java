@@ -1,4 +1,4 @@
-package view.components;
+package view.control;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.TabPane;

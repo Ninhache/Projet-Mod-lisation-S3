@@ -18,13 +18,11 @@ public class PlyReader {
 
 	private String fileName, authorName, description;
 	private File file;
-	private final String END_HEADER = "end_header";
 	private int nbVertex,nbFaces,vertexLength;
 	private ArrayList<Vertex> verticesList;
 	private ArrayList<Face> facesList;
 	private ArrayList<int[]> rgbList;
 	private ArrayList<Double> alphaList;
-	private int colorParser = 0;
 	
 	private double barycenterX = 0;
 	private double barycenterY = 0;
@@ -156,7 +154,7 @@ public class PlyReader {
 			StringBuilder sbComments = new StringBuilder();
 			String line;
 
-			while((line=br.readLine().toLowerCase())!=null && !line.equals(END_HEADER)) {
+			while((line=br.readLine().toLowerCase())!=null && !line.equals("end_header")) {
 
 				if(line.contains("element face "))
 					this.nbFaces= Integer.parseInt(line.substring(line.lastIndexOf(" ")+1));
@@ -165,47 +163,20 @@ public class PlyReader {
 				else if (line.contains("comment created by "))
 					this.authorName = line.substring(line.lastIndexOf(" ")+1);
 				else if(line.contains("comment")) {
-					sbComments.append(line.substring(7)).append("\n");
+					this.description = sbComments.append(line.substring(7)).append("\n").toString();
 				}else if(!this.isColored) {
 					
-					if(line.contains("property uchar red"))
-						this.isColored = true;
-					else if(line.contains("property uchar green"))
-						this.isColored = true;
-					else if(line.contains("property uchar blue"))
-						this.isColored = true;
+					if(line.contains("property uchar red")) this.isColored = true;
+					else if(line.contains("property uchar green")) this.isColored = true;
+					else if(line.contains("property uchar blue")) this.isColored = true;
 
 				} else if(line.contains("property uchar alpha"))
 					this.alpha = true;
 				
-				sb.append(line);
-				sb.append("\n");
+				sb.append(line + "\n");
 			}
 
-			this.description = sbComments.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Checks if the number of lines describing a Vertex is the same as the number of Vertices declared in the header of the .ply file
-	 * 
-	 * @param nbVertexLines The number of lines describing a Vertex in the .ply file
-	 * @return True if the two are equals
-	 */
-	public boolean verifyNbVertex(int nbVertexLines) {
-		return nbVertexLines==this.nbVertex;
-	}
-
-	/**
-	 * Checks if the number of lines describing a Face is the same as the number of Faces declared in the header of the .ply file
-	 * 
-	 * @param nbFacesLines The number of lines describing a Face in the .ply file
-	 * @return True if the two are equals
-	 */
-	public boolean verifyNbFaces(int nbFacesLines) {
-		return nbFacesLines == this.nbFaces;
+		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
 	/**
@@ -276,7 +247,6 @@ public class PlyReader {
 		} else 
 			facesList.add(new Face(pointsOfFace)); 
 
-		colorParser++;
 	}
 	
     /**
@@ -304,23 +274,18 @@ public class PlyReader {
 			StringBuilder sb = new StringBuilder();
 
 			int nbColorInfo = 0;
-			if(isColored)
-				nbColorInfo+=3;
-			if(alpha)
-				nbColorInfo++;
+			if(isColored) nbColorInfo+=3;
+			if(alpha) nbColorInfo++;
 			
-			
-			boolean testIfVertex = splittedLine.length == 3+nbColorInfo;
+			boolean testIfVertex = splittedLine.length == (3 + nbColorInfo);
 
-			int i = 1;
 			while(testIfVertex) {
 
 				vertexLength++;
-				nbVertexLines++;		
+				nbVertexLines++;
 				collectVertexInfo(splittedLine);
 				
-				sb.append(line);
-				sb.append("\n");
+				sb.append(line + "\n");
 				
 				br.mark(vertexLength);
 				line = br.readLine();
@@ -331,7 +296,7 @@ public class PlyReader {
 			}
 		
 			if (nbVertexLines != nbVertex)
-				throw new Exception("element Vertex = " + nbVertex + " && nombre de Lignes de Vertex = " + (i-1) + "");
+				throw new Exception("element Vertex = " + nbVertex + " && nombre de Lignes de Vertex = " + nbVertexLines + "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -357,22 +322,16 @@ public class PlyReader {
 			 br.reset();
 			 
 			 boolean testIfFace = true;
-			 int i = 1;
 			 
 			 while((line=br.readLine())!=null && testIfFace) {
 				
 				splittedLine = line.split(" ");		
 				collectFaceInfo(splittedLine);
 				nbFaceLines++;
-				i++;
 				
-				sb.append(line);
-				sb.append("\n");
-				
-				
-				
+				sb.append(line + "\n");
+
 				if(splittedLine.length != 4) testIfFace= false;
-				
 			 }
 			
 			 if (nbFaceLines != nbFaces) throw new Exception("element Face = " + nbFaces + " && nombre de Lignes de Face = " + nbFaceLines + "");
@@ -398,19 +357,14 @@ public class PlyReader {
 	public void setFile(File file) throws Exception {
 		if(file.exists()) {
 			if(file.getName().endsWith(".ply")) {
-				this.nbFaces = -1;
-				this.nbVertex = -1;
-				this.vertexLength = -1;
-				this.authorName = "";
-				this.description = "";
+				this.nbFaces = this.nbVertex = this.vertexLength = -1;
+				this.authorName = this.description = "";
 				this.facesList = new ArrayList<>();
 				this.verticesList = new ArrayList<>();
 				this.fileName = file.getName();
 				this.file = file;
-			} else
-				throw new Exception("Format incorrect");
-		} else
-			throw new FileNotFoundException("File not found");
+			} else throw new Exception("Format incorrect");
+		} else throw new FileNotFoundException("File not found");
 	}
 	
 	/**
@@ -429,16 +383,13 @@ public class PlyReader {
 	public void setFile(String fileName) throws FileNotFoundException {
 		File file = new File("./exemples/"+fileName+".ply");
 		if(file.exists()) {
-			this.nbFaces = -1;
-			this.nbVertex = -1;
-			this.vertexLength = -1;
-			this.authorName = "";
+			this.nbFaces = this.nbVertex = this.vertexLength = -1;
+			this.authorName = this.description = "";
 			this.facesList = new ArrayList<>();
 			this.verticesList = new ArrayList<>();
 			this.fileName = fileName;
 			this.file = new File("./exemples/"+fileName+".ply");
-		} else
-			throw new FileNotFoundException("There's no file existing in the resources directory with the given name");
+		} else throw new FileNotFoundException("There's no file existing in the resources directory with the given name");
 	}
 	
 	/**
@@ -457,22 +408,6 @@ public class PlyReader {
 
 	public String getFileName() {
 		return fileName;
-	}
-	
-	public ArrayList<Vertex> getVerticesList() {
-		return verticesList;
-	}
-
-	public void setVerticesList(ArrayList<Vertex> verticesList) {
-		this.verticesList = verticesList;
-	}
-
-	public ArrayList<Face> getFacesList() {
-		return facesList;
-	}
-
-	public void setFacesList(ArrayList<Face> facesList) {
-		this.facesList = facesList;
 	}
 
 	public int getNbFaces() {

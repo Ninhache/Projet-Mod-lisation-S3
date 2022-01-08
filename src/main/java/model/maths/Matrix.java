@@ -188,7 +188,6 @@ public class Matrix {
         this.translation(v.getX(), v.getY(), v.getZ());
     }
 
-    // TODO : Test will be hard to make...
     public void rotation(Rotation r, double degre) {
         double[][] vals;
         if(r.equals(Rotation.X)) {

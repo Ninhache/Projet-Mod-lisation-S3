@@ -1,4 +1,4 @@
-package view.components;
+package view.control;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -22,6 +22,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import javafx.embed.swing.SwingFXUtils;
+import view.components.items.ThemeRadioButton;
+import view.components.items.CustomCheckBox;
 import view.components.render.TabCanvas;
 import view.utils.ActionLink;
 import view.stages.AboutStage;

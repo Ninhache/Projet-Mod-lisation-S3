@@ -4,7 +4,7 @@ import model.observers.Observable;
 import model.maths.Matrix;
 import model.maths.Rotation;
 import model.maths.Vector;
-import view.CanvasModel;
+import view.components.render.CanvasModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

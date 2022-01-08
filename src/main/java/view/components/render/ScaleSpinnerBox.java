@@ -1,9 +1,10 @@
-package view.components;
+package view.components.render;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import view.control.TabCanvasPane;
 
 /**
  * The scale spinner box is linked to the currently selected canvas model

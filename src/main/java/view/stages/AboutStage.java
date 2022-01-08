@@ -11,13 +11,16 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.StageStyle;
-import view.AppUtil;
+import view.utils.AppUtil;
 import view.Window;
 
-
+/** Informative menu, identify every informations about the application
+ * @author Néo ALMEIDA
+ * @version %I%, %G%
+ */
 public class AboutStage extends ExtendedStage {
-    private Label applicationTitle, applicationDescription;
-    private HBox descriptionContainer;
+    private Label appTitle, appDesc;
+    private HBox descContainer;
     private Separator separatorA, separatorB;
     private TextArea textZone;
     private Hyperlink gitlabUrl;
@@ -29,22 +32,22 @@ public class AboutStage extends ExtendedStage {
         root.setPadding(new Insets(18));
         root.setSpacing(6);
 
-        applicationTitle = new Label(AppUtil.ABOUT_TITLE);
-        applicationTitle.setFont(new Font("Arial", 32));
+        appTitle = new Label(AppUtil.ABOUT_TITLE);
+        appTitle.setFont(new Font("Arial", 32));
 
-        descriptionContainer = new HBox();
-        descriptionContainer.setAlignment(Pos.CENTER);
-        descriptionContainer.setPadding(Insets.EMPTY);
-        descriptionContainer.setSpacing(4);
+        descContainer = new HBox();
+        descContainer.setAlignment(Pos.CENTER);
+        descContainer.setPadding(Insets.EMPTY);
+        descContainer.setSpacing(4);
 
-        HBox.setHgrow(descriptionContainer, Priority.ALWAYS);
+        HBox.setHgrow(descContainer, Priority.ALWAYS);
 
-        applicationDescription = new Label(AppUtil.ABOUT_DESCRIPTION);
+        appDesc = new Label(AppUtil.ABOUT_DESCRIPTION);
 
         gitlabUrl = new Hyperlink("Lien GitLab");
         gitlabUrl.setOnAction(this::onGitLabLinkClicked);
 
-        descriptionContainer.getChildren().addAll(applicationDescription, gitlabUrl);
+        descContainer.getChildren().addAll(appDesc, gitlabUrl);
 
         separatorA = new Separator(Orientation.HORIZONTAL);
         HBox.setHgrow(separatorA, Priority.ALWAYS);
@@ -64,7 +67,7 @@ public class AboutStage extends ExtendedStage {
         closeBtn.setDefaultButton(true);
         closeBtn.setOnAction(this::onCloseClicked);
 
-        root.getChildren().addAll(applicationTitle, descriptionContainer, separatorA, textZone, separatorB, closeBtn);
+        root.getChildren().addAll(appTitle, descContainer, separatorA, textZone, separatorB, closeBtn);
 
         Scene scene = new Scene(root);
         setScene(scene);

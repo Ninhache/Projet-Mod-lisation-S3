@@ -1,4 +1,4 @@
-package view;
+package view.stages;
 
 import java.util.HashSet;
 import java.util.Set;

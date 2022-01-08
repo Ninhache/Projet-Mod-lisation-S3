@@ -1,4 +1,4 @@
-package view.components;
+package view.components.items;
 
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;

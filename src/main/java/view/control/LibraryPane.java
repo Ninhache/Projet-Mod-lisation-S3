@@ -1,4 +1,4 @@
-package view.components;
+package view.control;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.io.LoadedFile;
+import view.components.items.SearchBar;
 import view.utils.MessageBoxUtil;
 import view.stages.OnlineConfigStage;
 import view.stages.OnlineLibraryStage;

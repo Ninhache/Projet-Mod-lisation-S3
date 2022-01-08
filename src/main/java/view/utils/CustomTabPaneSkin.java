@@ -1,4 +1,4 @@
-package view;
+package view.utils;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -10,6 +10,7 @@ import javafx.scene.control.skin.TabPaneSkin;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import view.components.render.TabCanvas;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package view.components;
+package view.components.items;
 
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;

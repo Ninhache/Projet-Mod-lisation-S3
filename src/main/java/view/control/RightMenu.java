@@ -1,7 +1,6 @@
-package view.components;
+package view.control;
 
 import javafx.scene.layout.VBox;
-import view.components.ModelAccordion;
 
 /**
  * It's the right menu of the main windows

@@ -12,18 +12,25 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import model.maths.Rotation;
-import view.*;
+import view.components.render.CanvasModel;
+import view.control.RightMenu;
+import view.control.SuperToolBar;
+import view.control.TabCanvasPane;
+import view.utils.AppUtil;
+import view.utils.CustomTabPaneSkin;
 
+/**
+ * The Main Stage where everything happens like control, rendering, button..
+ * @author Paul VANHEE - Neo ALMEIDA
+ */
 public class MainStage extends ExtendedStage {
 
     private SuperToolBar toolBar;
     private TabCanvasPane tabPane;
     private ToggleButton translate, rotate;
-    private ToggleGroup tg;
     private RightMenu rightMenu;
 
     private double mousePosX, mouseOldY, mousePosY, mouseOldX;
@@ -44,11 +51,6 @@ public class MainStage extends ExtendedStage {
 
         rightMenu = new RightMenu();
 
-        tg = new ToggleGroup();
-            translate = new ToggleButton("Translate");
-            translate.setToggleGroup(tg);
-            rotate = new ToggleButton("Rotate");
-            rotate.setToggleGroup(tg);
 
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/theme/ThemeBlanc.css")).toExternalForm());
@@ -67,17 +69,11 @@ public class MainStage extends ExtendedStage {
         setHeight(Screen.getPrimary().getBounds().getHeight()/2);
         setMaximized(true);
 
-        //Déplacement souris
-        tabPane.setOnMouseDragged(event -> {
-            mousePosX = event.getSceneX();
-            mousePosY = event.getSceneY();
-            movingModel(event);
-        });
-        tabPane.setOnMousePressed(this::movingModel);
+
 
     }
 
-    // FONCTION QUI SERT A CE QUE LE SKIN SOIT PRIS EN COMPTE, OUI C'EST DÉBILE !!
+    // FONCTION QUI SERT A CE QUE LE SKIN SOIT PRIS EN COMPTE
     private void loadingUpdate() {
         Tab tab = new Tab();
         tabPane.getTabs().add(tab);
@@ -98,11 +94,10 @@ public class MainStage extends ExtendedStage {
 
     private void setupDisabledComponents() {
         IntegerBinding integerBinding = Bindings.size(tabPane.getTabs());
-        BooleanBinding listGreaterThanZero = integerBinding.greaterThan(0);
-        rightMenu.getModelAccordion().getSlidersModel().disableProperty().bind(listGreaterThanZero.not());
+        BooleanBinding listNotNull = integerBinding.greaterThan(0);
+        rightMenu.getModelAccordion().getSlidersModel().disableProperty().bind(listNotNull.not());
 
         this.toolBar.setupDisabledStuff();
-
     }
 
     private void setupRunnable() {
@@ -123,44 +118,26 @@ public class MainStage extends ExtendedStage {
         getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), kcCloseRequest);
 
         // Ctrl + R
-        Runnable kcRotateModel = () -> tabPane.rotateModel(Rotation.X,15);
-        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN), kcRotateModel);
+        Runnable kcRotateH = () -> tabPane.rotateModel(Rotation.X,15);
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN), kcRotateH);
 
         // Ctrl + shift + r
-        Runnable kcRotateInverseModel = () -> tabPane.rotateModel(Rotation.X,-15);
-        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcRotateInverseModel);
+        Runnable kcRotateAH = () -> tabPane.rotateModel(Rotation.X,-15);
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcRotateAH);
 
         // Ctrl + T
-        Runnable kcTranslateModel = () -> tabPane.translateModel(0,10,0);
-        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN), kcTranslateModel);
+        Runnable kcTranslateR = () -> tabPane.translateModel(0,10,0);
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN), kcTranslateR);
 
         // Ctrl + Shift + T
-        Runnable kcTranslateInverseModel = () -> tabPane.translateModel(0,-10,0);
-        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTranslateInverseModel);
+        Runnable kcTranslateL = () -> tabPane.translateModel(0,-10,0);
+        getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN), kcTranslateL);
 
     }
 
-    private void movingModel(MouseEvent event) {
-        mousePosX = event.getSceneX();
-        mousePosY = event.getSceneY();
-        ToggleButton selectedToggleButton = (ToggleButton) tg.getSelectedToggle();
-        if(selectedToggleButton != null){
-            if(selectedToggleButton.equals(rotate)){
-                tabPane.rotateModel(Rotation.X,(mousePosY - mouseOldY));
-            } else if(selectedToggleButton.equals(translate)){
-                tabPane.translateModel((mousePosX-mouseOldX),(mousePosY-mouseOldY),0);
-            }
-        }
-        mouseOldX = mousePosX;
-        mouseOldY = mousePosY;
-    }
 
     public SuperToolBar getToolBar() {
         return toolBar;
-    }
-
-    public TabCanvas getSelectedTabCanvas() {
-    	return (TabCanvas) tabPane.getSelectionModel().getSelectedItem(); 
     }
     
 }

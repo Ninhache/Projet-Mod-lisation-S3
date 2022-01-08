@@ -1,4 +1,4 @@
-package view.components;
+package view.components.render;
 
 import javafx.scene.paint.Color;
 import model.models.Model;
@@ -23,9 +23,7 @@ public class TabCanvas extends DraggableTab {
 
         this.canvas = new CanvasModel(model,width,height);
 
-        //setText(title);
         setContent(canvas);
-
     }
 
     public TabCanvas(Model model, double width, double height) {

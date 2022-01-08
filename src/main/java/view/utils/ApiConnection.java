@@ -1,4 +1,4 @@
-package view;
+package view.utils;
 
 import javafx.scene.layout.TilePane;
 import model.InternetUtil;
@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import view.components.render.ModelVBox;
 
 import java.io.IOException;
 import java.util.ArrayList;

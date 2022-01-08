@@ -1,4 +1,4 @@
-package view;
+package view.utils;
 
 /**
  * Handle Canvas Rendering Options
