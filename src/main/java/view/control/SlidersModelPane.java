@@ -61,6 +61,10 @@ public class SlidersModelPane extends TitledPane {
 		setContent(root);
 		
 		reset.setOnAction(event -> {
+				sliderBoxX.getSlider().setValue(180);
+				sliderBoxY.getSlider().setValue(180);
+				sliderBoxZ.getSlider().setValue(180);
+				scale.getSpinner().getValueFactory().setValue(1.0);
 				BorderPane bp = (BorderPane) getParent().getScene().getRoot();
 				TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
 				TabCanvas tb = (TabCanvas) tp.getSelectionModel().getSelectedItem();

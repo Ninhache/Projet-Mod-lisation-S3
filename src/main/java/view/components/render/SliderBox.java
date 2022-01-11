@@ -18,7 +18,8 @@ public class SliderBox extends HBox {
 
     private Label label;
     private Slider slider;
-    private Spinner<Integer> spinner;
+
+	private Spinner<Integer> spinner;
 
     /**
      * A SliderBox takes a Rotation in parameter to rotate according to the angle
@@ -73,5 +74,13 @@ public class SliderBox extends HBox {
 
 	public void setSpinner(Spinner<Integer> spinner) {
 		this.spinner = spinner;
+	}
+	
+    public Slider getSlider() {
+		return slider;
+	}
+
+	public void setSlider(Slider slider) {
+		this.slider = slider;
 	}
 }
