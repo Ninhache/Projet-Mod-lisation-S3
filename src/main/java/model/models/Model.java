@@ -4,7 +4,7 @@ import model.observers.Observable;
 import model.maths.Matrix;
 import model.maths.Rotation;
 import model.maths.Vector;
-import view.components.render.CanvasModel;
+import view.components.render.CanvasModelTop;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ import java.util.Collections;
  *
  * @author Néo ALMEIDA - Paul VANHEE - Simon LAGNEAU
  * @version %I%, %G%
- * @see CanvasModel
+ * @see CanvasModelTop
  */
 public class Model extends Observable {
 
@@ -282,8 +282,6 @@ public class Model extends Observable {
     public String getDescription() {
         return description;
     }
-
-
 
     public void setDescription(String description) {
         this.description = description;

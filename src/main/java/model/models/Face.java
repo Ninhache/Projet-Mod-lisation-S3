@@ -48,8 +48,8 @@ public class Face implements Comparable<Face> {
 	@Override
 	public int compareTo(Face other) {
 
-		double thisMoy = this.getAverage();
-		double otherMoy = other.getAverage();
+		double thisMoy = this.getAverageZ();
+		double otherMoy = other.getAverageZ();
 
 		if(thisMoy>otherMoy) return 1;
 		else if(thisMoy<otherMoy) return -1;
@@ -61,11 +61,26 @@ public class Face implements Comparable<Face> {
 		return color;
 	}
 
-	public double getAverage(){
+	public double getAverageZ(){
 		double res = 0;
-		for (Vertex v:
-			 getVertices()) {
-			res+= v.getZ();
+		for (Vertex v : getVertices()) {
+			res += v.getZ();
+		}
+		return res/this.getVertices().size();
+	}
+
+	public double getAverageY(){
+		double res = 0;
+		for (Vertex v : getVertices()) {
+			res += v.getY();
+		}
+		return res/this.getVertices().size();
+	}
+
+	public double getAverageX(){
+		double res = 0;
+		for (Vertex v : getVertices()) {
+			res += v.getX();
 		}
 		return res/this.getVertices().size();
 	}

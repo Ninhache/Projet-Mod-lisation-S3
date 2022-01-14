@@ -15,7 +15,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import model.maths.Rotation;
-import view.components.render.CanvasModel;
 import view.control.RightMenu;
 import view.control.SuperToolBar;
 import view.control.TabCanvasPane;
@@ -82,13 +81,15 @@ public class MainStage extends ExtendedStage {
 
     private void setupListeners() {
         widthProperty().addListener((observable, oldValue, newValue) -> tabPane.getTabs().forEach(tabs -> {
-            CanvasModel c = (CanvasModel) tabs.getContent();
-            c.setWidth(newValue.doubleValue());
+            System.out.println(tabs.getContent());
+            //CanvasModelTop c = (CanvasModelTop) tabs.getContent();
+            //c.setWidth(newValue.doubleValue());
         }));
 
         heightProperty().addListener((observable, oldValue, newValue) -> tabPane.getTabs().forEach(tabs -> {
-            CanvasModel c = (CanvasModel) tabs.getContent();
-            c.setHeight(newValue.doubleValue());
+            System.out.println(tabs.getContent());
+            //CanvasModelTop c = (CanvasModelTop) tabs.getContent();
+            //c.setHeight(newValue.doubleValue());
         }));
     }
 

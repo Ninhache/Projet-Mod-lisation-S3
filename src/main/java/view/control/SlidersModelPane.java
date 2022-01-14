@@ -86,7 +86,7 @@ public class SlidersModelPane extends TitledPane {
 		TabCanvasPane tp = (TabCanvasPane) bp.getCenter();
 
 		TabCanvas tb = (TabCanvas) tp.getTabs().get(number.intValue());
-		Model model = tb.getCanvas().getModel();
+		Model model = tb.getCanvasTop().getModel();
 
 		if(model != null) {
 			this.title.setText("Informations sur le PLY : " + model.getNameOfFile());

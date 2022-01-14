@@ -55,27 +55,27 @@ public class TabCanvasPane extends TabPane {
     public void rotateModel(Rotation r,double angle) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
-        tab.getCanvas().getModel().translate(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().rotate(r, angle); //15
-        tab.getCanvas().getModel().translate(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvasTop().getModel().translate(-tab.getCanvasTop().getWidth()/2, -tab.getCanvasTop().getHeight()/2, 0);
+        tab.getCanvasTop().getModel().rotate(r, angle); //15
+        tab.getCanvasTop().getModel().translate(tab.getCanvasTop().getWidth()/2, tab.getCanvasTop().getHeight()/2, 0);
 
     }
 
     public void translateModel(double distanceX, double distanceY, double distanceZ) {
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
-        tab.getCanvas().getModel().translate(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().translate(distanceX,distanceY,distanceZ);
-        tab.getCanvas().getModel().translate(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvasTop().getModel().translate(-tab.getCanvasTop().getWidth()/2, -tab.getCanvasTop().getHeight()/2, 0);
+        tab.getCanvasTop().getModel().translate(distanceX,distanceY,distanceZ);
+        tab.getCanvasTop().getModel().translate(tab.getCanvasTop().getWidth()/2, tab.getCanvasTop().getHeight()/2, 0);
 
     }
 
     public void scaleModel(double scale){
         TabCanvas tab = (TabCanvas)(getSelectionModel().getSelectedItem());
 
-        tab.getCanvas().getModel().translate(-tab.getCanvas().getWidth()/2, -tab.getCanvas().getHeight()/2, 0);
-        tab.getCanvas().getModel().homothety(scale);
-        tab.getCanvas().getModel().translate(tab.getCanvas().getWidth()/2, tab.getCanvas().getHeight()/2, 0);
+        tab.getCanvasTop().getModel().translate(-tab.getCanvasTop().getWidth()/2, -tab.getCanvasTop().getHeight()/2, 0);
+        tab.getCanvasTop().getModel().homothety(scale);
+        tab.getCanvasTop().getModel().translate(tab.getCanvasTop().getWidth()/2, tab.getCanvasTop().getHeight()/2, 0);
 
     }
 

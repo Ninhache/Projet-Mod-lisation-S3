@@ -1,2 +1,6 @@
-tommygun.ply#/home/infoetu/simon.lagneau.etu/eclipse-workspace/projetmodeg5/./exemples/tommygun.ply
-test3.ply#/home/infoetu/simon.lagneau.etu/eclipse-workspace/projetmodeg5/./exemples/test3.ply
+cube.ply#C:\Users\Neo\projetmodeg5\.\exemples\cube.ply
+apple.ply#C:\Users\Neo\projetmodeg5\.\exemples\apple.ply
+cow.ply#C:\Users\Neo\projetmodeg5\.\exemples\cow.ply
+airplane.ply#C:\Users\Neo\projetmodeg5\.\exemples\airplane.ply
+ant.ply#C:\Users\Neo\projetmodeg5\.\exemples\ant.ply
+dolphin.ply#C:\Users\Neo\projetmodeg5\.\exemples\dolphin.ply

@@ -1,8 +1,9 @@
 package view.components.render;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.models.Model;
-import view.components.render.CanvasModel;
 import view.stages.DraggableTab;
 
 
@@ -12,18 +13,43 @@ import view.stages.DraggableTab;
  * @author Néo ALMEIDA
  * @version %I%, %G%
  * @see javafx.scene.control.Tab
- * @see CanvasModel
+ * @see CanvasModelTop
  */
 public class TabCanvas extends DraggableTab {
 
-    private CanvasModel canvas;
+    private CanvasModelTop canvasTop;
+    private CanvasModelLeft canvasLeft;
+    private CanvasModelRight canvasRight;
+
+
+    private VBox root;
+
+    private HBox hboxTop, hboxBot, hBoxLeft,hBoxRight;
+
+
 
     public TabCanvas(Model model, String title, double width, double height) {
         super(title);
 
-        this.canvas = new CanvasModel(model,width,height);
+        this.canvasTop = new CanvasModelTop(model,width,height);
+        this.canvasLeft = new CanvasModelLeft(model,width,height);
+        this.canvasRight = new CanvasModelRight(model,width,height);
 
-        setContent(canvas);
+
+        this.root = new VBox();
+        this.hboxTop = new HBox();
+        this.hboxBot = new HBox();
+        this.hBoxLeft = new HBox();
+        this.hBoxRight = new HBox();
+
+        this.root.getChildren().addAll(hboxTop, hboxBot);
+        this.hboxBot.getChildren().addAll(hBoxLeft, hBoxRight);
+
+        this.hboxTop.getChildren().addAll(canvasTop);
+        this.hBoxLeft.getChildren().addAll(canvasLeft);
+        this.hBoxRight.getChildren().addAll(canvasRight);
+
+        setContent(root);
     }
 
     public TabCanvas(Model model, double width, double height) {
@@ -39,47 +65,47 @@ public class TabCanvas extends DraggableTab {
     }
 
     public void initDraw() {
-        this.canvas.initDraw();
+        this.canvasTop.initDraw();
     }
 
     public void draw() {
-        this.canvas.draw();
+        this.canvasTop.draw();
     }
 
-    public CanvasModel getCanvas() {
-        return canvas;
+    public CanvasModelTop getCanvasTop() {
+        return canvasTop;
     }
 
     public void setVerticesColor(Color color) {
-    	this.canvas.setVerticesColor(color);
+    	this.canvasTop.setVerticesColor(color);
     }
 
     public void setFacesColor(Color color) {
-        this.canvas.setFacesColor(color);
+        this.canvasTop.setFacesColor(color);
     }
 
     public void setStrokesColor(Color color) {
-        this.canvas.setStrokesColor(color);
+        this.canvasTop.setStrokesColor(color);
     }
 
     public void setBackgroundColor(Color color) {
-        this.canvas.setBackgroundColor(color);
+        this.canvasTop.setBackgroundColor(color);
     }
 
     public Color getVerticesColor() {
-        return this.canvas.getVerticesColor();
+        return this.canvasTop.getVerticesColor();
     }
 
     public Color getFacesColor() {
-        return this.canvas.getFacesColor();
+        return this.canvasTop.getFacesColor();
     }
 
     public Color getStrokesColor() {
-        return this.canvas.getStrokesColor();
+        return this.canvasTop.getStrokesColor();
     }
 
     public Color getBackgroundColor() {
-        return this.canvas.getBackgroundColor();
+        return this.canvasTop.getBackgroundColor();
     }
 
 }
